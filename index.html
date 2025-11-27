@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SYMPTOMAT</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --term-green: #00ff41;
+            --term-dim: #008f11;
+            --alert: #ff3333;
+            --ui-font: "Courier New", monospace;
+        }
+        body { margin: 0; background: var(--bg-color); color: var(--term-green); font-family: var(--ui-font); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        
+        .header { padding: 15px; border-bottom: 2px solid var(--term-dim); display: flex; justify-content: space-between; align-items: center; background: #001f05; }
+        .brand { font-weight: bold; font-size: 1.1rem; letter-spacing: 2px; }
+        .icon-box { font-size: 1.2rem; }
+        .energy-box { border: 1px solid var(--term-green); padding: 5px 10px; font-size: 0.8rem; }
+        
+        #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
+        
+        .msg { max-width: 85%; padding: 12px; border-radius: 4px; font-size: 0.95rem; line-height: 1.4; position: relative; word-wrap: break-word; }
+        .msg.bot { align-self: flex-start; border: 1px solid var(--term-dim); background: #001a00; border-left: 4px solid var(--term-green); }
+        .msg.user { align-self: flex-end; background: rgba(0, 255, 65, 0.1); border: 1px solid var(--term-green); text-align: right; }
+        .msg.diagnosis { border-color: var(--alert); color: #fff; background: rgba(255, 51, 51, 0.1); }
+        .msg.diagnosis b { color: var(--alert); }
+
+        .disclaimer { font-size: 0.65rem; color: #555; text-align: center; padding: 5px; opacity: 0.7; border-top: 1px solid #222; }
+
+        .input-area { padding: 15px; background: #001f05; border-top: 1px solid var(--term-dim); display: flex; gap: 10px; padding-bottom: max(15px, env(safe-area-inset-bottom)); }
+        input { flex: 1; background: #000; border: 1px solid var(--term-dim); color: var(--term-green); padding: 12px; font-family: var(--ui-font); font-size: 1rem; outline: none; border-radius: 0; }
+        input:focus { border-color: var(--term-green); }
+        button { background: var(--term-dim); color: #000; border: none; padding: 0 20px; font-weight: bold; cursor: pointer; font-family: var(--ui-font); transition: 0.2s; border-radius: 0; }
+        button:active { background: var(--term-green); }
+        button:disabled { opacity: 0.5; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="brand"><span class="icon-box">&#9877;</span> SYMPTOMAT</div>
+    <div class="energy-box" id="energy-display">PWR: --%</div>
+</div>
+
+<div id="chat-container">
+    <div class="msg bot">
+        SYSTEM READY.<br>
+        Initialize diagnostics. Describe your symptoms (pain localization, duration, temperature).
+    </div>
+</div>
+
+<div class="disclaimer">NOT MEDICAL ADVICE. USE AT YOUR OWN RISK.</div>
+
+<div class="input-area">
+    <input type="text" id="user-input" placeholder="..." autocomplete="off">
+    <button id="send-btn" onclick="sendMessage()">TX</button>
+</div>
+
+<script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+    
+    // URL твоего туннеля (тот же самый сервер)
+    const BACKEND_URL = "https://твоя-ссылка.ngrok-free.app"; 
+    
+    let history = [];
+    let isProcessing = false;
+
+    async function syncEnergy() {
+        const userId = tg.initDataUnsafe?.user?.id || 0;
+        try {
+            const res = await fetch(`${BACKEND_URL}/api/get_user_state?user_id=${userId}`);
+            const data = await res.json();
+            // \u221E - это знак бесконечности
+            const txt = data.is_premium ? "\u221E" : data.energy + "%";
+            document.getElementById('energy-display').innerText = "PWR: " + txt;
+        } catch(e) { console.log(e); }
+    }
+    // Синхронизация каждые 10 сек
+    setInterval(syncEnergy, 10000);
+    syncEnergy();
+
+    async function sendMessage() {
+        if (isProcessing) return;
+        const input = document.getElementById('user-input');
+        const text = input.value.trim();
+        if (!text) return;
+
+        appendMessage(text, 'user');
+        input.value = '';
+        isProcessing = true;
+        document.getElementById('send-btn').disabled = true;
+        
+        // Показываем "Печатает..." через песочные часы (\u231B)
+        const loadingId = appendMessage("\u231B Analysis...", 'bot');
+
+        try {
+            const userId = tg.initDataUnsafe?.user?.id || 0;
+            
+            const res = await fetch(`${BACKEND_URL}/api/symptoma/chat`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true'},
+                body: JSON.stringify({
+                    user_id: userId,
+                    message: text,
+                    history: history
+                })
+            });
+
+            if (res.status === 402) {
+                document.getElementById(loadingId).innerText = "LOW ENERGY. RECHARGE REQUIRED.";
+                return;
+            }
+
+            const data = await res.json();
+            document.getElementById(loadingId).remove();
+
+            if (data.error) {
+                appendMessage("ERR: " + data.error, 'bot');
+            } else {
+                const isDiag = data.type === 'diagnosis';
+                appendMessage(data.text, isDiag ? 'diagnosis' : 'bot');
+                
+                history.push({text: text, is_bot: false});
+                history.push({text: data.text, is_bot: true});
+            }
+
+        } catch (e) {
+            document.getElementById(loadingId).innerText = "CONNECTION FAILURE";
+        } finally {
+            isProcessing = false;
+            document.getElementById('send-btn').disabled = false;
+            input.focus();
+            syncEnergy(); 
+        }
+    }
+
+    function appendMessage(text, type) {
+        const div = document.createElement('div');
+        div.className = `msg ${type}`;
+        div.id = 'msg-' + Date.now();
+        div.innerHTML = text; 
+        document.getElementById('chat-container').appendChild(div);
+        
+        const container = document.getElementById('chat-container');
+        container.scrollTop = container.scrollHeight;
+        return div.id;
+    }
+
+    document.getElementById('user-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+</script>
+</body>
+</html>
