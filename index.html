@@ -7,79 +7,200 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            --bg-color: #0d1117;
-            --term-green: #00ff41;
-            --term-dim: #008f11;
-            --alert: #ff3333;
-            --ui-font: "Courier New", monospace;
+            /* Palette: Sterile Medical / Sci-Fi */
+            --bg-color: #0b1015;       /* Deep Navy Black */
+            --panel-bg: #0f161e;       /* Slightly lighter panel */
+            --accent: #00f2ff;         /* Medical Cyan (Neon) */
+            --accent-dim: #005f66;     /* Dimmed Cyan */
+            --text-main: #e0f7fa;      /* White-blue text */
+            --alert: #ff3333;          /* Emergency Red */
+            --font-main: "Roboto Mono", "Consolas", monospace;
         }
-        body { margin: 0; background: var(--bg-color); color: var(--term-green); font-family: var(--ui-font); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+        body { 
+            margin: 0; 
+            background: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: var(--font-main); 
+            display: flex; 
+            flex-direction: column; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
         
-        .header { padding: 15px; border-bottom: 2px solid var(--term-dim); display: flex; justify-content: space-between; align-items: center; background: #001f05; }
-        .brand { font-weight: bold; font-size: 1.1rem; letter-spacing: 2px; }
-        .icon-box { font-size: 1.2rem; }
-        .energy-box { border: 1px solid var(--term-green); padding: 5px 10px; font-size: 0.8rem; }
+        /* Header styling */
+        .header { 
+            padding: 15px; 
+            background: #080c10;
+            border-bottom: 1px solid var(--accent-dim); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+        }
+        .brand { 
+            font-weight: 700; 
+            font-size: 1rem; 
+            letter-spacing: 1px; 
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+        .energy-box { 
+            border: 1px solid var(--accent-dim); 
+            padding: 4px 8px; 
+            font-size: 0.75rem; 
+            border-radius: 4px;
+            color: var(--accent);
+        }
         
-        #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
+        /* Chat Area */
+        #chat-container { 
+            flex: 1; 
+            overflow-y: auto; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            scroll-behavior: smooth; 
+        }
         
-        .msg { max-width: 85%; padding: 12px; border-radius: 4px; font-size: 0.95rem; line-height: 1.4; position: relative; word-wrap: break-word; }
-        .msg.bot { align-self: flex-start; border: 1px solid var(--term-dim); background: #001a00; border-left: 4px solid var(--term-green); }
-        .msg.user { align-self: flex-end; background: rgba(0, 255, 65, 0.1); border: 1px solid var(--term-green); text-align: right; }
-        .msg.diagnosis { border-color: var(--alert); color: #fff; background: rgba(255, 51, 51, 0.1); }
+        .msg { 
+            max-width: 85%; 
+            padding: 12px 16px; 
+            border-radius: 8px; 
+            font-size: 0.9rem; 
+            line-height: 1.5; 
+            position: relative; 
+            word-wrap: break-word; 
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Bot Message (Left) */
+        .msg.bot { 
+            align-self: flex-start; 
+            background: var(--panel-bg); 
+            border-left: 3px solid var(--accent); 
+            color: #fff;
+        }
+        
+        /* Diagnosis Alert */
+        .msg.diagnosis { 
+            align-self: flex-start;
+            border-left: 3px solid var(--alert); 
+            background: rgba(255, 51, 51, 0.05);
+            color: #fff;
+        }
         .msg.diagnosis b { color: var(--alert); }
 
-        .disclaimer { font-size: 0.65rem; color: #555; text-align: center; padding: 5px; opacity: 0.7; border-top: 1px solid #222; }
+        /* User Message (Right) */
+        .msg.user { 
+            align-self: flex-end; 
+            background: rgba(0, 242, 255, 0.1); 
+            border: 1px solid var(--accent-dim); 
+            color: var(--accent);
+            text-align: right; 
+        }
 
-        .input-area { padding: 15px; background: #001f05; border-top: 1px solid var(--term-dim); display: flex; gap: 10px; padding-bottom: max(15px, env(safe-area-inset-bottom)); }
-        input { flex: 1; background: #000; border: 1px solid var(--term-dim); color: var(--term-green); padding: 12px; font-family: var(--ui-font); font-size: 1rem; outline: none; border-radius: 0; }
-        input:focus { border-color: var(--term-green); }
-        button { background: var(--term-dim); color: #000; border: none; padding: 0 20px; font-weight: bold; cursor: pointer; font-family: var(--ui-font); transition: 0.2s; border-radius: 0; }
-        button:active { background: var(--term-green); }
-        button:disabled { opacity: 0.5; }
+        .disclaimer { 
+            font-size: 0.6rem; 
+            color: #546e7a; 
+            text-align: center; 
+            padding: 8px; 
+            border-top: 1px solid #1a2633; 
+            text-transform: uppercase;
+        }
+
+        /* Input Area */
+        .input-area { 
+            padding: 15px; 
+            background: #080c10; 
+            border-top: 1px solid var(--accent-dim); 
+            display: flex; 
+            gap: 10px; 
+            padding-bottom: max(15px, env(safe-area-inset-bottom)); 
+        }
+        
+        input { 
+            flex: 1; 
+            background: #0f161e; 
+            border: 1px solid var(--accent-dim); 
+            color: var(--accent); 
+            padding: 12px; 
+            font-family: var(--font-main); 
+            font-size: 1rem; 
+            outline: none; 
+            border-radius: 4px; 
+        }
+        input:focus { border-color: var(--accent); box-shadow: 0 0 5px rgba(0,242,255,0.2); }
+        
+        button { 
+            background: var(--accent-dim); 
+            color: #fff; 
+            border: none; 
+            padding: 0 20px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            font-family: var(--font-main); 
+            border-radius: 4px; 
+            transition: 0.2s; 
+        }
+        button:active { background: var(--accent); color: #000; }
+        button:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        .loading { animation: pulse 1.5s infinite; color: var(--accent); font-style: italic; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <div class="brand"><span class="icon-box">&#9877;</span> SYMPTOMAT</div>
+    <div class="brand">SYMPTOMAT <span style="font-size:0.8em; opacity:0.7">v2.4</span></div>
     <div class="energy-box" id="energy-display">PWR: --%</div>
 </div>
 
 <div id="chat-container">
     <div class="msg bot">
-        SYSTEM READY.<br>
-        Initialize diagnostics. Describe your symptoms (pain localization, duration, temperature).
+        <b>SYSTEM ONLINE.</b><br>
+        Please describe the primary symptom. 
+        <br><i>(Example: "Headache in left temple", "Sharp pain in stomach")</i>
     </div>
 </div>
 
-<div class="disclaimer">NOT MEDICAL ADVICE. USE AT YOUR OWN RISK.</div>
+<div class="disclaimer">Not a doctor. AI suggestions only. In emergency call 112/911.</div>
 
 <div class="input-area">
-    <input type="text" id="user-input" placeholder="..." autocomplete="off">
-    <button id="send-btn" onclick="sendMessage()">TX</button>
+    <input type="text" id="user-input" placeholder="Enter data..." autocomplete="off">
+    <button id="send-btn" onclick="sendMessage()">SEND</button>
 </div>
 
 <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
     
-    // URL твоего туннеля (тот же самый сервер)
+    // ВСТАВЬ СЮДА СВОЙ URL
     const BACKEND_URL = "https://твоя-ссылка.ngrok-free.app"; 
     
     let history = [];
     let isProcessing = false;
 
+    // Синхронизация энергии
     async function syncEnergy() {
         const userId = tg.initDataUnsafe?.user?.id || 0;
         try {
             const res = await fetch(`${BACKEND_URL}/api/get_user_state?user_id=${userId}`);
             const data = await res.json();
-            // \u221E - это знак бесконечности
             const txt = data.is_premium ? "\u221E" : data.energy + "%";
-            document.getElementById('energy-display').innerText = "PWR: " + txt;
+            const el = document.getElementById('energy-display');
+            el.innerText = "PWR: " + txt;
+            
+            // Визуальная индикация низкого заряда
+            if (!data.is_premium && data.energy < 10) el.style.borderColor = "var(--alert)";
+            else el.style.borderColor = "var(--accent-dim)";
+            
         } catch(e) { console.log(e); }
     }
-    // Синхронизация каждые 10 сек
+    
     setInterval(syncEnergy, 10000);
     syncEnergy();
 
@@ -94,8 +215,8 @@
         isProcessing = true;
         document.getElementById('send-btn').disabled = true;
         
-        // Показываем "Печатает..." через песочные часы (\u231B)
-        const loadingId = appendMessage("\u231B Analysis...", 'bot');
+        // Создаем элемент загрузки
+        const loadingId = appendMessage("Scanning database...", 'bot loading');
 
         try {
             const userId = tg.initDataUnsafe?.user?.id || 0;
@@ -110,26 +231,33 @@
                 })
             });
 
+            const loadingEl = document.getElementById(loadingId);
+
             if (res.status === 402) {
-                document.getElementById(loadingId).innerText = "LOW ENERGY. RECHARGE REQUIRED.";
+                loadingEl.innerText = "INSUFFICIENT ENERGY. RECHARGE REQUIRED.";
+                loadingEl.classList.add('diagnosis'); // Делаем красным
+                loadingEl.classList.remove('loading');
                 return;
             }
 
             const data = await res.json();
-            document.getElementById(loadingId).remove();
+            loadingEl.remove(); // Удаляем лоадер, ставим настоящее сообщение
 
-            if (data.error) {
-                appendMessage("ERR: " + data.error, 'bot');
+            if (data.error || data.type === 'error') {
+                appendMessage("SYSTEM ERROR: " + (data.text || "Unknown"), 'bot');
             } else {
-                const isDiag = data.type === 'diagnosis';
-                appendMessage(data.text, isDiag ? 'diagnosis' : 'bot');
+                // Если тип diagnosis - стиль другой
+                const msgType = (data.type === 'diagnosis') ? 'diagnosis' : 'bot';
+                appendMessage(data.text, msgType);
                 
+                // Сохраняем историю для контекста
                 history.push({text: text, is_bot: false});
                 history.push({text: data.text, is_bot: true});
             }
 
         } catch (e) {
             document.getElementById(loadingId).innerText = "CONNECTION FAILURE";
+            document.getElementById(loadingId).classList.add('diagnosis');
         } finally {
             isProcessing = false;
             document.getElementById('send-btn').disabled = false;
