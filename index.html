@@ -8,12 +8,12 @@
     <style>
         :root {
             /* Palette: Sterile Medical / Sci-Fi */
-            --bg-color: #0b1015;       
-            --panel-bg: #0f161e;       
-            --accent: #00f2ff;         
-            --accent-dim: #005f66;     
-            --text-main: #e0f7fa;      
-            --alert: #ff3333;          
+            --bg-color: #0b1015;        
+            --panel-bg: #0f161e;        
+            --accent: #00f2ff;          
+            --accent-dim: #005f66;      
+            --text-main: #e0f7fa;       
+            --alert: #ff3333;           
             --font-main: "Roboto Mono", "Consolas", monospace;
         }
 
@@ -36,6 +36,7 @@
             justify-content: space-between; 
             align-items: center; 
             box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+            padding-top: max(15px, env(safe-area-inset-top));
         }
         .brand { 
             font-weight: 700; 
@@ -50,6 +51,8 @@
             font-size: 0.75rem; 
             border-radius: 4px;
             color: var(--accent);
+            min-width: 60px;
+            text-align: center;
         }
         
         #chat-container { 
@@ -141,6 +144,64 @@
         button:active { background: var(--accent); color: #000; }
         button:disabled { opacity: 0.3; cursor: not-allowed; }
 
+        /* --- ALERT MODAL STYLES --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 16, 21, 0.95);
+            backdrop-filter: blur(2px);
+            z-index: 1000;
+            display: none;
+            align-items: center; justify-content: center;
+        }
+        .alert-box {
+            background: var(--panel-bg);
+            border: 1px solid var(--alert);
+            width: 85%; max-width: 340px;
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(255, 51, 51, 0.15);
+            text-align: center;
+            position: relative;
+        }
+        .alert-box::before { /* Scanline deco */
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--alert); box-shadow: 0 0 10px var(--alert);
+        }
+        .alert-header {
+            color: var(--alert);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .alert-body {
+            color: #ccc;
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .action-btn {
+            display: block; width: 100%;
+            background: transparent;
+            border: 1px solid var(--alert);
+            color: var(--alert);
+            padding: 12px;
+            margin-bottom: 10px;
+            font-family: var(--font-main);
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        .action-btn:active { background: var(--alert); color: #000; }
+        .action-btn.secondary { 
+            border-color: var(--accent); color: var(--accent); 
+        }
+        .action-btn.secondary:active { background: var(--accent); color: #000; }
+        
+        .action-btn.dismiss {
+            border: none; color: #546e7a; font-size: 0.8rem; margin-top: 10px; padding: 8px;
+        }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
         .loading { animation: pulse 1.5s infinite; color: var(--accent); font-style: italic; }
@@ -149,7 +210,7 @@
 <body>
 
 <div class="header">
-    <div class="brand">SYMPTOMAT <span style="font-size:0.8em; opacity:0.7">v2.4</span></div>
+    <div class="brand">SYMPTOMAT <span style="font-size:0.8em; opacity:0.7">v2.5</span></div>
     <div class="energy-box" id="energy-display">PWR: --%</div>
 </div>
 
@@ -166,6 +227,20 @@
 <div class="input-area">
     <input type="text" id="user-input" placeholder="Enter data..." autocomplete="off">
     <button id="send-btn" onclick="sendMessage()">SEND</button>
+</div>
+
+<!-- PAYWALL / ALERT MODAL -->
+<div id="paywall-modal" class="modal-overlay">
+    <div class="alert-box">
+        <div class="alert-header">⚠ CRITICAL: LOW POWER</div>
+        <div class="alert-body">
+            Diagnostic protocol halted. Insufficient energy reserves.<br><br>
+            Recharge required to proceed.
+        </div>
+        <button class="action-btn" onclick="buyPremium()">GET ETERNAL ACCESS (69 ⭐️)</button>
+        <button class="action-btn secondary" onclick="openInvite()">INVITE FRIEND (+25 PWR)</button>
+        <button class="action-btn dismiss" onclick="closeModal()">ACKNOWLEDGE</button>
+    </div>
 </div>
 
 <script>
@@ -186,9 +261,15 @@
             const txt = data.is_premium ? "\u221E" : data.energy + "%";
             const el = document.getElementById('energy-display');
             el.innerText = "PWR: " + txt;
-            if (!data.is_premium && data.energy < 10) el.style.borderColor = "var(--alert)";
-            else el.style.borderColor = "var(--accent-dim)";
-        } catch(e) { console.log("Energy sync error. Check NGROK URL.", e); }
+            
+            if (!data.is_premium && data.energy < 20) {
+                el.style.borderColor = "var(--alert)";
+                el.style.color = "var(--alert)";
+            } else {
+                el.style.borderColor = "var(--accent-dim)";
+                el.style.color = "var(--accent)";
+            }
+        } catch(e) { console.log("Energy sync error.", e); }
     }
     
     setInterval(syncEnergy, 10000);
@@ -222,10 +303,13 @@
 
             const loadingEl = document.getElementById(loadingId);
 
+            // === ЛОГИКА ОПЛАТЫ (402) ===
             if (res.status === 402) {
-                loadingEl.innerText = "INSUFFICIENT ENERGY. RECHARGE REQUIRED.";
+                loadingEl.innerText = "ERROR: POWER DEPLETED.";
                 loadingEl.classList.add('diagnosis'); 
                 loadingEl.classList.remove('loading');
+                // Открываем модальное окно
+                document.getElementById('paywall-modal').style.display = 'flex';
                 return;
             }
 
@@ -262,6 +346,47 @@
         const container = document.getElementById('chat-container');
         container.scrollTop = container.scrollHeight;
         return div.id;
+    }
+
+    // --- ФУНКЦИИ ОПЛАТЫ И ИНВАЙТА ---
+    
+    async function buyPremium() {
+        const userId = tg.initDataUnsafe?.user?.id || 0;
+        // Запрашиваем инвойс
+        try {
+            const res = await fetch(`${BACKEND_URL}/api/get_invoice`, { 
+                method: 'GET', 
+                headers: {'ngrok-skip-browser-warning': 'true'} 
+            });
+            const data = await res.json();
+            
+            if (data.invoice_link) {
+                tg.openInvoice(data.invoice_link, (status) => {
+                    if (status === 'paid') {
+                        closeModal();
+                        syncEnergy();
+                        appendMessage("<b>ACCESS GRANTED.</b> Protocol restriction removed.", 'bot');
+                    }
+                });
+            }
+        } catch (e) { alert("Connection Error"); }
+    }
+
+    function openInvite() {
+        const userId = tg.initDataUnsafe?.user?.id;
+        if (!userId) return;
+        
+        const botName = "Symptomat_bot"; // Или твой основной бот
+        const link = `https://t.me/${botName}?start=ref_${userId}`;
+        const text = "Check this AI Diagnostician:";
+        
+        const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
+        tg.openTelegramLink(shareUrl);
+        closeModal();
+    }
+
+    function closeModal() {
+        document.getElementById('paywall-modal').style.display = 'none';
     }
 
     document.getElementById('user-input').addEventListener('keypress', (e) => {
