@@ -8,12 +8,12 @@
     <style>
         :root {
             /* Palette: Sterile Medical / Sci-Fi */
-            --bg-color: #0b1015;       /* Deep Navy Black */
-            --panel-bg: #0f161e;       /* Slightly lighter panel */
-            --accent: #00f2ff;         /* Medical Cyan (Neon) */
-            --accent-dim: #005f66;     /* Dimmed Cyan */
-            --text-main: #e0f7fa;      /* White-blue text */
-            --alert: #ff3333;          /* Emergency Red */
+            --bg-color: #0b1015;       
+            --panel-bg: #0f161e;       
+            --accent: #00f2ff;         
+            --accent-dim: #005f66;     
+            --text-main: #e0f7fa;      
+            --alert: #ff3333;          
             --font-main: "Roboto Mono", "Consolas", monospace;
         }
 
@@ -28,7 +28,6 @@
             overflow: hidden; 
         }
         
-        /* Header styling */
         .header { 
             padding: 15px; 
             background: #080c10;
@@ -53,7 +52,6 @@
             color: var(--accent);
         }
         
-        /* Chat Area */
         #chat-container { 
             flex: 1; 
             overflow-y: auto; 
@@ -75,7 +73,6 @@
             animation: fadeIn 0.3s ease;
         }
 
-        /* Bot Message (Left) */
         .msg.bot { 
             align-self: flex-start; 
             background: var(--panel-bg); 
@@ -83,7 +80,6 @@
             color: #fff;
         }
         
-        /* Diagnosis Alert */
         .msg.diagnosis { 
             align-self: flex-start;
             border-left: 3px solid var(--alert); 
@@ -92,7 +88,6 @@
         }
         .msg.diagnosis b { color: var(--alert); }
 
-        /* User Message (Right) */
         .msg.user { 
             align-self: flex-end; 
             background: rgba(0, 242, 255, 0.1); 
@@ -110,7 +105,6 @@
             text-transform: uppercase;
         }
 
-        /* Input Area */
         .input-area { 
             padding: 15px; 
             background: #080c10; 
@@ -178,13 +172,12 @@
     const tg = window.Telegram.WebApp;
     tg.expand();
     
-    // ВСТАВЬ СЮДА СВОЙ URL
-    const BACKEND_URL = "https://твоя-ссылка.ngrok-free.app"; 
+    // Твой Ngrok (для связи GitHub -> Твой ПК)
+    const BACKEND_URL = "https://supperless-yoshiko-noneruditely.ngrok-free.dev"; 
     
     let history = [];
     let isProcessing = false;
 
-    // Синхронизация энергии
     async function syncEnergy() {
         const userId = tg.initDataUnsafe?.user?.id || 0;
         try {
@@ -193,12 +186,9 @@
             const txt = data.is_premium ? "\u221E" : data.energy + "%";
             const el = document.getElementById('energy-display');
             el.innerText = "PWR: " + txt;
-            
-            // Визуальная индикация низкого заряда
             if (!data.is_premium && data.energy < 10) el.style.borderColor = "var(--alert)";
             else el.style.borderColor = "var(--accent-dim)";
-            
-        } catch(e) { console.log(e); }
+        } catch(e) { console.log("Energy sync error. Check NGROK URL.", e); }
     }
     
     setInterval(syncEnergy, 10000);
@@ -215,7 +205,6 @@
         isProcessing = true;
         document.getElementById('send-btn').disabled = true;
         
-        // Создаем элемент загрузки
         const loadingId = appendMessage("Scanning database...", 'bot loading');
 
         try {
@@ -235,28 +224,25 @@
 
             if (res.status === 402) {
                 loadingEl.innerText = "INSUFFICIENT ENERGY. RECHARGE REQUIRED.";
-                loadingEl.classList.add('diagnosis'); // Делаем красным
+                loadingEl.classList.add('diagnosis'); 
                 loadingEl.classList.remove('loading');
                 return;
             }
 
             const data = await res.json();
-            loadingEl.remove(); // Удаляем лоадер, ставим настоящее сообщение
+            loadingEl.remove();
 
             if (data.error || data.type === 'error') {
                 appendMessage("SYSTEM ERROR: " + (data.text || "Unknown"), 'bot');
             } else {
-                // Если тип diagnosis - стиль другой
                 const msgType = (data.type === 'diagnosis') ? 'diagnosis' : 'bot';
                 appendMessage(data.text, msgType);
-                
-                // Сохраняем историю для контекста
                 history.push({text: text, is_bot: false});
                 history.push({text: data.text, is_bot: true});
             }
 
         } catch (e) {
-            document.getElementById(loadingId).innerText = "CONNECTION FAILURE";
+            document.getElementById(loadingId).innerText = "CONNECTION FAILURE (Check Backend)";
             document.getElementById(loadingId).classList.add('diagnosis');
         } finally {
             isProcessing = false;
