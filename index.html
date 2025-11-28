@@ -7,13 +7,12 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- VISUAL STYLE: MEDICAL CYBERPUNK --- */
         :root { 
             --bg-void: #050a10; 
             --bg-panel: #0b141e; 
-            --c-main: #00f2ff;   /* Cyan (Main) */
-            --c-dim: #005f66;    /* Dimmed Cyan */
-            --c-alert: #ff3366;  /* Alert Red */
+            --c-main: #00f2ff;   
+            --c-dim: #005f66;    
+            --c-alert: #ff3366;  
             --font-header: 'Roboto Mono', monospace; 
             --font-body: 'Lato', sans-serif; 
         }
@@ -101,13 +100,13 @@
 
     <div id="disclaimer-modal" class="modal-overlay" style="z-index: 999;">
         <div class="modal-card" style="border-color: var(--c-alert);">
-            <h3 style="color:var(--c-alert); margin-top:0;">⚠️ WARNING</h3>
+            <h3 style="color:var(--c-alert); margin-top:0;">⚠️ ВНИМАНИЕ</h3>
             <p style="font-size:0.9rem; color:#ccc; line-height: 1.5; text-align: left;">
-                Я не врач. Это ИИ для информационных целей.<br><br>
-                <b>Я не назначаю таблетки.</b> Я даю советы по образу жизни.<br><br>
-                Принимая это, вы соглашаетесь, что ответственность за здоровье лежит на вас. В экстренных случаях звоните в скорую.
+                Этот ИИ работает в информационных целях.<br><br>
+                <b>Я не врач.</b> Я не назначаю лечение и таблетки. Я помогаю проанализировать симптомы и даю советы по образу жизни.<br><br>
+                В экстренных случаях всегда обращайтесь к специалисту.
             </p>
-            <button class="modal-btn" onclick="acceptDisclaimer()">ПРИНИМАЮ</button>
+            <button class="modal-btn" onclick="acceptDisclaimer()">ПОНЯТНО</button>
         </div>
     </div>
 
@@ -220,7 +219,6 @@
         document.getElementById('btn-later').innerText = t.btnLater;
         document.getElementById('btn-invite').innerText = t.invite;
         
-        // Только если история пустая, показываем приветствие
         if (history.length === 0 && document.getElementById('chat-window').children.length === 0) {
             const div = document.createElement('div');
             div.className = `msg bot`;
@@ -233,13 +231,10 @@
 
     // --- PERSISTENCE & DISCLAIMER ---
     
-    // При загрузке страницы
     window.onload = function() {
-        // Проверка дисклеймера
         if (!localStorage.getItem('disclaimerAccepted')) {
             document.getElementById('disclaimer-modal').style.display = 'flex';
         }
-        // Загрузка истории
         loadHistory();
     };
 
@@ -250,7 +245,6 @@
 
     function saveHistory() {
         localStorage.setItem('symptoma_history', JSON.stringify(history));
-        // Сохраняем и визуальный контент (упрощенно: перезагрузим его из history массива при старте)
     }
 
     function loadHistory() {
@@ -258,30 +252,24 @@
         if (saved) {
             history = JSON.parse(saved);
             const chat = document.getElementById('chat-window');
-            chat.innerHTML = ''; // Чистим
+            chat.innerHTML = '';
             
-            // Восстанавливаем сообщения
             if (history.length > 0) {
                 history.forEach(item => {
-                    // item = { text: "...", is_bot: true/false }
                     const type = item.is_bot ? 'bot' : 'user';
-                    // Если в тексте бота есть слово "диагноз" или HTML теги, можно стилизовать
                     const div = document.createElement('div');
                     div.className = `msg ${type}`;
                     div.innerHTML = item.text;
                     chat.appendChild(div);
                 });
-                // Скролл вниз
                 chat.scrollTop = chat.scrollHeight;
             } else {
-                updateTexts(); // Показать приветствие
+                updateTexts(); 
             }
         } else {
             updateTexts();
         }
     }
-
-    // --- END PERSISTENCE ---
 
     async function fetchUserState() {
         const userId = tg.initDataUnsafe?.user?.id || 0;
@@ -308,9 +296,11 @@
     function openInvite() {
         const userId = tg.initDataUnsafe?.user?.id;
         if (!userId) { alert("No User ID"); return; }
+        
         const botName = "Symptoma_bot"; 
         const link = `https://t.me/${botName}?start=ref_${userId}`;
         const text = "🧬 AI Diagnostic System. Check your health status:";
+        
         const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
         tg.openTelegramLink(shareUrl);
     }
@@ -328,7 +318,6 @@
 
         appendMessage(text, 'user');
         
-        // Добавляем в историю (пока локально для UI)
         history.push({text: text, is_bot: false});
         saveHistory();
 
@@ -343,7 +332,7 @@
             const res = await fetch(`${BACKEND_URL}/api/symptoma/chat`, {
                 method: 'POST',
                 headers: API_HEADERS,
-                body: JSON.stringify({ user_id: userId, message: text, history: history.slice(0, -1) }) // Шлем историю без последнего дубля
+                body: JSON.stringify({ user_id: userId, message: text, history: history.slice(0, -1) }) 
             });
 
             const loadEl = document.getElementById(loadingId);
@@ -352,7 +341,6 @@
                 loadEl.innerText = DICT[curLang].lowEnergy;
                 loadEl.classList.add('diagnosis');
                 document.getElementById('paywall-modal').style.display = 'flex';
-                // Удаляем последнее сообщение юзера из истории, раз не вышло
                 history.pop(); saveHistory();
             } else {
                 const data = await res.json();
@@ -393,9 +381,9 @@
 
     function resetChat() {
         history = [];
-        localStorage.removeItem('symptoma_history'); // Стираем память
+        localStorage.removeItem('symptoma_history'); 
         document.getElementById('chat-window').innerHTML = '';
-        updateTexts(); // Показываем приветствие
+        updateTexts(); 
     }
 
     async function buyPremium() {
