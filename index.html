@@ -36,7 +36,7 @@
         #energy-bar { width: 75%; height: 100%; background: var(--c-main); transition: width 0.5s ease-out; box-shadow: 0 0 10px var(--c-main); }
         #energy-text { margin-bottom: 5px; font-size: 0.7rem; letter-spacing: 1px; color: rgba(255,255,255,0.7); font-family: var(--font-header); }
 
-        /* Invite Button (New) */
+        /* Invite Button */
         #invite-wrapper { width: 100%; display: flex; justify-content: center; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 242, 255, 0.1); background: linear-gradient(to bottom, transparent, rgba(5,10,16,0.8)); }
         #btn-invite { background: rgba(0, 242, 255, 0.05); border: 1px solid var(--c-dim); color: var(--c-dim); font-family: var(--font-header); font-size: 0.75rem; padding: 6px 12px; border-radius: 20px; letter-spacing: 1px; transition: 0.2s; }
         #btn-invite:hover { border-color: var(--c-main); color: var(--c-main); box-shadow: 0 0 10px rgba(0,242,255,0.2); }
@@ -85,19 +85,29 @@
         </div>
         
         <div id="invite-wrapper">
-            <button id="btn-invite" class="interactive" onclick="openInvite()">🧬 INVITE (GET ENERGY)</button>
+            <button id="btn-invite" class="interactive" onclick="openInvite()">🧬 INVITE (+ENERGY)</button>
         </div>
         
         <div id="toast">ALERT</div>
         
-        <div id="chat-window">
-            <div class="msg bot" id="welcome-msg">...</div>
-        </div>
+        <div id="chat-window"></div>
 
         <div id="controls">
             <button id="reset-btn" class="interactive" onclick="resetChat()">↺</button>
             <input type="text" id="user-input" placeholder="..." autocomplete="off">
             <button id="send-btn" class="interactive" onclick="sendMessage()">SEND</button>
+        </div>
+    </div>
+
+    <div id="disclaimer-modal" class="modal-overlay" style="z-index: 999;">
+        <div class="modal-card" style="border-color: var(--c-alert);">
+            <h3 style="color:var(--c-alert); margin-top:0;">⚠️ WARNING</h3>
+            <p style="font-size:0.9rem; color:#ccc; line-height: 1.5; text-align: left;">
+                Я не врач. Это ИИ для информационных целей.<br><br>
+                <b>Я не назначаю таблетки.</b> Я даю советы по образу жизни.<br><br>
+                Принимая это, вы соглашаетесь, что ответственность за здоровье лежит на вас. В экстренных случаях звоните в скорую.
+            </p>
+            <button class="modal-btn" onclick="acceptDisclaimer()">ПРИНИМАЮ</button>
         </div>
     </div>
 
@@ -118,7 +128,7 @@
         <div class="modal-card" style="border-color: var(--c-alert); box-shadow: 0 0 30px rgba(255, 51, 102, 0.2);">
             <h3 id="lbl-low-energy" style="margin-top:0; color:var(--c-alert); font-family: var(--font-header); font-size:1.3rem;">CRITICAL LOW ENERGY</h3>
             <p id="lbl-pay-desc" style="font-size:0.9rem; color:#ccc; margin: 20px 0; line-height: 1.5;">
-                System resources depleted. Invite 2 subjects to recharge.<br>
+                Resources depleted. Invite 2 subjects to recharge.<br>
                 Or acquire <b>Hawk's Mountain</b> Ecosystem Pass.
             </p>
             <button id="btn-pay" class="modal-btn" style="background: var(--c-alert); color:white;" onclick="buyPremium()">GET ETERNAL (69 ⭐️)</button>
@@ -210,11 +220,68 @@
         document.getElementById('btn-later').innerText = t.btnLater;
         document.getElementById('btn-invite').innerText = t.invite;
         
-        if (history.length === 0 && document.getElementById('chat-window').children.length <= 1) {
-            document.getElementById('welcome-msg').innerHTML = t.welcome;
+        // Только если история пустая, показываем приветствие
+        if (history.length === 0 && document.getElementById('chat-window').children.length === 0) {
+            const div = document.createElement('div');
+            div.className = `msg bot`;
+            div.id = 'welcome-msg';
+            div.innerHTML = t.welcome;
+            document.getElementById('chat-window').appendChild(div);
         }
         updateEnergyBar();
     }
+
+    // --- PERSISTENCE & DISCLAIMER ---
+    
+    // При загрузке страницы
+    window.onload = function() {
+        // Проверка дисклеймера
+        if (!localStorage.getItem('disclaimerAccepted')) {
+            document.getElementById('disclaimer-modal').style.display = 'flex';
+        }
+        // Загрузка истории
+        loadHistory();
+    };
+
+    function acceptDisclaimer() {
+        localStorage.setItem('disclaimerAccepted', 'true');
+        document.getElementById('disclaimer-modal').style.display = 'none';
+    }
+
+    function saveHistory() {
+        localStorage.setItem('symptoma_history', JSON.stringify(history));
+        // Сохраняем и визуальный контент (упрощенно: перезагрузим его из history массива при старте)
+    }
+
+    function loadHistory() {
+        const saved = localStorage.getItem('symptoma_history');
+        if (saved) {
+            history = JSON.parse(saved);
+            const chat = document.getElementById('chat-window');
+            chat.innerHTML = ''; // Чистим
+            
+            // Восстанавливаем сообщения
+            if (history.length > 0) {
+                history.forEach(item => {
+                    // item = { text: "...", is_bot: true/false }
+                    const type = item.is_bot ? 'bot' : 'user';
+                    // Если в тексте бота есть слово "диагноз" или HTML теги, можно стилизовать
+                    const div = document.createElement('div');
+                    div.className = `msg ${type}`;
+                    div.innerHTML = item.text;
+                    chat.appendChild(div);
+                });
+                // Скролл вниз
+                chat.scrollTop = chat.scrollHeight;
+            } else {
+                updateTexts(); // Показать приветствие
+            }
+        } else {
+            updateTexts();
+        }
+    }
+
+    // --- END PERSISTENCE ---
 
     async function fetchUserState() {
         const userId = tg.initDataUnsafe?.user?.id || 0;
@@ -238,15 +305,12 @@
         else { bar.style.width = energy + '%'; txt.innerText = t.energyLabel + ": " + energy + "%"; }
     }
 
-    // --- INVITE FUNCTION ---
     function openInvite() {
         const userId = tg.initDataUnsafe?.user?.id;
         if (!userId) { alert("No User ID"); return; }
-        
         const botName = "Symptoma_bot"; 
         const link = `https://t.me/${botName}?start=ref_${userId}`;
         const text = "🧬 AI Diagnostic System. Check your health status:";
-        
         const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
         tg.openTelegramLink(shareUrl);
     }
@@ -263,6 +327,11 @@
         }
 
         appendMessage(text, 'user');
+        
+        // Добавляем в историю (пока локально для UI)
+        history.push({text: text, is_bot: false});
+        saveHistory();
+
         input.value = '';
         isProcessing = true;
         document.getElementById('send-btn').style.opacity = 0.5;
@@ -274,7 +343,7 @@
             const res = await fetch(`${BACKEND_URL}/api/symptoma/chat`, {
                 method: 'POST',
                 headers: API_HEADERS,
-                body: JSON.stringify({ user_id: userId, message: text, history: history })
+                body: JSON.stringify({ user_id: userId, message: text, history: history.slice(0, -1) }) // Шлем историю без последнего дубля
             });
 
             const loadEl = document.getElementById(loadingId);
@@ -283,6 +352,8 @@
                 loadEl.innerText = DICT[curLang].lowEnergy;
                 loadEl.classList.add('diagnosis');
                 document.getElementById('paywall-modal').style.display = 'flex';
+                // Удаляем последнее сообщение юзера из истории, раз не вышло
+                history.pop(); saveHistory();
             } else {
                 const data = await res.json();
                 loadEl.remove();
@@ -292,8 +363,10 @@
                 } else {
                     const type = (data.type === 'diagnosis') ? 'diagnosis' : 'bot';
                     appendMessage(data.text, type);
-                    history.push({text: text, is_bot: false});
+                    
                     history.push({text: data.text, is_bot: true});
+                    saveHistory();
+                    
                     fetchUserState();
                 }
             }
@@ -320,7 +393,9 @@
 
     function resetChat() {
         history = [];
-        document.getElementById('chat-window').innerHTML = `<div class="msg bot" id="welcome-msg">${DICT[curLang].welcome}</div>`;
+        localStorage.removeItem('symptoma_history'); // Стираем память
+        document.getElementById('chat-window').innerHTML = '';
+        updateTexts(); // Показываем приветствие
     }
 
     async function buyPremium() {
