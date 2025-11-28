@@ -5,250 +5,176 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SYMPTOMAT</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* --- СТИЛЬ SYMPTOMA (Медицинский / Sci-Fi) --- */
         :root {
-            /* Palette: Sterile Medical / Sci-Fi */
-            --bg-color: #0b1015;       
-            --panel-bg: #0f161e;       
-            --accent: #00f2ff;         
-            --accent-dim: #005f66;     
-            --text-main: #e0f7fa;      
-            --alert: #ff3333;          
-            --font-main: "Roboto Mono", "Consolas", monospace;
+            --bg-void: #050a10; 
+            --bg-panel: #0b141e;
+            --c-main: #00f2ff; /* Cyan */
+            --c-dim: #005f66;
+            --c-alert: #ff3366;
+            --font-body: 'Roboto Mono', monospace;
         }
 
-        body { 
-            margin: 0; 
-            background: var(--bg-color); 
-            color: var(--text-main); 
-            font-family: var(--font-main); 
-            display: flex; 
-            flex-direction: column; 
-            height: 100vh; 
-            overflow: hidden; 
-        }
-        
-        .header { 
-            padding: 15px; 
-            background: #080c10;
-            border-bottom: 1px solid var(--accent-dim); 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
-        }
-        .brand { 
-            font-weight: 700; 
-            font-size: 1rem; 
-            letter-spacing: 1px; 
-            color: var(--accent);
-            text-transform: uppercase;
-        }
-        .energy-box { 
-            border: 1px solid var(--accent-dim); 
-            padding: 4px 8px; 
-            font-size: 0.75rem; 
-            border-radius: 4px;
-            color: var(--accent);
-        }
-        
-        #chat-container { 
-            flex: 1; 
-            overflow-y: auto; 
-            padding: 20px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 15px; 
-            scroll-behavior: smooth; 
-        }
-        
-        .msg { 
-            max-width: 85%; 
-            padding: 12px 16px; 
-            border-radius: 8px; 
-            font-size: 0.9rem; 
-            line-height: 1.5; 
-            position: relative; 
-            word-wrap: break-word; 
-            animation: fadeIn 0.3s ease;
-        }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background-color: var(--bg-void); font-family: var(--font-body); color: var(--c-main); overflow: hidden; }
 
-        .msg.bot { 
-            align-self: flex-start; 
-            background: var(--panel-bg); 
-            border-left: 3px solid var(--accent); 
-            color: #fff;
-        }
+        /* HEADER & ENERGY */
+        .header-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--bg-panel); border-bottom: 1px solid var(--c-dim); }
+        #logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 2px; }
         
-        .msg.diagnosis { 
-            align-self: flex-start;
-            border-left: 3px solid var(--alert); 
-            background: rgba(255, 51, 51, 0.05);
-            color: #fff;
-        }
-        .msg.diagnosis b { color: var(--alert); }
+        #energy-wrapper { position: absolute; top: 70px; width: 100%; display: flex; flex-direction: column; align-items: center; z-index: 10; pointer-events: none; }
+        #energy-container { width: 160px; height: 4px; background: rgba(0, 242, 255, 0.1); border-radius: 2px; overflow: hidden; }
+        #energy-bar { width: 75%; height: 100%; background: var(--c-main); transition: width 0.5s ease-out; box-shadow: 0 0 10px var(--c-main); }
+        #energy-text { margin-bottom: 5px; font-size: 0.7rem; color: rgba(255,255,255,0.7); text-shadow: 0 0 5px var(--c-main); }
 
-        .msg.user { 
-            align-self: flex-end; 
-            background: rgba(0, 242, 255, 0.1); 
-            border: 1px solid var(--accent-dim); 
-            color: var(--accent);
-            text-align: right; 
-        }
-
-        .disclaimer { 
-            font-size: 0.6rem; 
-            color: #546e7a; 
-            text-align: center; 
-            padding: 8px; 
-            border-top: 1px solid #1a2633; 
-            text-transform: uppercase;
-        }
-
-        .input-area { 
-            padding: 15px; 
-            background: #080c10; 
-            border-top: 1px solid var(--accent-dim); 
-            display: flex; 
-            gap: 10px; 
-            padding-bottom: max(15px, env(safe-area-inset-bottom)); 
-        }
+        /* CHAT INTERFACE */
+        #chat-window { position: absolute; top: 110px; bottom: 80px; left: 0; right: 0; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
         
-        input { 
-            flex: 1; 
-            background: #0f161e; 
-            border: 1px solid var(--accent-dim); 
-            color: var(--accent); 
-            padding: 12px; 
-            font-family: var(--font-main); 
-            font-size: 1rem; 
-            outline: none; 
-            border-radius: 4px; 
-        }
-        input:focus { border-color: var(--accent); box-shadow: 0 0 5px rgba(0,242,255,0.2); }
+        .msg { max-width: 80%; padding: 12px 16px; border-radius: 8px; font-size: 0.9rem; line-height: 1.4; animation: fadeIn 0.3s ease; position: relative; }
+        .msg.bot { align-self: flex-start; background: var(--bg-panel); border-left: 3px solid var(--c-main); color: #fff; }
+        .msg.user { align-self: flex-end; background: rgba(0, 242, 255, 0.1); border: 1px solid var(--c-dim); color: var(--c-main); text-align: right; }
+        .msg.diagnosis { align-self: flex-start; border-left: 3px solid var(--c-alert); background: rgba(255, 51, 102, 0.1); color: #fff; }
         
-        button { 
-            background: var(--accent-dim); 
-            color: #fff; 
-            border: none; 
-            padding: 0 20px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            font-family: var(--font-main); 
-            border-radius: 4px; 
-            transition: 0.2s; 
-        }
-        button:active { background: var(--accent); color: #000; }
-        button:disabled { opacity: 0.3; cursor: not-allowed; }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
-        .loading { animation: pulse 1.5s infinite; color: var(--accent); font-style: italic; }
+
+        /* CONTROLS */
+        #controls { position: absolute; bottom: 0; width: 100%; padding: 15px; background: var(--bg-panel); border-top: 1px solid var(--c-dim); display: flex; gap: 10px; box-sizing: border-box; }
+        input { flex: 1; background: #050a10; border: 1px solid var(--c-dim); color: var(--c-main); padding: 12px; font-family: var(--font-body); outline: none; border-radius: 4px; }
+        button#send-btn { background: var(--c-dim); color: #fff; border: none; padding: 0 20px; font-weight: bold; cursor: pointer; border-radius: 4px; transition: 0.2s; }
+        button#send-btn:active { background: var(--c-main); color: #000; }
+
+        /* MODALS (Paywall) */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .modal-card { background: var(--bg-panel); border: 1px solid var(--c-main); padding: 30px; text-align: center; width: 85%; max-width: 320px; border-radius: 12px; box-shadow: 0 0 30px rgba(0,242,255,0.2); }
+        .modal-btn { background: var(--c-main); color: #000; border: none; padding: 15px; width: 100%; font-family: var(--font-body); font-weight: 700; cursor: pointer; margin-top: 15px; border-radius: 4px; }
+        
+        #toast { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); background: var(--c-alert); color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 200; }
+
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="brand">SYMPTOMAT <span style="font-size:0.8em; opacity:0.7">v2.4</span></div>
-    <div class="energy-box" id="energy-display">PWR: --%</div>
-</div>
-
-<div id="chat-container">
-    <div class="msg bot">
-        <b>SYSTEM ONLINE.</b><br>
-        Please describe the primary symptom. 
-        <br><i>(Example: "Headache in left temple", "Sharp pain in stomach")</i>
+    <div class="header-row">
+        <div id="logo">SYMPTOMAT <span style="font-size:0.7em; opacity:0.6">v2.5</span></div>
+        <div style="font-size:0.8rem; cursor:pointer;" onclick="location.reload()">↺ RESET</div>
     </div>
-</div>
 
-<div class="disclaimer">Not a doctor. AI suggestions only. In emergency call 112/911.</div>
+    <div id="energy-wrapper" onclick="if(!isPremium && energy<5) document.getElementById('paywall-modal').style.display='flex'">
+        <div id="energy-text">INITIALIZING...</div>
+        <div id="energy-container"><div id="energy-bar" style="width: 0%;"></div></div>
+    </div>
+    
+    <div id="toast">ALERT</div>
 
-<div class="input-area">
-    <input type="text" id="user-input" placeholder="Enter data..." autocomplete="off">
-    <button id="send-btn" onclick="sendMessage()">SEND</button>
-</div>
+    <div id="chat-window">
+        <div class="msg bot">
+            <b>SYSTEM ONLINE.</b><br>
+            Опишите симптом. Я задам уточняющие вопросы.<br>
+            <i>(Пример: "Болит голова в виске", "Тошнота после еды")</i>
+        </div>
+    </div>
+
+    <div id="controls">
+        <input type="text" id="user-input" placeholder="Введите данные..." autocomplete="off">
+        <button id="send-btn" onclick="sendMessage()">SEND</button>
+    </div>
+
+    <div id="paywall-modal" class="modal-overlay">
+        <div class="modal-card">
+            <h3 style="margin-top:0; color:var(--c-main)">LOW ENERGY</h3>
+            <p style="font-size:0.9rem; color:#aaa; margin: 15px 0;">
+                Ресурсы системы исчерпаны.<br>Подождите восстановления или получите полный доступ.
+            </p>
+            <button class="modal-btn" onclick="buyPremium()">ETERNAL ACCESS (69 ⭐️)</button>
+            <button class="modal-btn" style="background:transparent; color:#777; border:1px solid #333;" onclick="document.getElementById('paywall-modal').style.display='none'">CLOSE</button>
+        </div>
+    </div>
 
 <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
-    
-    // Твой Ngrok (для связи GitHub -> Твой ПК)
+
+    // ТВОЙ NGROK URL
     const BACKEND_URL = "https://supperless-yoshiko-noneruditely.ngrok-free.dev"; 
     
-    let history = [];
-    let isProcessing = false;
+    let energy = 0; let isPremium = false; let history = []; let isProcessing = false;
+    const API_HEADERS = { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' };
 
-    async function syncEnergy() {
+    // 1. СИНХРОНИЗАЦИЯ С БАЗОЙ
+    async function fetchUserState() {
         const userId = tg.initDataUnsafe?.user?.id || 0;
         try {
-            const res = await fetch(`${BACKEND_URL}/api/get_user_state?user_id=${userId}`);
-            const data = await res.json();
-            const txt = data.is_premium ? "\u221E" : data.energy + "%";
-            const el = document.getElementById('energy-display');
-            el.innerText = "PWR: " + txt;
-            if (!data.is_premium && data.energy < 10) el.style.borderColor = "var(--alert)";
-            else el.style.borderColor = "var(--accent-dim)";
-        } catch(e) { console.log("Energy sync error. Check NGROK URL.", e); }
+            const res = await fetch(`${BACKEND_URL}/api/get_user_state?user_id=${userId}`, { headers: API_HEADERS });
+            if (res.ok) {
+                const data = await res.json();
+                energy = data.energy;
+                isPremium = data.is_premium;
+                updateEnergyBar();
+            }
+        } catch (e) { document.getElementById('energy-text').innerText = "OFFLINE"; }
     }
-    
-    setInterval(syncEnergy, 10000);
-    syncEnergy();
+    fetchUserState(); setInterval(fetchUserState, 10000);
 
+    function updateEnergyBar() {
+        const bar = document.getElementById('energy-bar');
+        const txt = document.getElementById('energy-text');
+        if (isPremium) { bar.style.width = '100%'; txt.innerText = "∞ INFINITE (PREMIUM)"; }
+        else { bar.style.width = energy + '%'; txt.innerText = "ENERGY: " + energy + "%"; }
+    }
+
+    // 2. ОТПРАВКА СООБЩЕНИЙ
     async function sendMessage() {
         if (isProcessing) return;
         const input = document.getElementById('user-input');
         const text = input.value.trim();
         if (!text) return;
 
+        if (!isPremium && energy < 5) {
+            document.getElementById('paywall-modal').style.display = 'flex';
+            return;
+        }
+
         appendMessage(text, 'user');
         input.value = '';
         isProcessing = true;
-        document.getElementById('send-btn').disabled = true;
-        
-        const loadingId = appendMessage("Scanning database...", 'bot loading');
+        document.getElementById('send-btn').style.opacity = 0.5;
+
+        const loadingId = appendMessage("Анализ...", 'bot');
 
         try {
             const userId = tg.initDataUnsafe?.user?.id || 0;
-            
             const res = await fetch(`${BACKEND_URL}/api/symptoma/chat`, {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true'},
-                body: JSON.stringify({
-                    user_id: userId,
-                    message: text,
-                    history: history
-                })
+                headers: API_HEADERS,
+                body: JSON.stringify({ user_id: userId, message: text, history: history })
             });
 
-            const loadingEl = document.getElementById(loadingId);
+            const loadEl = document.getElementById(loadingId);
 
             if (res.status === 402) {
-                loadingEl.innerText = "INSUFFICIENT ENERGY. RECHARGE REQUIRED.";
-                loadingEl.classList.add('diagnosis'); 
-                loadingEl.classList.remove('loading');
-                return;
-            }
-
-            const data = await res.json();
-            loadingEl.remove();
-
-            if (data.error || data.type === 'error') {
-                appendMessage("SYSTEM ERROR: " + (data.text || "Unknown"), 'bot');
+                loadEl.innerText = "Error: Low Energy.";
+                document.getElementById('paywall-modal').style.display = 'flex';
             } else {
-                const msgType = (data.type === 'diagnosis') ? 'diagnosis' : 'bot';
-                appendMessage(data.text, msgType);
-                history.push({text: text, is_bot: false});
-                history.push({text: data.text, is_bot: true});
+                const data = await res.json();
+                loadEl.remove();
+                
+                if (data.error) {
+                    appendMessage("System Error.", 'bot');
+                } else {
+                    const type = data.type === 'diagnosis' ? 'diagnosis' : 'bot';
+                    appendMessage(data.text, type);
+                    history.push({text: text, is_bot: false});
+                    history.push({text: data.text, is_bot: true});
+                    fetchUserState(); 
+                }
             }
-
         } catch (e) {
-            document.getElementById(loadingId).innerText = "CONNECTION FAILURE (Check Backend)";
-            document.getElementById(loadingId).classList.add('diagnosis');
+            document.getElementById(loadingId).innerText = "CONNECTION ERROR";
         } finally {
             isProcessing = false;
-            document.getElementById('send-btn').disabled = false;
+            document.getElementById('send-btn').style.opacity = 1;
             input.focus();
-            syncEnergy(); 
         }
     }
 
@@ -256,12 +182,31 @@
         const div = document.createElement('div');
         div.className = `msg ${type}`;
         div.id = 'msg-' + Date.now();
-        div.innerHTML = text; 
-        document.getElementById('chat-container').appendChild(div);
-        
-        const container = document.getElementById('chat-container');
-        container.scrollTop = container.scrollHeight;
+        div.innerHTML = text;
+        const chat = document.getElementById('chat-window');
+        chat.appendChild(div);
+        chat.scrollTop = chat.scrollHeight;
         return div.id;
+    }
+
+    // 3. ОПЛАТА
+    async function buyPremium() {
+        const btn = document.querySelector('#paywall-modal .modal-btn');
+        const oldText = btn.innerText;
+        btn.innerText = "CREATING INVOICE...";
+        try {
+            const res = await fetch(`${BACKEND_URL}/api/get_invoice`, { headers: API_HEADERS });
+            const data = await res.json();
+            if (data.invoice_link) {
+                tg.openInvoice(data.invoice_link, (status) => {
+                    if (status === 'paid') {
+                        isPremium = true; energy = 100; updateEnergyBar();
+                        document.getElementById('paywall-modal').style.display = 'none';
+                    }
+                });
+            }
+        } catch(e) { alert("Error"); }
+        finally { btn.innerText = oldText; }
     }
 
     document.getElementById('user-input').addEventListener('keypress', (e) => {
