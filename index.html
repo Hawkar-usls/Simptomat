@@ -31,10 +31,15 @@
         #logo { font-family: var(--font-header); font-size: 1.2rem; letter-spacing: 2px; color: var(--c-main); text-shadow: 0 0 10px var(--c-dim); font-weight: 700; }
         #lang-btn { background: rgba(0, 242, 255, 0.1); border: 1px solid var(--c-dim); color: var(--c-main); padding: 8px 12px; border-radius: 8px; font-family: var(--font-header); font-size: 0.85rem; backdrop-filter: blur(5px); }
 
-        #energy-wrapper { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; padding-top: 10px; pointer-events: auto; background: linear-gradient(to bottom, rgba(5,10,16,0.9), transparent); padding-bottom: 20px; }
+        #energy-wrapper { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; padding-top: 10px; pointer-events: auto; background: linear-gradient(to bottom, rgba(5,10,16,0.9), transparent); padding-bottom: 10px; }
         #energy-container { width: 160px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
         #energy-bar { width: 75%; height: 100%; background: var(--c-main); transition: width 0.5s ease-out; box-shadow: 0 0 10px var(--c-main); }
         #energy-text { margin-bottom: 5px; font-size: 0.7rem; letter-spacing: 1px; color: rgba(255,255,255,0.7); font-family: var(--font-header); }
+
+        /* Invite Button (New) */
+        #invite-wrapper { width: 100%; display: flex; justify-content: center; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 242, 255, 0.1); background: linear-gradient(to bottom, transparent, rgba(5,10,16,0.8)); }
+        #btn-invite { background: rgba(0, 242, 255, 0.05); border: 1px solid var(--c-dim); color: var(--c-dim); font-family: var(--font-header); font-size: 0.75rem; padding: 6px 12px; border-radius: 20px; letter-spacing: 1px; transition: 0.2s; }
+        #btn-invite:hover { border-color: var(--c-main); color: var(--c-main); box-shadow: 0 0 10px rgba(0,242,255,0.2); }
 
         #chat-window { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent); }
         
@@ -79,6 +84,10 @@
             <div id="energy-container"><div id="energy-bar" style="width: 0%;"></div></div>
         </div>
         
+        <div id="invite-wrapper">
+            <button id="btn-invite" class="interactive" onclick="openInvite()">🧬 INVITE (GET ENERGY)</button>
+        </div>
+        
         <div id="toast">ALERT</div>
         
         <div id="chat-window">
@@ -109,7 +118,8 @@
         <div class="modal-card" style="border-color: var(--c-alert); box-shadow: 0 0 30px rgba(255, 51, 102, 0.2);">
             <h3 id="lbl-low-energy" style="margin-top:0; color:var(--c-alert); font-family: var(--font-header); font-size:1.3rem;">CRITICAL LOW ENERGY</h3>
             <p id="lbl-pay-desc" style="font-size:0.9rem; color:#ccc; margin: 20px 0; line-height: 1.5;">
-                Resources depleted. Protocol suspended.<br>Recharge or acquire Eternal Access.
+                System resources depleted. Invite 2 subjects to recharge.<br>
+                Or acquire <b>Hawk's Mountain</b> Ecosystem Pass.
             </p>
             <button id="btn-pay" class="modal-btn" style="background: var(--c-alert); color:white;" onclick="buyPremium()">GET ETERNAL (69 ⭐️)</button>
             <button id="btn-later" class="modal-btn" style="background: transparent; color: #777; border: 1px solid #444; margin-top: 10px; font-size: 0.8rem; padding: 10px;" onclick="document.getElementById('paywall-modal').style.display='none'">LATER</button>
@@ -123,7 +133,7 @@
     // NGROK URL
     const BACKEND_URL = "https://supperless-yoshiko-noneruditely.ngrok-free.dev"; 
     
-    // --- FORCE START LANGUAGE TO RUSSIAN ---
+    // FORCE START RUSSIAN
     let curLang = 'ru'; 
     
     let energy = 0; let isPremium = false; let history = []; let isProcessing = false;
@@ -133,42 +143,50 @@
         en: { 
             welcome: "<b>SYSTEM ONLINE.</b><br>Describe your primary symptom.<br><i>(Ex: 'Sharp headache', 'Nausea')</i>",
             placeholder: "Enter symptom...", send: "SEND", langTitle: "LANGUAGE", 
-            lowEnergy: "LOW ENERGY", payDesc: "System resources depleted. Recharge or unlock Eternal Access.",
+            lowEnergy: "LOW ENERGY", 
+            payDesc: "Resources depleted. Invite 2 friends to recharge (1 use). Or buy Hawk's Mountain Pass.",
             btnPay: "ETERNAL ACCESS (69 ⭐️)", btnLater: "CLOSE",
             energyLabel: "ENERGY", infinite: "∞ INFINITE", offline: "OFFLINE",
-            analyzing: "Scanning database...", error: "System Error.", connectErr: "CONNECTION FAILURE"
+            analyzing: "Scanning database...", error: "System Error.", connectErr: "CONNECTION FAILURE",
+            invite: "🧬 INVITE (+ENERGY)"
         },
         ru: { 
             welcome: "<b>СИСТЕМА ГОТОВА.</b><br>Опишите основной симптом.<br><i>(Например: 'Болит висок', 'Тошнота')</i>",
             placeholder: "Введите симптом...", send: "ОТПРАВИТЬ", langTitle: "ЯЗЫК / LANGUAGE", 
-            lowEnergy: "МАЛО ЭНЕРГИИ", payDesc: "Ресурсы системы исчерпаны. Подождите восстановления или купите Вечность.",
+            lowEnergy: "МАЛО ЭНЕРГИИ", 
+            payDesc: "Ресурсы исчерпаны. Пригласите 2 друзей для зарядки (на 1 раз). Или купите пропуск Hawk's Mountain.",
             btnPay: "ВЕЧНОСТЬ (69 ⭐️)", btnLater: "ЗАКРЫТЬ",
             energyLabel: "ЭНЕРГИЯ", infinite: "∞ ВЕЧНОСТЬ", offline: "НЕТ СВЯЗИ",
-            analyzing: "Анализ...", error: "Ошибка системы.", connectErr: "ОШИБКА СОЕДИНЕНИЯ"
+            analyzing: "Анализ...", error: "Ошибка системы.", connectErr: "ОШИБКА СОЕДИНЕНИЯ",
+            invite: "🧬 ПРИГЛАСИТЬ (+ЭНЕРГИЯ)"
         },
         ua: { 
             welcome: "<b>СИСТЕМА ГОТОВА.</b><br>Опишіть основний симптом.<br><i>(Наприклад: 'Біль у скроні', 'Нудота')</i>",
             placeholder: "Введіть симптом...", send: "НАДІСЛАТИ", langTitle: "МОВА / LANGUAGE", 
-            lowEnergy: "МАЛО ЕНЕРГІЇ", payDesc: "Ресурси вичерпано. Зачекайте або придбайте Вічність.",
+            lowEnergy: "МАЛО ЕНЕРГІЇ", 
+            payDesc: "Ресурси вичерпано. Запросіть 2 друзів для зарядки. Або придбайте пропуск Hawk's Mountain.",
             btnPay: "ВІЧНІСТЬ (69 ⭐️)", btnLater: "ЗАКРИТИ",
             energyLabel: "ЕНЕРГІЯ", infinite: "∞ ВІЧНІСТЬ", offline: "НЕМАЄ ЗВ'ЯЗКУ",
-            analyzing: "Аналіз...", error: "Помилка системи.", connectErr: "ПОМИЛКА З'ЄДНАННЯ"
+            analyzing: "Аналіз...", error: "Помилка системи.", connectErr: "ПОМИЛКА З'ЄДНАННЯ",
+            invite: "🧬 ЗАПРОСИТИ (+ЕНЕРГІЯ)"
         },
         pl: { 
             welcome: "<b>SYSTEM GOTOWY.</b><br>Opisz główny objaw.<br><i>(Np.: 'Ból głowy', 'Mdłości')</i>",
             placeholder: "Wpisz objaw...", send: "WYŚLIJ", langTitle: "JĘZYK", 
-            lowEnergy: "MAŁO ENERGII", payDesc: "Zasoby wyczerpane. Poczekaj lub kup Wieczność.",
+            lowEnergy: "MAŁO ENERGII", payDesc: "Zasoby wyczerpane. Zaproś 2 znajomych. Lub kup przepustkę Hawk's Mountain.",
             btnPay: "WIECZNOŚĆ (69 ⭐️)", btnLater: "ZAMKNIJ",
             energyLabel: "ENERGIA", infinite: "∞ WIECZNOŚĆ", offline: "OFFLINE",
-            analyzing: "Skanowanie...", error: "Błąd systemu.", connectErr: "BŁĄD POŁĄCZENIA"
+            analyzing: "Skanowanie...", error: "Błąd systemu.", connectErr: "BŁĄD POŁĄCZENIA",
+            invite: "🧬 ZAPROŚ (+ENERGIA)"
         },
         cz: { 
             welcome: "<b>SYSTÉM PŘIPRAVEN.</b><br>Popište hlavní příznak.<br><i>(Např.: 'Bolest hlavy', 'Nevolnost')</i>",
             placeholder: "Zadejte příznak...", send: "ODESLAT", langTitle: "JAZYK", 
-            lowEnergy: "MÁLO ENERGIE", payDesc: "Zdroje vyčerpány. Počkejte nebo získejte Věčnost.",
+            lowEnergy: "MÁLO ENERGIE", payDesc: "Zdroje vyčerpány. Pozvěte 2 přátele. Nebo získejte pas Hawk's Mountain.",
             btnPay: "VĚČNOST (69 ⭐️)", btnLater: "ZAVŘÍT",
             energyLabel: "ENERGIE", infinite: "∞ VĚČNOST", offline: "OFFLINE",
-            analyzing: "Analýza...", error: "Chyba systému.", connectErr: "CHYBA PŘIPOJENÍ"
+            analyzing: "Analýza...", error: "Chyba systému.", connectErr: "CHYBA PŘIPOJENÍ",
+            invite: "🧬 POZVAT (+ENERGIE)"
         }
     };
 
@@ -187,9 +205,10 @@
         document.getElementById('send-btn').innerText = t.send;
         document.getElementById('lbl-lang').innerText = t.langTitle;
         document.getElementById('lbl-low-energy').innerText = t.lowEnergy;
-        document.getElementById('lbl-pay-desc').innerText = t.payDesc;
+        document.getElementById('lbl-pay-desc').innerHTML = t.payDesc;
         document.getElementById('btn-pay').innerText = t.btnPay;
         document.getElementById('btn-later').innerText = t.btnLater;
+        document.getElementById('btn-invite').innerText = t.invite;
         
         if (history.length === 0 && document.getElementById('chat-window').children.length <= 1) {
             document.getElementById('welcome-msg').innerHTML = t.welcome;
@@ -219,13 +238,25 @@
         else { bar.style.width = energy + '%'; txt.innerText = t.energyLabel + ": " + energy + "%"; }
     }
 
+    // --- INVITE FUNCTION ---
+    function openInvite() {
+        const userId = tg.initDataUnsafe?.user?.id;
+        if (!userId) { alert("No User ID"); return; }
+        
+        const botName = "Symptoma_bot"; 
+        const link = `https://t.me/${botName}?start=ref_${userId}`;
+        const text = "🧬 AI Diagnostic System. Check your health status:";
+        
+        const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
+        tg.openTelegramLink(shareUrl);
+    }
+
     async function sendMessage() {
         if (isProcessing) return;
         const input = document.getElementById('user-input');
         const text = input.value.trim();
         if (!text) return;
 
-        // Предварительная проверка энергии (если бак пуст - стоп)
         if (!isPremium && energy < 20) {
             document.getElementById('paywall-modal').style.display = 'flex';
             return;
