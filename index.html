@@ -20,9 +20,7 @@
         .msg.diagnosis{align-self:flex-start;border-left:3px solid var(--c-alert);background:rgba(255,51,102,0.05);}
         #controls{display:flex;gap:10px;padding:15px;background:var(--bg-panel);border-top:1px solid var(--c-dim);}
         input{flex:1;background:#050a10;border:1px solid var(--c-dim);color:var(--c-main);padding:12px;border-radius:6px;outline:none;}
-        input:disabled{opacity: 0.5;}
         #send-btn{background:var(--c-dim);color:#fff;border:none;padding:0 20px;border-radius:6px;font-weight:bold;}
-        #send-btn:disabled{opacity: 0.5; filter: grayscale(1);}
     </style>
 </head>
 <body>
@@ -34,7 +32,7 @@
         </div>
         <div id="chat-window"></div>
         <div id="controls">
-            <input type="text" id="user-input" placeholder="..." autocomplete="off">
+            <input type="text" id="user-input" placeholder="Введите симптомы..." autocomplete="off">
             <button id="send-btn" onclick="sendMessage()">SEND</button>
         </div>
     </div>
@@ -43,98 +41,62 @@
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    // === COURT ORDER: DYNAMIC URL RESOLUTION ===
     function getApiUrl() {
         const urlParams = new URLSearchParams(window.location.search);
-        // Приоритет: 1. Параметр из URL (от бота) 2. Дефолт (на всякий случай)
         return urlParams.get('apiUrl') || "https://supperless-yoshiko-noneruditely.ngrok-free.dev";
     }
 
     const API_BASE = getApiUrl();
-    document.getElementById('status').innerText = API_BASE.includes("ngrok") ? "SECURE TUNNEL" : "LOCAL/STATIC";
+    document.getElementById('status').innerText = API_BASE.includes("ngrok") ? "ONLINE" : "LOCAL";
 
     const API_HEADERS = { 
         'Content-Type': 'application/json',
         'ngrok-skip-browser-warning': 'true'
     };
 
-    // Client history is ONLY for display now. Server has the real brain.
-    let displayHistory = [];
-
     async function sendMessage() {
         const input = document.getElementById('user-input');
-        const btn = document.getElementById('send-btn');
         const text = input.value.trim();
-        
         if(!text) return;
 
-        // UI LOCK
-        input.disabled = true;
-        btn.disabled = true;
-        
-        // 1. Show User Message (Safe render)
         appendMsg(text, 'user');
         input.value = '';
 
-        // 2. Loading State
-        const loadId = appendMsg("JANUS ANALYZING...", 'bot');
+        const loadId = appendMsg("Анализирую...", 'bot');
 
         try {
             const userId = tg.initDataUnsafe?.user?.id || 12345;
             
-            // COURT ORDER: Sending Only UserID + Message (No History Blob)
             const res = await fetch(`${API_BASE}/api/symptoma/chat`, {
-                method: 'POST',
-                headers: API_HEADERS,
-                body: JSON.stringify({ 
-                    user_id: userId, 
-                    message: text
-                })
+                method: 'POST', headers: API_HEADERS,
+                body: JSON.stringify({ user_id: userId, message: text })
             });
 
             if(!res.ok) throw new Error(`HTTP ${res.status}`);
-            
             const data = await res.json();
             
-            // Remove Loader
             document.getElementById(loadId).remove();
-            
-            // Show AI Response
-            const type = data.type === 'diagnosis' ? 'diagnosis' : 'bot';
-            appendMsg(data.text, type);
+            appendMsg(data.text, data.type === 'diagnosis' ? 'diagnosis' : 'bot');
 
         } catch(e) {
-            console.error(e);
-            document.getElementById(loadId).innerText = "CONNECTION ERROR. TRY RESTARTING.";
-            document.getElementById(loadId).style.color = "var(--c-alert)";
-        } finally {
-            // UI UNLOCK
-            input.disabled = false;
-            btn.disabled = false;
-            input.focus();
+            document.getElementById(loadId).innerText = "Ошибка связи. Проверьте соединение.";
         }
     }
 
     function appendMsg(text, type) {
         const div = document.createElement('div');
         div.className = `msg ${type}`;
-        
-        // SECURITY: User text is plain text, Bot text can be HTML
-        if (type === 'user') div.innerText = text;
-        else div.innerHTML = text; // Bot uses HTML for formatting
-        
+        if (type === 'user') div.innerText = text; else div.innerHTML = text;
         const chat = document.getElementById('chat-window');
         chat.appendChild(div);
         chat.scrollTop = chat.scrollHeight;
         return 'msg-' + Date.now();
     }
 
-    // Enter Key Support
-    document.getElementById('user-input').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-    });
+    document.getElementById('user-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 
-    appendMsg("SYSTEM ONLINE. DESCRIBE SYMPTOMS.", "bot");
+    // START MESSAGE IN RUSSIAN
+    appendMsg("<b>СИСТЕМА ГОТОВА.</b><br>Опишите симптомы. Я задам уточняющие вопросы перед диагнозом.", "bot");
 </script>
 </body>
 </html>
