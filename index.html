@@ -3,414 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>SYMPTOMA</title>
+    <title>SYMPTOMA: NGROK EDITION</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --bg-void: #050a10; 
-            --bg-panel: #0b141e; 
-            --c-main: #00f2ff;   
-            --c-dim: #005f66;    
-            --c-alert: #ff3366;  
-            --font-header: 'Roboto Mono', monospace; 
-            --font-body: 'Lato', sans-serif; 
-        }
-        
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: var(--bg-void); font-family: var(--font-body); color: var(--c-main); user-select: none; -webkit-tap-highlight-color: transparent; }
-        
-        #grid { position: absolute; width: 200%; height: 200%; background-image: linear-gradient(var(--c-dim) 1px, transparent 1px), linear-gradient(90deg, var(--c-dim) 1px, transparent 1px); background-size: 40px 40px; opacity: 0.1; transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px); pointer-events: none; animation: gridMove 20s linear infinite; }
-        @keyframes gridMove { 0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); } 100% { transform: perspective(500px) rotateX(60deg) translateY(40px) translateZ(-200px); } }
-
-        .ui-layer { position: absolute; width: 100%; height: 100%; z-index: 20; display: flex; flex-direction: column; }
-        .interactive { pointer-events: auto; cursor: pointer; transition: transform 0.1s; }
-        .interactive:active { transform: scale(0.96); }
-
-        .header-row { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; box-sizing: border-box; background: rgba(5, 10, 16, 0.9); border-bottom: 1px solid var(--c-dim); padding-top: max(15px, env(safe-area-inset-top)); }
-        #logo { font-family: var(--font-header); font-size: 1.2rem; letter-spacing: 2px; color: var(--c-main); text-shadow: 0 0 10px var(--c-dim); font-weight: 700; }
-        #lang-btn { background: rgba(0, 242, 255, 0.1); border: 1px solid var(--c-dim); color: var(--c-main); padding: 8px 12px; border-radius: 8px; font-family: var(--font-header); font-size: 0.85rem; backdrop-filter: blur(5px); }
-
-        #energy-wrapper { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; padding-top: 10px; pointer-events: auto; background: linear-gradient(to bottom, rgba(5,10,16,0.9), transparent); padding-bottom: 10px; }
-        #energy-container { width: 160px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
-        #energy-bar { width: 75%; height: 100%; background: var(--c-main); transition: width 0.5s ease-out; box-shadow: 0 0 10px var(--c-main); }
-        #energy-text { margin-bottom: 5px; font-size: 0.7rem; letter-spacing: 1px; color: rgba(255,255,255,0.7); font-family: var(--font-header); }
-
-        /* Invite Button */
-        #invite-wrapper { width: 100%; display: flex; justify-content: center; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 242, 255, 0.1); background: linear-gradient(to bottom, transparent, rgba(5,10,16,0.8)); }
-        #btn-invite { background: rgba(0, 242, 255, 0.05); border: 1px solid var(--c-dim); color: var(--c-dim); font-family: var(--font-header); font-size: 0.75rem; padding: 6px 12px; border-radius: 20px; letter-spacing: 1px; transition: 0.2s; }
-        #btn-invite:hover { border-color: var(--c-main); color: var(--c-main); box-shadow: 0 0 10px rgba(0,242,255,0.2); }
-
-        #chat-window { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent); }
-        
-        .msg { max-width: 85%; padding: 12px 16px; border-radius: 8px; font-size: 0.95rem; line-height: 1.5; position: relative; word-wrap: break-word; animation: fadeIn 0.3s ease; border: 1px solid transparent; }
-        .msg.bot { align-self: flex-start; background: rgba(11, 20, 30, 0.9); border-color: var(--c-dim); border-left: 3px solid var(--c-main); color: #e0f7fa; }
-        .msg.user { align-self: flex-end; background: rgba(0, 242, 255, 0.05); border-color: var(--c-dim); color: var(--c-main); text-align: right; }
-        .msg.diagnosis { align-self: flex-start; border-left: 3px solid var(--c-alert); background: rgba(255, 51, 102, 0.05); color: #fff; box-shadow: 0 0 15px rgba(255, 51, 102, 0.1); }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        #controls { width: 100%; display: flex; gap: 10px; padding: 15px; padding-bottom: max(15px, env(safe-area-inset-bottom)); background: var(--bg-panel); border-top: 1px solid var(--c-dim); box-sizing: border-box; }
-        input { flex: 1; background: #050a10; border: 1px solid var(--c-dim); color: var(--c-main); padding: 12px; font-family: var(--font-body); font-size: 1rem; outline: none; border-radius: 6px; }
-        input::placeholder { color: rgba(0, 242, 255, 0.3); }
-        input:focus { border-color: var(--c-main); box-shadow: 0 0 10px rgba(0, 242, 255, 0.2); }
-        
-        #send-btn { background: var(--c-dim); color: #fff; border: none; padding: 0 20px; font-weight: 700; cursor: pointer; font-family: var(--font-header); border-radius: 6px; transition: 0.2s; }
-        #send-btn:active { background: var(--c-main); color: #000; }
-        #reset-btn { background: transparent; border: 1px solid var(--c-dim); color: var(--c-dim); width: 45px; border-radius: 6px; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
-
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-        .modal-card { background: var(--bg-panel); border: 1px solid var(--c-main); padding: 30px 20px; text-align: center; width: 85%; max-width: 340px; border-radius: 12px; box-shadow: 0 0 30px rgba(0,242,255,0.15); position: relative; }
-        .modal-btn { background: var(--c-main); color: #000; border: none; padding: 14px; width: 100%; font-family: var(--font-header); font-weight: 700; cursor: pointer; margin-top: 15px; border-radius: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .lang-list { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
-        .lang-opt { background: rgba(255,255,255,0.05); color: #aaa; border: 1px solid #333; padding: 10px 16px; cursor: pointer; font-size: 0.9rem; border-radius: 6px; font-family: var(--font-header); transition: 0.2s; }
-        .lang-opt:hover, .lang-opt.active { border-color: var(--c-main); color: var(--c-main); background: rgba(0, 242, 255, 0.1); }
-        
-        #toast { position: absolute; top: 80px; left: 50%; transform: translateX(-50%); background: var(--c-alert); color: #fff; padding: 10px 20px; border-radius: 30px; font-family: var(--font-header); font-size: 0.8rem; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 200; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        :root { --bg-void:#050a10; --c-main:#00f2ff; --c-dim:#005f66; --c-alert:#ff3366; --font-header:'Roboto Mono',monospace; --font-body:'Lato',sans-serif; }
+        body,html{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background-color:var(--bg-void);font-family:var(--font-body);color:var(--c-main);}
+        #grid{position:absolute;width:200%;height:200%;background-image:linear-gradient(var(--c-dim) 1px,transparent 1px),linear-gradient(90deg,var(--c-dim) 1px,transparent 1px);background-size:40px 40px;opacity:0.1;transform:perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);animation:gridMove 20s linear infinite;pointer-events:none;}
+        @keyframes gridMove{0%{transform:perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px);}100%{transform:perspective(500px) rotateX(60deg) translateY(40px) translateZ(-200px);}}
+        .ui-layer{position:absolute;width:100%;height:100%;z-index:20;display:flex;flex-direction:column;}
+        .header-row{display:flex;justify-content:space-between;padding:15px 20px;background:rgba(5,10,16,0.9);border-bottom:1px solid var(--c-dim);}
+        #logo{font-family:var(--font-header);font-size:1.2rem;font-weight:700;}
+        #lang-btn{background:rgba(0,242,255,0.1);border:1px solid var(--c-dim);color:var(--c-main);padding:5px 10px;border-radius:5px;}
+        #chat-window{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:15px;}
+        .msg{max-width:85%;padding:12px;border-radius:8px;font-size:0.95rem;}
+        .msg.bot{align-self:flex-start;background:rgba(11,20,30,0.9);border-left:3px solid var(--c-main);color:#e0f7fa;}
+        .msg.user{align-self:flex-end;background:rgba(0,242,255,0.05);text-align:right;}
+        .msg.diagnosis{align-self:flex-start;border-left:3px solid var(--c-alert);background:rgba(255,51,102,0.05);}
+        #controls{display:flex;gap:10px;padding:15px;background:var(--bg-panel);border-top:1px solid var(--c-dim);}
+        input{flex:1;background:#050a10;border:1px solid var(--c-dim);color:var(--c-main);padding:12px;border-radius:6px;outline:none;}
+        #send-btn{background:var(--c-dim);color:#fff;border:none;padding:0 20px;border-radius:6px;font-weight:bold;}
     </style>
 </head>
 <body>
     <div id="grid"></div>
-
     <div class="ui-layer">
         <div class="header-row">
             <div id="logo">SYMPTOMA</div>
-            <button id="lang-btn" class="interactive" onclick="openLang()">RU</button>
+            <button id="lang-btn" onclick="alert('Switching Lang...')">RU</button>
         </div>
-        
-        <div id="energy-wrapper" onclick="if(!isPremium && energy<5) document.getElementById('paywall-modal').style.display='flex'">
-            <div id="energy-text">INITIALIZING...</div>
-            <div id="energy-container"><div id="energy-bar" style="width: 0%;"></div></div>
-        </div>
-        
-        <div id="invite-wrapper">
-            <button id="btn-invite" class="interactive" onclick="openInvite()">🧬 INVITE (+ENERGY)</button>
-        </div>
-        
-        <div id="toast">ALERT</div>
-        
         <div id="chat-window"></div>
-
         <div id="controls">
-            <button id="reset-btn" class="interactive" onclick="resetChat()">↺</button>
             <input type="text" id="user-input" placeholder="..." autocomplete="off">
-            <button id="send-btn" class="interactive" onclick="sendMessage()">SEND</button>
-        </div>
-    </div>
-
-    <div id="disclaimer-modal" class="modal-overlay" style="z-index: 999;">
-        <div class="modal-card" style="border-color: var(--c-alert);">
-            <h3 style="color:var(--c-alert); margin-top:0;">⚠️ ВНИМАНИЕ</h3>
-            <p style="font-size:0.9rem; color:#ccc; line-height: 1.5; text-align: left;">
-                Этот ИИ работает в информационных целях.<br><br>
-                <b>Я не врач.</b> Я не назначаю лечение и таблетки. Я помогаю проанализировать симптомы и даю советы по образу жизни.<br><br>
-                В экстренных случаях всегда обращайтесь к специалисту.
-            </p>
-            <button class="modal-btn" onclick="acceptDisclaimer()">ПОНЯТНО</button>
-        </div>
-    </div>
-
-    <div id="lang-modal" class="modal-overlay" onclick="if(event.target===this) this.style.display='none'">
-        <div class="modal-card">
-            <h3 id="lbl-lang" style="margin:0; color:var(--c-main); font-family: var(--font-header);">LANGUAGE</h3>
-            <div class="lang-list">
-                <div class="lang-opt" onclick="setLang('en')">English</div>
-                <div class="lang-opt" onclick="setLang('ru')">Русский</div>
-                <div class="lang-opt" onclick="setLang('ua')">Українська</div>
-                <div class="lang-opt" onclick="setLang('pl')">Polski</div>
-                <div class="lang-opt" onclick="setLang('cz')">Čeština</div>
-            </div>
-        </div>
-    </div>
-
-    <div id="paywall-modal" class="modal-overlay">
-        <div class="modal-card" style="border-color: var(--c-alert); box-shadow: 0 0 30px rgba(255, 51, 102, 0.2);">
-            <h3 id="lbl-low-energy" style="margin-top:0; color:var(--c-alert); font-family: var(--font-header); font-size:1.3rem;">CRITICAL LOW ENERGY</h3>
-            <p id="lbl-pay-desc" style="font-size:0.9rem; color:#ccc; margin: 20px 0; line-height: 1.5;">
-                Resources depleted. Invite 2 subjects to recharge.<br>
-                Or acquire <b>Hawk's Mountain</b> Ecosystem Pass.
-            </p>
-            <button id="btn-pay" class="modal-btn" style="background: var(--c-alert); color:white;" onclick="buyPremium()">GET ETERNAL (69 ⭐️)</button>
-            <button id="btn-later" class="modal-btn" style="background: transparent; color: #777; border: 1px solid #444; margin-top: 10px; font-size: 0.8rem; padding: 10px;" onclick="document.getElementById('paywall-modal').style.display='none'">LATER</button>
+            <button id="send-btn" onclick="sendMessage()">SEND</button>
         </div>
     </div>
 
 <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
-    
-    // NGROK URL
-    const BACKEND_URL = "https://supperless-yoshiko-noneruditely.ngrok-free.dev"; 
-    
-    // FORCE START RUSSIAN
-    let curLang = 'ru'; 
-    
-    let energy = 0; let isPremium = false; let history = []; let isProcessing = false;
-    const API_HEADERS = { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' };
 
-    const DICT = {
-        en: { 
-            welcome: "<b>SYSTEM ONLINE.</b><br>Describe your primary symptom.<br><i>(Ex: 'Sharp headache', 'Nausea')</i>",
-            placeholder: "Enter symptom...", send: "SEND", langTitle: "LANGUAGE", 
-            lowEnergy: "LOW ENERGY", 
-            payDesc: "Resources depleted. Invite 2 friends to recharge (1 use). Or buy Hawk's Mountain Pass.",
-            btnPay: "ETERNAL ACCESS (69 ⭐️)", btnLater: "CLOSE",
-            energyLabel: "ENERGY", infinite: "∞ INFINITE", offline: "OFFLINE",
-            analyzing: "Scanning database...", error: "System Error.", connectErr: "CONNECTION FAILURE",
-            invite: "🧬 INVITE (+ENERGY)"
-        },
-        ru: { 
-            welcome: "<b>СИСТЕМА ГОТОВА.</b><br>Опишите основной симптом.<br><i>(Например: 'Болит висок', 'Тошнота')</i>",
-            placeholder: "Введите симптом...", send: "ОТПРАВИТЬ", langTitle: "ЯЗЫК / LANGUAGE", 
-            lowEnergy: "МАЛО ЭНЕРГИИ", 
-            payDesc: "Ресурсы исчерпаны. Пригласите 2 друзей для зарядки (на 1 раз). Или купите пропуск Hawk's Mountain.",
-            btnPay: "ВЕЧНОСТЬ (69 ⭐️)", btnLater: "ЗАКРЫТЬ",
-            energyLabel: "ЭНЕРГИЯ", infinite: "∞ ВЕЧНОСТЬ", offline: "НЕТ СВЯЗИ",
-            analyzing: "Анализ...", error: "Ошибка системы.", connectErr: "ОШИБКА СОЕДИНЕНИЯ",
-            invite: "🧬 ПРИГЛАСИТЬ (+ЭНЕРГИЯ)"
-        },
-        ua: { 
-            welcome: "<b>СИСТЕМА ГОТОВА.</b><br>Опишіть основний симптом.<br><i>(Наприклад: 'Біль у скроні', 'Нудота')</i>",
-            placeholder: "Введіть симптом...", send: "НАДІСЛАТИ", langTitle: "МОВА / LANGUAGE", 
-            lowEnergy: "МАЛО ЕНЕРГІЇ", 
-            payDesc: "Ресурси вичерпано. Запросіть 2 друзів для зарядки. Або придбайте пропуск Hawk's Mountain.",
-            btnPay: "ВІЧНІСТЬ (69 ⭐️)", btnLater: "ЗАКРИТИ",
-            energyLabel: "ЕНЕРГІЯ", infinite: "∞ ВІЧНІСТЬ", offline: "НЕМАЄ ЗВ'ЯЗКУ",
-            analyzing: "Аналіз...", error: "Помилка системи.", connectErr: "ПОМИЛКА З'ЄДНАННЯ",
-            invite: "🧬 ЗАПРОСИТИ (+ЕНЕРГІЯ)"
-        },
-        pl: { 
-            welcome: "<b>SYSTEM GOTOWY.</b><br>Opisz główny objaw.<br><i>(Np.: 'Ból głowy', 'Mdłości')</i>",
-            placeholder: "Wpisz objaw...", send: "WYŚLIJ", langTitle: "JĘZYK", 
-            lowEnergy: "MAŁO ENERGII", payDesc: "Zasoby wyczerpane. Zaproś 2 znajomych. Lub kup przepustkę Hawk's Mountain.",
-            btnPay: "WIECZNOŚĆ (69 ⭐️)", btnLater: "ZAMKNIJ",
-            energyLabel: "ENERGIA", infinite: "∞ WIECZNOŚĆ", offline: "OFFLINE",
-            analyzing: "Skanowanie...", error: "Błąd systemu.", connectErr: "BŁĄD POŁĄCZENIA",
-            invite: "🧬 ZAPROŚ (+ENERGIA)"
-        },
-        cz: { 
-            welcome: "<b>SYSTÉM PŘIPRAVEN.</b><br>Popište hlavní příznak.<br><i>(Např.: 'Bolest hlavy', 'Nevolnost')</i>",
-            placeholder: "Zadejte příznak...", send: "ODESLAT", langTitle: "JAZYK", 
-            lowEnergy: "MÁLO ENERGIE", payDesc: "Zdroje vyčerpány. Pozvěte 2 přátele. Nebo získejte pas Hawk's Mountain.",
-            btnPay: "VĚČNOST (69 ⭐️)", btnLater: "ZAVŘÍT",
-            energyLabel: "ENERGIE", infinite: "∞ VĚČNOST", offline: "OFFLINE",
-            analyzing: "Analýza...", error: "Chyba systému.", connectErr: "CHYBA PŘIPOJENÍ",
-            invite: "🧬 POZVAT (+ENERGIE)"
-        }
+    // =========================================================
+    // ⚙️ NGROK URL
+    // =========================================================
+    const NGROK_URL = "https://supperless-yoshiko-noneruditely.ngrok-free.dev"; 
+    // =========================================================
+
+    // Headers required for Ngrok free tier
+    const API_HEADERS = { 
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'
     };
 
-    function setLang(lang) {
-        curLang = lang;
-        document.getElementById('lang-modal').style.display = 'none';
-        updateTexts();
-    }
-
-    function openLang() { document.getElementById('lang-modal').style.display = 'flex'; }
-
-    function updateTexts() {
-        const t = DICT[curLang];
-        document.getElementById('lang-btn').innerText = curLang.toUpperCase();
-        document.getElementById('user-input').placeholder = t.placeholder;
-        document.getElementById('send-btn').innerText = t.send;
-        document.getElementById('lbl-lang').innerText = t.langTitle;
-        document.getElementById('lbl-low-energy').innerText = t.lowEnergy;
-        document.getElementById('lbl-pay-desc').innerHTML = t.payDesc;
-        document.getElementById('btn-pay').innerText = t.btnPay;
-        document.getElementById('btn-later').innerText = t.btnLater;
-        document.getElementById('btn-invite').innerText = t.invite;
-        
-        if (history.length === 0 && document.getElementById('chat-window').children.length === 0) {
-            const div = document.createElement('div');
-            div.className = `msg bot`;
-            div.id = 'welcome-msg';
-            div.innerHTML = t.welcome;
-            document.getElementById('chat-window').appendChild(div);
-        }
-        updateEnergyBar();
-    }
-
-    // --- PERSISTENCE & DISCLAIMER ---
-    
-    window.onload = function() {
-        if (!localStorage.getItem('disclaimerAccepted')) {
-            document.getElementById('disclaimer-modal').style.display = 'flex';
-        }
-        loadHistory();
-    };
-
-    function acceptDisclaimer() {
-        localStorage.setItem('disclaimerAccepted', 'true');
-        document.getElementById('disclaimer-modal').style.display = 'none';
-    }
-
-    function saveHistory() {
-        localStorage.setItem('symptoma_history', JSON.stringify(history));
-    }
-
-    function loadHistory() {
-        const saved = localStorage.getItem('symptoma_history');
-        if (saved) {
-            history = JSON.parse(saved);
-            const chat = document.getElementById('chat-window');
-            chat.innerHTML = '';
-            
-            if (history.length > 0) {
-                history.forEach(item => {
-                    const type = item.is_bot ? 'bot' : 'user';
-                    const div = document.createElement('div');
-                    div.className = `msg ${type}`;
-                    div.innerHTML = item.text;
-                    chat.appendChild(div);
-                });
-                chat.scrollTop = chat.scrollHeight;
-            } else {
-                updateTexts(); 
-            }
-        } else {
-            updateTexts();
-        }
-    }
-
-    async function fetchUserState() {
-        const userId = tg.initDataUnsafe?.user?.id || 0;
-        try {
-            const res = await fetch(`${BACKEND_URL}/api/get_user_state?user_id=${userId}`, { headers: API_HEADERS });
-            if (res.ok) {
-                const data = await res.json();
-                energy = data.energy;
-                isPremium = data.is_premium;
-                updateEnergyBar();
-            }
-        } catch (e) { document.getElementById('energy-text').innerText = DICT[curLang].offline; }
-    }
-    fetchUserState(); setInterval(fetchUserState, 10000);
-
-    function updateEnergyBar() {
-        const bar = document.getElementById('energy-bar');
-        const txt = document.getElementById('energy-text');
-        const t = DICT[curLang];
-        if (isPremium) { bar.style.width = '100%'; txt.innerText = t.infinite; }
-        else { bar.style.width = energy + '%'; txt.innerText = t.energyLabel + ": " + energy + "%"; }
-    }
-
-    function openInvite() {
-        const userId = tg.initDataUnsafe?.user?.id;
-        if (!userId) { alert("No User ID"); return; }
-        
-        const botName = "Symptoma_bot"; 
-        const link = `https://t.me/${botName}?start=ref_${userId}`;
-        const text = "🧬 AI Diagnostic System. Check your health status:";
-        
-        const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
-        tg.openTelegramLink(shareUrl);
-    }
+    let history = [];
 
     async function sendMessage() {
-        if (isProcessing) return;
         const input = document.getElementById('user-input');
         const text = input.value.trim();
-        if (!text) return;
+        if(!text) return;
 
-        if (!isPremium && energy < 20) {
-            document.getElementById('paywall-modal').style.display = 'flex';
-            return;
-        }
-
-        appendMessage(text, 'user');
-        
-        history.push({text: text, is_bot: false});
-        saveHistory();
-
+        appendMsg(text, 'user');
         input.value = '';
-        isProcessing = true;
-        document.getElementById('send-btn').style.opacity = 0.5;
+        history.push({text: text, is_bot: false});
 
-        const loadingId = appendMessage(DICT[curLang].analyzing, 'bot');
+        const loadId = appendMsg("JANUS ANALYZING...", 'bot');
 
         try {
-            const userId = tg.initDataUnsafe?.user?.id || 0;
-            const res = await fetch(`${BACKEND_URL}/api/symptoma/chat`, {
+            const userId = tg.initDataUnsafe?.user?.id || 12345;
+            
+            const res = await fetch(`${NGROK_URL}/api/symptoma/chat`, {
                 method: 'POST',
                 headers: API_HEADERS,
-                body: JSON.stringify({ user_id: userId, message: text, history: history.slice(0, -1) }) 
+                body: JSON.stringify({ 
+                    user_id: userId, 
+                    message: text, 
+                    history: history 
+                })
             });
 
-            const loadEl = document.getElementById(loadingId);
+            if(!res.ok) throw new Error("Network Error");
+            
+            const data = await res.json();
+            document.getElementById(loadId).remove();
+            
+            const type = data.type === 'diagnosis' ? 'diagnosis' : 'bot';
+            appendMsg(data.text, type);
+            history.push({text: data.text, is_bot: true});
 
-            if (res.status === 402) {
-                loadEl.innerText = DICT[curLang].lowEnergy;
-                loadEl.classList.add('diagnosis');
-                document.getElementById('paywall-modal').style.display = 'flex';
-                history.pop(); saveHistory();
-            } else {
-                const data = await res.json();
-                loadEl.remove();
-                
-                if (data.error) {
-                    appendMessage(DICT[curLang].error, 'bot');
-                } else {
-                    const type = (data.type === 'diagnosis') ? 'diagnosis' : 'bot';
-                    appendMessage(data.text, type);
-                    
-                    history.push({text: data.text, is_bot: true});
-                    saveHistory();
-                    
-                    fetchUserState();
-                }
-            }
-        } catch (e) {
-            document.getElementById(loadingId).innerText = DICT[curLang].connectErr;
-            document.getElementById(loadingId).classList.add('diagnosis');
-        } finally {
-            isProcessing = false;
-            document.getElementById('send-btn').style.opacity = 1;
-            input.focus();
+        } catch(e) {
+            console.error(e);
+            document.getElementById(loadId).innerText = "JANUS OFFLINE (CHECK NGROK)";
         }
     }
 
-    function appendMessage(text, type) {
+    function appendMsg(text, type) {
         const div = document.createElement('div');
         div.className = `msg ${type}`;
-        div.id = 'msg-' + Date.now();
         div.innerHTML = text;
         const chat = document.getElementById('chat-window');
         chat.appendChild(div);
         chat.scrollTop = chat.scrollHeight;
-        return div.id;
+        return 'msg-' + Date.now();
     }
 
-    function resetChat() {
-        history = [];
-        localStorage.removeItem('symptoma_history'); 
-        document.getElementById('chat-window').innerHTML = '';
-        updateTexts(); 
-    }
-
-    async function buyPremium() {
-        const btn = document.querySelector('#paywall-modal .modal-btn');
-        const oldText = btn.innerText;
-        btn.innerText = "...";
-        try {
-            const res = await fetch(`${BACKEND_URL}/api/get_invoice`, { headers: API_HEADERS });
-            const data = await res.json();
-            if (data.invoice_link) {
-                tg.openInvoice(data.invoice_link, (status) => {
-                    if (status === 'paid') {
-                        isPremium = true; energy = 100; updateEnergyBar();
-                        document.getElementById('paywall-modal').style.display = 'none';
-                    }
-                });
-            }
-        } catch(e) { console.error(e); }
-        finally { btn.innerText = oldText; }
-    }
-
-    document.getElementById('user-input').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-    });
-
-    // INIT
-    updateTexts();
+    appendMsg("SYSTEM ONLINE. DESCRIBE SYMPTOMS.", "bot");
 </script>
 </body>
 </html>
