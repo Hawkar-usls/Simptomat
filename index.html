@@ -13,14 +13,15 @@
         @keyframes gridMove{0%{transform:perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px);}100%{transform:perspective(500px) rotateX(60deg) translateY(40px) translateZ(-200px);}}
         .ui-layer{position:absolute;width:100%;height:100%;z-index:20;display:flex;flex-direction:column;}
         .header-row{display:flex;justify-content:space-between;padding:15px 20px;background:rgba(5,10,16,0.9);border-bottom:1px solid var(--c-dim);}
-        #chat-window{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:15px;}
-        .msg{max-width:85%;padding:12px;border-radius:8px;font-size:0.95rem;word-wrap:break-word;}
+        #chat-window{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:15px;scroll-behavior: smooth;}
+        .msg{max-width:85%;padding:12px;border-radius:8px;font-size:0.95rem;word-wrap:break-word;line-height: 1.4;}
         .msg.bot{align-self:flex-start;background:rgba(11,20,30,0.9);border-left:3px solid var(--c-main);color:#e0f7fa;}
-        .msg.user{align-self:flex-end;background:rgba(0,242,255,0.05);text-align:right;}
+        .msg.user{align-self:flex-end;background:rgba(0,242,255,0.05);text-align:right;border-right: 3px solid var(--c-dim);}
         .msg.diagnosis{align-self:flex-start;border-left:3px solid var(--c-alert);background:rgba(255,51,102,0.05);}
-        #controls{display:flex;gap:10px;padding:15px;background:var(--bg-panel);border-top:1px solid var(--c-dim);}
-        input{flex:1;background:#050a10;border:1px solid var(--c-dim);color:var(--c-main);padding:12px;border-radius:6px;outline:none;}
-        #send-btn{background:var(--c-dim);color:#fff;border:none;padding:0 20px;border-radius:6px;font-weight:bold;}
+        #controls{display:flex;gap:10px;padding:15px;background:var(--bg-void);border-top:1px solid var(--c-dim);padding-bottom: max(15px, env(safe-area-inset-bottom));}
+        input{flex:1;background:#050a10;border:1px solid var(--c-dim);color:var(--c-main);padding:12px;border-radius:6px;outline:none;font-family: var(--font-body);}
+        #send-btn{background:var(--c-dim);color:#fff;border:none;padding:0 20px;border-radius:6px;font-weight:bold;cursor: pointer;}
+        #send-btn:active{transform: scale(0.95);}
     </style>
 </head>
 <body>
@@ -40,7 +41,9 @@
 <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
+    tg.enableClosingConfirmation();
 
+    // !!! ПРОВЕРЬ ССЫЛКУ NGROK !!!
     function getApiUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('apiUrl') || "https://supperless-yoshiko-noneruditely.ngrok-free.dev";
@@ -59,9 +62,11 @@
         const text = input.value.trim();
         if(!text) return;
 
+        // 1. Показываем сообщение пользователя
         appendMsg(text, 'user');
         input.value = '';
 
+        // 2. Показываем "Анализирую..." и запоминаем ID этого сообщения
         const loadId = appendMsg("Анализирую...", 'bot');
 
         try {
@@ -75,28 +80,46 @@
             if(!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
             
-            document.getElementById(loadId).remove();
+            // 3. Удаляем сообщение "Анализирую..." по ID
+            const loader = document.getElementById(loadId);
+            if (loader) loader.remove();
+
+            // 4. Показываем настоящий ответ
             appendMsg(data.text, data.type === 'diagnosis' ? 'diagnosis' : 'bot');
 
         } catch(e) {
-            document.getElementById(loadId).innerText = "Ошибка связи. Проверьте соединение.";
+            console.error(e);
+            const loader = document.getElementById(loadId);
+            if (loader) loader.innerText = "Ошибка связи: " + e.message;
         }
     }
 
     function appendMsg(text, type) {
         const div = document.createElement('div');
+        // Генерируем уникальный ID
+        const id = 'msg-' + Date.now() + Math.random().toString(36).substr(2, 9);
+        
+        div.id = id; // <--- ВОТ ЭТОЙ СТРОКИ НЕ ХВАТАЛО
         div.className = `msg ${type}`;
-        if (type === 'user') div.innerText = text; else div.innerHTML = text;
+        
+        if (type === 'user') div.innerText = text; 
+        else div.innerHTML = text.replace(/\n/g, '<br>'); // Сохраняем переносы строк от бота
+        
         const chat = document.getElementById('chat-window');
         chat.appendChild(div);
-        chat.scrollTop = chat.scrollHeight;
-        return 'msg-' + Date.now();
+        
+        // Прокрутка вниз
+        requestAnimationFrame(() => {
+            chat.scrollTop = chat.scrollHeight;
+        });
+        
+        return id;
     }
 
     document.getElementById('user-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 
-    // START MESSAGE IN RUSSIAN
-    appendMsg("<b>СИСТЕМА ГОТОВА.</b><br>Опишите симптомы. Я задам уточняющие вопросы перед диагнозом.", "bot");
+    // START MESSAGE
+    appendMsg("<b>СИСТЕМА ГОТОВА.</b><br>Я — диагностический модуль. Опишите, что вас беспокоит.", "bot");
 </script>
 </body>
 </html>
