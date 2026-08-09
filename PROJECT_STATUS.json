@@ -4,6 +4,8 @@
   "repository": "https://github.com/Hawkar-usls/Simptomat",
   "portfolio_class": "legacy_health_information_prototype",
   "last_reviewed": "2026-08-09",
+  "maturity": "LEGACY",
+  "completion_status": "ARCHIVAL",
   "summary": "Historical conversational health-information software prototype.",
   "not_established": [
     "clinical validation",
@@ -15,5 +17,6 @@
   "diagnostic_authority": false,
   "treatment_authority": false,
   "emergency_use": false,
-  "flagship_research": false
+  "flagship_research": false,
+  "visibility_policy": "https://github.com/Hawkar-usls/Janus/blob/main/portfolio-visibility.json"
 }
