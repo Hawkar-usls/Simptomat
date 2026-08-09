@@ -1,0 +1,19 @@
+{
+  "schema_id": "hawkar.project-status.v1",
+  "project": "Simptomat",
+  "repository": "https://github.com/Hawkar-usls/Simptomat",
+  "portfolio_class": "legacy_health_information_prototype",
+  "last_reviewed": "2026-08-09",
+  "summary": "Historical conversational health-information software prototype.",
+  "not_established": [
+    "clinical validation",
+    "diagnostic accuracy",
+    "treatment efficacy",
+    "medical-device status",
+    "emergency-triage reliability"
+  ],
+  "diagnostic_authority": false,
+  "treatment_authority": false,
+  "emergency_use": false,
+  "flagship_research": false
+}
