@@ -1,19 +1,22 @@
 <div align="center">
 
 # Simptomat
-### Consent-first adaptive differential-diagnostic reasoning research prototype
+### Consent-first adaptive differential-diagnostic reasoning organ for JANUS
 
 ![Status](https://img.shields.io/badge/status-active_prototype-2ea44f)
 ![Class](https://img.shields.io/badge/class-health_information_research-6e7681)
+![JANUS](https://img.shields.io/badge/JANUS-diagnostic_reasoning_organ-8250df)
 ![Clinical validation](https://img.shields.io/badge/clinical_validation-not_established-d73a49)
 
 </div>
 
 ## Status
 
-**ACTIVE_PROTOTYPE.** Simptomat is being developed as a consent-first research system for adaptive symptom screening, differential-diagnosis reasoning, disease-candidate ranking, uncertainty handling, next-question selection, confirmation-step suggestion, and longitudinal calibration from consented cases.
+**ACTIVE_PROTOTYPE.** Simptomat is a consent-first research system for adaptive symptom screening, differential-diagnosis reasoning, disease-candidate ranking, uncertainty handling, next-question selection, confirmation-step suggestion, and longitudinal calibration from consented cases.
 
 Simptomat **does form diagnostic hypotheses**. What it does not have is independent clinical authority to declare those hypotheses clinically confirmed. It is not a medical device, treatment system, clinician of record, or substitute for emergency/clinical evaluation.
+
+Simptomat is now declared as the `diagnostic_reasoning` domain organ of the **JANUS federated organism** and has a typed, bidirectional integration contract with `Hawkar-usls/Demi_Head`.
 
 ## Abstract
 
@@ -74,6 +77,56 @@ ESCALATE_FOR_REAL_WORLD_EVALUATION
 
 Core contract: [`protocols/SIMPTOMAT_DIAGNOSTIC_REASONING_CORE-v1.0.json`](protocols/SIMPTOMAT_DIAGNOSTIC_REASONING_CORE-v1.0.json).
 
+## JANUS organism integration
+
+Simptomat participates in JANUS as a **health-domain differential-reasoning and calibration organ**, not as a global truth authority.
+
+Membership declaration:
+[`/.janus/JANUS_ORGANISM_LINK.json`](.janus/JANUS_ORGANISM_LINK.json)
+
+DemiHead Nexus peer link:
+[`/.janus/DEMIHEAD_NEXUS_LINK.json`](.janus/DEMIHEAD_NEXUS_LINK.json)
+
+Bridge contract:
+[`integrations/JANUS_DEMIHEAD_DIAGNOSTIC_BRIDGE-v1.0.json`](integrations/JANUS_DEMIHEAD_DIAGNOSTIC_BRIDGE-v1.0.json)
+
+The typed spiral is:
+
+```text
+HUMAN SYMPTOM / QUESTION
+        ↓
+SIMPTOMAT
+  differential update
+  ranked hypotheses
+  contradictions + uncertainty
+        ↓ minimized typed packet
+DEMIHEAD
+  provenance review
+  contradiction review
+  claim-ceiling enforcement
+        ↓ bounded epistemic review
+SIMPTOMAT
+  reintegrate review
+        ↓
+next discriminating question
+        OR
+next external measurement
+        ↓
+new state / next spiral turn
+```
+
+Simptomat can also exchange bounded artifacts with other JANUS organs through the canonical organism topology: `janus-lapis` for competing-hypothesis metabolism, `janus-io-public` for measurement receipts, `janus-meta-registry` for provenance/calibration history, and the `Janus` gateway for typed routing.
+
+```text
+DEMIHEAD_REVIEW != CLINICAL_CONFIRMATION
+ROUTE != AUTHORITY
+ORGAN_MEMBERSHIP != MEDICAL_AUTHORITY
+CONSENT_SCOPE_MUST_SURVIVE_TRANSPORT
+PRIVATE_HEALTH_DATA != PUBLIC_HABITAT_PAYLOAD
+```
+
+Raw transcripts and direct identifiers are denied by default on the Simptomat→DemiHead route. The normal inter-organ packet is a minimized reasoning summary, not the participant's raw conversation.
+
 ## Implemented scope
 
 - adaptive one-question-at-a-time conversational screening;
@@ -87,6 +140,8 @@ Core contract: [`protocols/SIMPTOMAT_DIAGNOSTIC_REASONING_CORE-v1.0.json`](proto
 - calibration-development ledger;
 - claim-ceiling and anti-self-deception rules;
 - JANUS Git Habitat integration;
+- JANUS organism member declaration;
+- typed bidirectional DemiHead Nexus integration contract;
 - first founder pilot: 33-question symptomatic prion-pattern screening;
 - privacy-hardened public web client.
 
@@ -140,7 +195,7 @@ See [`calibration/CALIBRATION_STATE.json`](calibration/CALIBRATION_STATE.json).
 
 ## Consent and privacy
 
-Conversation consent and public-case consent are separate gates. No participant record is persisted in the public archive without explicit consent for that record.
+Conversation consent, inter-organ processing, and public-case consent are distinct scopes. Public persistence requires explicit consent for that record; transport does not silently expand consent.
 
 Public cases are minimized and pseudonymized. By default Simptomat does not publish names, exact birth dates, addresses, contact/account identifiers, relative identities, raw transcripts, medical-record identifiers, images, voice, or genetic data.
 
@@ -158,6 +213,7 @@ Core laws:
 
 ```text
 DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS
+DEMIHEAD_REVIEW != CLINICAL_CONFIRMATION
 RANKING != CERTAINTY
 MODEL_SCORE != CLINICAL_PROBABILITY_UNLESS_CALIBRATED
 UNCERTAIN != NO
@@ -175,11 +231,9 @@ Negative, null, ambiguous, contradictory, and boring/common explanations are fir
 ## Habitat
 
 Repository constellation link:
-
 [`/.janus/HABITAT_LINK.json`](.janus/HABITAT_LINK.json)
 
 Simptomat role/contract:
-
 [`habitat/SIMPTOMAT_HABITAT-v1.0.json`](habitat/SIMPTOMAT_HABITAT-v1.0.json)
 
 Habitat provides repository-scale provenance and handoff only.
@@ -193,15 +247,20 @@ WRITE_BACK_DEFAULT = DENY
 
 ```text
 Simptomat/
-├── .janus/HABITAT_LINK.json
+├── .janus/
+│   ├── HABITAT_LINK.json
+│   ├── JANUS_ORGANISM_LINK.json
+│   └── DEMIHEAD_NEXUS_LINK.json
 ├── cases/
 │   └── consented/                  # explicit-consent pseudonymized records
 ├── calibration/
-│   └── CALIBRATION_STATE.json      # what may/may not currently be claimed
+│   └── CALIBRATION_STATE.json
 ├── docs/
 │   └── CONSENT_AND_DATA_GOVERNANCE.md
 ├── habitat/
 │   └── SIMPTOMAT_HABITAT-v1.0.json
+├── integrations/
+│   └── JANUS_DEMIHEAD_DIAGNOSTIC_BRIDGE-v1.0.json
 ├── protocols/
 │   ├── SIMPTOMAT_DIAGNOSTIC_REASONING_CORE-v1.0.json
 │   └── PRION_SYMPTOMATIC_PATTERN_SCREEN-v1.0.json
@@ -216,9 +275,10 @@ Simptomat/
 
 1. Read [`PROJECT_STATUS.json`](PROJECT_STATUS.json).
 2. Read the diagnostic-reasoning core contract.
-3. Inspect [`docs/CONSENT_AND_DATA_GOVERNANCE.md`](docs/CONSENT_AND_DATA_GOVERNANCE.md).
-4. Inspect the case schema and founding pilot.
-5. Check [`calibration/CALIBRATION_STATE.json`](calibration/CALIBRATION_STATE.json) before interpreting any performance claim.
+3. Read the JANUS/DemiHead bridge contract.
+4. Inspect [`docs/CONSENT_AND_DATA_GOVERNANCE.md`](docs/CONSENT_AND_DATA_GOVERNANCE.md).
+5. Inspect the case schema and founding pilot.
+6. Check [`calibration/CALIBRATION_STATE.json`](calibration/CALIBRATION_STATE.json) before interpreting any performance claim.
 
 ## Current non-claims
 
@@ -231,9 +291,10 @@ CLINICAL_DIAGNOSTIC_AUTHORITY = FALSE
 TREATMENT_AUTHORITY = FALSE
 EMERGENCY_TRIAGE_SUBSTITUTE = FALSE
 MEDICAL_DEVICE_STATUS = NOT_CLAIMED
+PRODUCTION_CROSS_REPO_RUNTIME = NOT_ESTABLISHED
 ```
 
-These boundaries do **not** prohibit Simptomat from performing diagnostic reasoning or ranking disease hypotheses; they prevent an internally generated hypothesis from being misrepresented as externally confirmed medical fact.
+These boundaries do **not** prohibit Simptomat from performing diagnostic reasoning or ranking disease hypotheses; they prevent an internally generated hypothesis or a DemiHead review from being misrepresented as externally confirmed medical fact.
 
 ## Presentation
 
