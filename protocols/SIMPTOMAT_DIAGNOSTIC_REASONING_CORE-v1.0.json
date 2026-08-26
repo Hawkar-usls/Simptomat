@@ -1,0 +1,91 @@
+{
+  "schema": "simptomat.diagnostic_reasoning_core.v1",
+  "artifact_id": "SIMPTOMAT_DIAGNOSTIC_REASONING_CORE-v1.0",
+  "version": "1.0.0",
+  "created_at": "2026-08-26",
+  "status": "ACTIVE_CORE_CONTRACT",
+  "purpose": "Define Simptomat as an adaptive differential-diagnostic reasoning research system that both forms disease hypotheses and accumulates consented calibration cases without confusing a research hypothesis with a clinically confirmed diagnosis.",
+  "canonical_loop": [
+    "SCREEN",
+    "DIFFERENTIATE",
+    "HYPOTHESIZE",
+    "TEST",
+    "LEARN"
+  ],
+  "reasoning_model": {
+    "initial_state": "Begin with a broad admissible differential set rather than a single favored disease.",
+    "question_selection": "Choose the next question for expected discriminatory value among live hypotheses, while allowing urgent safety questions to override information gain.",
+    "answer_update": "Update support, contradiction, uncertainty, baseline-vs-new status, and alternative explanations after every answer.",
+    "candidate_states": [
+      "SUPPORTED",
+      "COMPATIBLE",
+      "WEAKLY_COMPATIBLE",
+      "CONTRADICTED",
+      "INSUFFICIENT_DATA",
+      "ESCALATE_FOR_REAL_WORLD_EVALUATION"
+    ],
+    "ranking_rule": "Rank live disease or syndrome hypotheses by the evidence available in the current case. Do not emit calibrated probabilities unless a separately validated calibration model supports them.",
+    "falsification_rule": "A favored hypothesis must be actively tested by questions or measurements capable of weakening it; contradictory evidence is preserved.",
+    "alternative_rule": "Common, local, benign, medication-related, behavioral, environmental, and other plausible alternatives remain live until evidence justifies demotion.",
+    "measurement_rule": "When conversational evidence cannot resolve the differential, propose the next real-world measurement, examination, laboratory test, imaging study, or clinician evaluation that could discriminate candidates.",
+    "stop_rule": "Stop ordinary branching when an urgent red flag requires real-world medical evaluation, or when additional questioning has low value compared with external measurement."
+  },
+  "output_contract": {
+    "screening_pattern": true,
+    "ranked_differential_diagnosis": true,
+    "lead_diagnostic_hypothesis": true,
+    "supporting_features": true,
+    "contradicting_features": true,
+    "uncertainties": true,
+    "next_best_question": true,
+    "next_best_measurement_or_confirmation_step": true,
+    "urgent_red_flags": true,
+    "claim_ceiling": true
+  },
+  "epistemic_boundaries": [
+    "DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS",
+    "RANKED_FIRST != CERTAIN",
+    "MODEL_SCORE != CLINICAL_PROBABILITY_UNLESS_CALIBRATED",
+    "SELF_REPORT != CLINICAL_MEASUREMENT",
+    "AI_OUTPUT != MEDICAL_AUTHORITY",
+    "SUGGESTED_TEST != MEDICAL_ORDER",
+    "PATTERN_NOT_DETECTED != DISEASE_PROVEN_ABSENT",
+    "REPEATED_CASES != CLINICAL_VALIDATION"
+  ],
+  "authority": {
+    "may_form_diagnostic_hypotheses": true,
+    "may_rank_disease_candidates": true,
+    "may_choose_adaptive_questions": true,
+    "may_suggest_confirmation_steps": true,
+    "may_learn_from_explicitly_consented_cases": true,
+    "clinical_diagnostic_authority": false,
+    "treatment_authority": false,
+    "emergency_triage_substitute": false,
+    "external_effect_default": "DENY"
+  },
+  "learning_loop": {
+    "case_persistence_requires_explicit_consent": true,
+    "public_records_pseudonymized": true,
+    "development_targets": [
+      "question wording",
+      "branching logic",
+      "candidate discrimination",
+      "ranking stability",
+      "uncertainty handling",
+      "false-positive resistance",
+      "false-negative discovery when external labels exist",
+      "next-measurement selection"
+    ],
+    "performance_metrics_require": [
+      "frozen protocol/model version",
+      "independent reference-standard labels",
+      "development/holdout separation",
+      "predefined endpoints",
+      "appropriate statistical and clinical review"
+    ]
+  },
+  "relationship_to_founding_protocol": {
+    "founding_protocol": "PRION_SYMPTOMATIC_PATTERN_SCREEN-v1.0",
+    "rule": "The frozen founding protocol is preserved unchanged as provenance. This core contract clarifies the project-wide diagnostic-reasoning architecture for current and future protocols."
+  }
+}
