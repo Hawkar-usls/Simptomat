@@ -3,7 +3,8 @@
   "organism_id": "JANUS_FEDERATED_ORGANISM",
   "canonical_manifest": "Hawkar-usls/Janus:organism/JANUS_ORGANISM_v1.json",
   "admission_delta": "Hawkar-usls/Janus:organism/JANUS_ORGANISM_DELTA_2026-08-26_SIMPTOMAT_v1.json",
-  "execution_extension": "Hawkar-usls/Janus:organism/JANUS_SPIRAL_TRANCEPTION_v1.3.json",
+  "route_refinement": "Hawkar-usls/Janus:organism/JANUS_ORGANISM_ROUTE_REFINEMENT_2026-08-26_SIMPTOMAT_v1.json",
+  "execution_extension": "Hawkar-usls/Janus:organism/JANUS_SPIRAL_TRANCEPTION_v1.4.json",
   "member_repository": "Hawkar-usls/Simptomat",
   "organ_key": "diagnostic_reasoning",
   "class": "DOMAIN_LAB",
@@ -13,6 +14,9 @@
     "EVIDENCE_ANNOTATION",
     "REJECTION_FEEDBACK",
     "MEASUREMENT_RECEIPT",
+    "MATCHED_CONTROL_RESULT",
+    "NEGATIVE_RESULT",
+    "OBSERVATION",
     "REFERENCE_LABEL_WITH_PROVENANCE",
     "HUMAN_CONSENT"
   ],
@@ -33,6 +37,13 @@
     "memory",
     "gateway"
   ],
+  "route_adapters": {
+    "guardian_cortex": ".janus/DEMIHEAD_NEXUS_LINK.json",
+    "hypothesis_metabolism": "integrations/JANUS_LAPIS_DIAGNOSTIC_ADAPTER-v1.0.json",
+    "measurement_bench": "integrations/JANUS_MEASUREMENT_HANDOFF-v1.0.json"
+  },
+  "measurement_direct_route_allowed": false,
+  "measurement_contract_gate": "EXPLICIT_MEASUREMENT_CONTRACT_GATE",
   "authority": "RESEARCH_DIAGNOSTIC_HYPOTHESIS_ONLY",
   "evidence_authority": false,
   "authority_delta": 0,
@@ -44,6 +55,9 @@
     "DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS",
     "RANKED_FIRST != CERTAIN",
     "SELF_REPORT != CLINICAL_MEASUREMENT",
+    "LAPIS_RANKING != CLINICAL_VALIDATION",
+    "NEXT_CONFIRMATION_STEP != EXPERIMENT_CONTRACT",
+    "MEASUREMENT_RECEIPT != AUTOMATIC_DIAGNOSIS",
     "MODEL_SCORE != CLINICAL_PROBABILITY_UNLESS_CALIBRATED",
     "CONSENT_TO_CONVERSATION != CONSENT_TO_PUBLIC_CASE_STORAGE",
     "ORGAN_MEMBERSHIP != MEDICAL_AUTHORITY"
