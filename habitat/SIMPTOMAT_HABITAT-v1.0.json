@@ -1,0 +1,69 @@
+{
+  "schema": "janus.simptomat.habitat.v1",
+  "artifact_id": "SIMPTOMAT_HABITAT-v1.0",
+  "repository": "Hawkar-usls/Simptomat",
+  "role": "CONSENT_FIRST_CONVERSATIONAL_SYMPTOM_PATTERN_RESEARCH_PROTOTYPE",
+  "maturity": "ACTIVE_PROTOTYPE",
+  "habitat_link": "../.janus/HABITAT_LINK.json",
+  "parent_constellation": "Hawkar-usls/Janus_Genesis@janus/habitat",
+  "state_ownership": {
+    "owns": [
+      "screening protocol definitions",
+      "pseudonymized consented case records",
+      "calibration-development state",
+      "screening-specific safety and privacy gates"
+    ],
+    "does_not_own": [
+      "clinical diagnoses",
+      "participant identity",
+      "medical records",
+      "treatment authority",
+      "emergency-service authority",
+      "JANUS global truth authority"
+    ]
+  },
+  "accepted_artifacts": [
+    "explicit participant consent",
+    "self-reported symptom answers",
+    "clinician/reference labels only when separately consented and provenance-bound",
+    "screening protocol versions",
+    "external medical references"
+  ],
+  "emitted_artifacts": [
+    "SCREENING_PATTERN_TERMINAL",
+    "UNCERTAINTY_LEDGER",
+    "ESCALATION_RECOMMENDATION",
+    "PSEUDONYMIZED_CASE_RECORD",
+    "CALIBRATION_DEVELOPMENT_RECEIPT"
+  ],
+  "authority_ceiling": {
+    "diagnostic_authority": false,
+    "treatment_authority": false,
+    "emergency_triage_substitute": false,
+    "contact_or_monitor_participant": false,
+    "external_effect_default": "DENY"
+  },
+  "routing_rules": [
+    "SCREENING_PATTERN != DIAGNOSIS",
+    "CONSENT_REQUIRED_BEFORE_PERSISTENCE",
+    "IDENTITY_DATA_DEFAULT_DENY",
+    "UNCERTAIN_MUST_REMAIN_UNCERTAIN",
+    "URGENT_SAFETY_SIGNAL_OVERRIDES_RESEARCH_FLOW",
+    "CLINICAL_REFERENCE_LABEL_REQUIRES_SEPARATE_PROVENANCE",
+    "HABITAT_LINK != COMMAND_AUTHORITY"
+  ],
+  "registry_bridge": {
+    "target": "Hawkar-usls/janus-meta-registry",
+    "purpose": "provenance, calibration history, negative/uncertain result preservation",
+    "rule": "REGISTRY_PRESENCE != MEDICAL_TRUTH"
+  },
+  "failure_terminals": [
+    "CONSENT_MISSING",
+    "DATA_MINIMIZATION_FAILED",
+    "EVIDENCE_INSUFFICIENT",
+    "SCREENING_INCONCLUSIVE",
+    "URGENT_MEDICAL_ESCALATION",
+    "REFERENCE_LABEL_MISSING",
+    "CALIBRATION_METRICS_BLOCKED"
+  ]
+}

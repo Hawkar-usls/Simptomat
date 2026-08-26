@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Hawkar-usls/Simptomat/blob/main/schemas/simptomat-screening-case.v1.schema.json",
+  "title": "Simptomat Consented Screening Case v1",
+  "type": "object",
+  "required": ["schema","case_id","record_version","participant","consent","privacy","epistemic_contract","screening_questions","result","calibration_use","provenance"],
+  "properties": {
+    "schema": {"const":"simptomat.screening_case.v1"},
+    "case_id": {"type":"string","pattern":"^SIM-P[0-9]{4}-[0-9]{4}-[0-9]{2}-[0-9]{2}-[A-Z0-9_-]+$"},
+    "record_version": {"type":"string"},
+    "created_at_local": {"type":"string"},
+    "timezone": {"type":"string"},
+    "project": {"const":"Simptomat"},
+    "screening_mode": {"type":"string"},
+    "target_question": {"type":"string"},
+    "participant": {
+      "type":"object",
+      "required":["public_subject_id","identifying_fields_stored","record_basis"],
+      "properties": {
+        "public_subject_id":{"type":"string","pattern":"^SIM-P[0-9]{4}$"},
+        "identifying_fields_stored":{"const":false},
+        "age_band_at_screening":{"type":"string"},
+        "record_basis":{"enum":["SELF_REPORT","CLINICIAN_REPORTED_WITH_CONSENT","MIXED"]},
+        "founder_pilot":{"type":"boolean"}
+      },
+      "additionalProperties": true
+    },
+    "consent": {
+      "type":"object",
+      "required":["status","scope","not_inferred_for_future_cases","future_case_rule"],
+      "properties": {
+        "status":{"enum":["EXPLICIT_FOR_THIS_RECORD","WITHDRAWN","REVOKED_FOR_FUTURE_USE"]},
+        "scope":{"type":"array","items":{"type":"string"},"minItems":1},
+        "not_inferred_for_future_cases":{"const":true},
+        "future_case_rule":{"const":"NO_CASE_STORAGE_WITHOUT_EXPLICIT_PARTICIPANT_CONSENT"},
+        "public_git_warning":{"type":"string"}
+      },
+      "additionalProperties": true
+    },
+    "privacy": {
+      "type":"object",
+      "required":["policy","raw_chat_transcript_published","direct_name","exact_birth_date","exact_address","contact_information"],
+      "properties": {
+        "policy":{"const":"DATA_MINIMIZATION"},
+        "raw_chat_transcript_published":{"const":false},
+        "direct_name":{"const":"NOT_STORED"},
+        "exact_birth_date":{"const":"NOT_STORED"},
+        "exact_address":{"const":"NOT_STORED"},
+        "contact_information":{"const":"NOT_STORED"}
+      },
+      "additionalProperties": true
+    },
+    "epistemic_contract": {
+      "type":"object",
+      "required":["laws","claim_ceiling"],
+      "properties": {
+        "constitution":{"type":"string"},
+        "laws":{"type":"array","items":{"type":"string"},"minItems":1},
+        "claim_ceiling":{"const":"SELF_REPORTED_RESEARCH_SCREENING_ONLY"}
+      },
+      "additionalProperties": true
+    },
+    "screening_questions": {
+      "type":"array",
+      "minItems":1,
+      "items": {
+        "type":"object",
+        "required":["id","domain","answer"],
+        "properties": {
+          "id":{"type":"integer","minimum":1},
+          "domain":{"type":"string"},
+          "answer":{"type":"string"},
+          "note":{"type":"string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "derived_features":{"type":"object"},
+    "result": {
+      "type":"object",
+      "required":["screening_terminal","confidence_class","what_this_does_not_support"],
+      "properties": {
+        "screening_terminal":{"type":"string"},
+        "confidence_class":{"enum":["QUALITATIVE_ONLY","RESEARCH_SCORE_ONLY","EXTERNALLY_VALIDATED"]},
+        "what_this_supports":{"type":"string"},
+        "what_this_does_not_support":{"type":"array","items":{"type":"string"},"minItems":1},
+        "escalation_gate":{"type":"object"}
+      },
+      "additionalProperties": true
+    },
+    "calibration_use": {
+      "type":"object",
+      "required":["development_role","label_source","gold_standard_diagnosis_available","allowed_use","forbidden_use"],
+      "properties": {
+        "development_role":{"type":"string"},
+        "label_source":{"type":"string"},
+        "gold_standard_diagnosis_available":{"type":"boolean"},
+        "allowed_use":{"type":"array","items":{"type":"string"}},
+        "forbidden_use":{"type":"array","items":{"type":"string"}},
+        "future_calibration_requirement":{"type":"string"}
+      },
+      "additionalProperties": true
+    },
+    "references":{"type":"array","items":{"type":"object"}},
+    "provenance":{"type":"object"}
+  },
+  "additionalProperties": true,
+  "x-simptomat-boundary": {
+    "diagnostic_authority": false,
+    "treatment_authority": false,
+    "emergency_triage_substitute": false,
+    "clinical_validation": "NOT_ESTABLISHED",
+    "rule": "SCHEMA_VALID != CLINICALLY_VALID"
+  }
+}

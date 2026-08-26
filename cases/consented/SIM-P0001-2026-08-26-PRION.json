@@ -1,0 +1,159 @@
+{
+  "schema": "simptomat.screening_case.v1",
+  "case_id": "SIM-P0001-2026-08-26-PRION",
+  "record_version": "1.0.0",
+  "created_at_local": "2026-08-26T15:39:00+03:00",
+  "timezone": "Europe/Zaporozhye",
+  "project": "Simptomat",
+  "screening_mode": "adaptive_conversational_akinator_style",
+  "target_question": "Does the self-reported pattern resemble a symptomatic human prion-disease syndrome requiring escalation?",
+  "participant": {
+    "public_subject_id": "SIM-P0001",
+    "identifying_fields_stored": false,
+    "age_band_at_screening": "30-39",
+    "record_basis": "SELF_REPORT",
+    "founder_pilot": true
+  },
+  "consent": {
+    "status": "EXPLICIT_FOR_THIS_RECORD",
+    "scope": [
+      "use this screening as the first Simptomat calibration case",
+      "store a pseudonymized machine-readable record in the public Simptomat repository",
+      "duplicate a research-state mirror in the JANUS meta-registry"
+    ],
+    "not_inferred_for_future_cases": true,
+    "future_case_rule": "NO_CASE_STORAGE_WITHOUT_EXPLICIT_PARTICIPANT_CONSENT",
+    "public_git_warning": "Public Git history can be copied or retained. Withdrawal can stop future use and remove current-branch content, but cannot guarantee erasure from every clone, cache, or historical object."
+  },
+  "privacy": {
+    "policy": "DATA_MINIMIZATION",
+    "raw_chat_transcript_published": false,
+    "direct_name": "NOT_STORED",
+    "exact_birth_date": "NOT_STORED",
+    "exact_address": "NOT_STORED",
+    "contact_information": "NOT_STORED",
+    "family_identifiers": "NOT_STORED",
+    "health_details": "ONLY_NORMALIZED_FIELDS_NEEDED_FOR_THIS_SCREENING"
+  },
+  "epistemic_contract": {
+    "constitution": "Hawkar-usls/janus-meta-registry/registry/epistemic/JANUS-GLOBAL-EPISTEMIC-SELF-DECEPTION-TRUTH-CONSTITUTION-v1.0.json",
+    "laws": [
+      "SELF_REPORT != CLINICAL_MEASUREMENT",
+      "SCREENING_PATTERN != DIAGNOSIS",
+      "PATTERN_NOT_DETECTED != DISEASE_PROVEN_ABSENT",
+      "AI_OUTPUT != MEDICAL_AUTHORITY",
+      "ONE_CASE != CALIBRATION",
+      "REPEATED_CASES != CLINICAL_VALIDATION",
+      "CORRELATION != CAUSATION",
+      "PUBLIC_DATASET != CONSENT_FOR_NEW_USE",
+      "UNCERTAIN_ANSWER != NEGATIVE_ANSWER",
+      "OLD_STABLE_TRAIT != NEW_PROGRESSIVE_SYMPTOM"
+    ],
+    "claim_ceiling": "SELF_REPORTED_RESEARCH_SCREENING_ONLY"
+  },
+  "screening_questions": [
+    {"id":1,"domain":"global_progression","answer":"UNCERTAIN","note":"No positive progression signal established."},
+    {"id":2,"domain":"observer_noted_decline","answer":"UNCERTAIN","note":"Held unresolved; not converted to yes/no."},
+    {"id":3,"domain":"balance_coordination","answer":"NO","note":"No new balance/coordination decline reported; coin-catching anecdote is not a validated neurological test."},
+    {"id":4,"domain":"myoclonus","answer":"NO","note":"Only goosebumps/piloerection reported; not classified as myoclonus."},
+    {"id":5,"domain":"new_visual_syndrome","answer":"NO","note":"No new visual syndrome reported."},
+    {"id":6,"domain":"speech_language_decline","answer":"UNCERTAIN","note":"No forced classification."},
+    {"id":7,"domain":"familiar_complex_task_loss","answer":"NO","note":"No functional decline reported."},
+    {"id":8,"domain":"persistent_unexplained_sensory_change","answer":"NO_WITH_CONTEXT","note":"An isolated unilateral thigh numbness episode was reported; retained as a separate peripheral-nerve hypothesis rather than a prion-positive signal."},
+    {"id":9,"domain":"motor_weakness_with_thigh_numbness","answer":"NO","note":"No motor weakness reported."},
+    {"id":10,"domain":"episodic_forgetting","answer":"YES_NON_SPECIFIC","note":"At least one episodic forgetting phenomenon endorsed; exact subtype not specified."},
+    {"id":11,"domain":"progressive_memory_trend","answer":"NO","note":"No clear increase in frequency or severity over 3-6 months."},
+    {"id":12,"domain":"known_familial_prion_history","answer":"NO","note":"No known CJD/FFI/GSS/pathogenic-PRNP family history reported."},
+    {"id":13,"domain":"classic_iatrogenic_prion_exposure","answer":"NO","note":"No neurosurgery/spinal surgery, corneal transplant, dura mater graft, or human pituitary-derived growth hormone reported."},
+    {"id":14,"domain":"progressive_insomnia_autonomic_pattern","answer":"UNCERTAIN","note":"Longstanding irregular sleep schedule makes this item uninterpretable."},
+    {"id":15,"domain":"personality_behavior_change","answer":"YES","note":"Change endorsed."},
+    {"id":16,"domain":"progressive_behavioral_impairment","answer":"NO","note":"Change described as non-deteriorating and subjectively constructive, with preserved adult control."},
+    {"id":17,"domain":"progressive_motor_syndrome","answer":"NO","note":"No new rigidity, tremor, bradykinesia, dystonia/spasm, or involuntary movement syndrome reported."},
+    {"id":18,"domain":"true_disorientation","answer":"NO","note":"Ordinary intention-forgetting reported without recurrent disorientation pattern."},
+    {"id":19,"domain":"dysarthria","answer":"NO","note":"No new motor-speech decline reported."},
+    {"id":20,"domain":"loss_of_independence","answer":"NO","note":"No loss of ability in everyday complex tasks reported."},
+    {"id":21,"domain":"uk_france_bse_era_residence","answer":"NO","note":"No personal residence/long stay during the main BSE exposure era reported."},
+    {"id":22,"domain":"western_europe_prolonged_stay_birth_to_1999","answer":"NO","note":"No prolonged personal stay reported."},
+    {"id":23,"domain":"blood_component_transfusion","answer":"YES_CONTEXT","note":"Plasma transfusion in childhood reported; stored as exposure history, not evidence of prion infection."},
+    {"id":24,"domain":"psychiatric_then_neurologic_progression","answer":"NO","note":"No psychiatric-to-neurological progression sequence reported."},
+    {"id":25,"domain":"acute_confusional_episodes","answer":"NO","note":"No sudden confusion with simple-task impairment or post-event amnesia reported."},
+    {"id":26,"domain":"fine_motor_decline","answer":"NO","note":"No handwriting/fine-motor deterioration reported."},
+    {"id":27,"domain":"new_progressive_autonomic_syndrome","answer":"UNCERTAIN","note":"Intermittent skipped-beat sensation mentioned; insufficient to classify as a new autonomic syndrome."},
+    {"id":28,"domain":"palpitation_red_flags","answer":"NO","note":"Sensation reported since childhood, stable, and without syncope, severe dizziness, chest pain/pressure, or marked dyspnea."},
+    {"id":29,"domain":"cognitive_slowing","answer":"NO","note":"No decline reported; participant reports subjective improvement in associative reasoning."},
+    {"id":30,"domain":"new_reduced_need_for_sleep","answer":"YES_BUT_LONGSTANDING","note":"Short/irregular sleep without fatigue described as longstanding rather than a new state."},
+    {"id":31,"domain":"new_impulsive_risky_behavior","answer":"NO","note":"No new impulsive/risk-taking syndrome reported."},
+    {"id":32,"domain":"failure_to_reject_false_patterns","answer":"NO","note":"Participant reports deliberate verification, counterexample checking, and willingness to revise conclusions."},
+    {"id":33,"domain":"new_pressured_or_incomprehensible_speech","answer":"NO_BASELINE_TRAIT","note":"Fast/loud speech and associative topic transitions described as longstanding baseline traits, not new progression."}
+  ],
+  "derived_features": {
+    "progressive_cognitive_decline": "NOT_DETECTED_BY_SELF_REPORT",
+    "ataxia_or_coordination_decline": "NOT_REPORTED",
+    "myoclonus": "NOT_REPORTED",
+    "new_visual_syndrome": "NOT_REPORTED",
+    "progressive_motor_syndrome": "NOT_REPORTED",
+    "dysarthria": "NOT_REPORTED",
+    "disorientation": "NOT_REPORTED",
+    "loss_of_independence": "NOT_REPORTED",
+    "progressive_memory_decline": "NOT_REPORTED",
+    "new_psychiatric_to_neurologic_progression": "NOT_REPORTED",
+    "classic_iatrogenic_prion_exposure": "NOT_REPORTED",
+    "known_familial_prion_history": "NOT_REPORTED",
+    "ambiguous_or_non_specific_items": [
+      "episodic non-progressive forgetting",
+      "personality/behavior change without functional deterioration",
+      "longstanding irregular/reduced sleep pattern",
+      "longstanding stable palpitation sensation",
+      "isolated thigh sensory symptom without weakness"
+    ]
+  },
+  "result": {
+    "screening_terminal": "SYMPTOMATIC_PRION_PATTERN_NOT_DETECTED",
+    "confidence_class": "QUALITATIVE_ONLY",
+    "what_this_supports": "The self-reported answers did not assemble the typical rapidly progressive symptomatic syndrome that would ordinarily raise concern for CJD/vCJD.",
+    "what_this_does_not_support": [
+      "It does not prove absence of prions.",
+      "It does not exclude presymptomatic/incubating prion disease.",
+      "It does not diagnose another condition.",
+      "It does not replace neurological examination, MRI, EEG, CSF testing, genetics, or clinician judgment.",
+      "It does not establish sensitivity, specificity, predictive value, calibration, or clinical utility for Simptomat."
+    ],
+    "escalation_gate": {
+      "trigger": "New rapidly progressive decline over weeks to months, especially cognition plus coordination/myoclonus/vision/speech/movement loss, or other acute neurological red flags.",
+      "action": "SEEK_CLINICIAN_OR_NEUROLOGY_EVALUATION",
+      "possible_clinical_tools_when_indicated": ["neurological examination","MRI with DWI/FLAIR","EEG","CSF RT-QuIC and other clinician-selected tests"]
+    }
+  },
+  "calibration_use": {
+    "development_role": "FOUNDING_PILOT_CASE",
+    "label_source": "SELF_REPORT_ONLY",
+    "gold_standard_diagnosis_available": false,
+    "allowed_use": [
+      "question wording refinement",
+      "branching logic refinement",
+      "uncertainty-handling tests",
+      "false-positive resistance tests",
+      "data-governance tests"
+    ],
+    "forbidden_use": [
+      "estimating diagnostic accuracy",
+      "claiming a true-negative prion case",
+      "training a model to output clinical diagnoses without external labels",
+      "treating repeated self-reports as physician-confirmed outcomes"
+    ],
+    "future_calibration_requirement": "Diagnostic-performance calibration requires consented cases with independently established clinical reference labels and an appropriate study design; repeated self-report cases alone are insufficient."
+  },
+  "references": [
+    {"authority":"CDC","topic":"Creutzfeldt-Jakob disease clinical overview","url":"https://www.cdc.gov/creutzfeldt-jakob/hcp/clinical-overview/index.html"},
+    {"authority":"CDC","topic":"Variant CJD overview","url":"https://www.cdc.gov/variant-creutzfeldt-jakob/about/index.html"},
+    {"authority":"NPDPSC / Case Western Reserve University","topic":"Human prion disease surveillance and testing","url":"https://case.edu/medicine/pathology/research/national-prion-disease-pathology-surveillance-center"}
+  ],
+  "provenance": {
+    "source": "interactive conversation on 2026-08-26",
+    "questions_total": 33,
+    "normalization_rule": "Free-text answers were converted conservatively; uncertainty remained uncertainty and longstanding baseline traits were not promoted to new progressive symptoms.",
+    "raw_transcript_hash": "NOT_COMPUTED_OR_PUBLISHED",
+    "clinical_record_linked": false,
+    "external_reference_label_linked": false
+  }
+}
