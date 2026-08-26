@@ -1,0 +1,52 @@
+{
+  "schema": "simptomat.janus_lapis_diagnostic_adapter.v1",
+  "artifact_id": "JANUS_LAPIS_DIAGNOSTIC_ADAPTER-v1.0",
+  "version": "1.0.0",
+  "status": "ACTIVE_TYPED_ADAPTER_CONTRACT",
+  "source_organ": "diagnostic_reasoning",
+  "source_repository": "Hawkar-usls/Simptomat",
+  "target_organ": "hypothesis_metabolism",
+  "target_repository": "Hawkar-usls/janus-lapis",
+  "target_member_contract": "Hawkar-usls/janus-lapis:.janus/JANUS_ORGANISM_LINK.json",
+  "purpose": "Translate a minimized Simptomat differential state into the generic candidate/evidence/rejection payloads that janus-lapis already accepts, without sending participant identity or promoting exploratory ranking into medical validation.",
+  "input": "janus.simptomat.diagnostic_reasoning_packet.v1",
+  "outputs": [
+    "CANDIDATE_SET",
+    "EVIDENCE_ANNOTATION",
+    "REJECTION_FEEDBACK"
+  ],
+  "mapping": {
+    "ranked_differential[].candidate": "CANDIDATE_SET.candidate_id",
+    "ranked_differential[].state": "EVIDENCE_ANNOTATION.current_support_state",
+    "supporting_features": "EVIDENCE_ANNOTATION.support",
+    "contradicting_features": "EVIDENCE_ANNOTATION.contradictions",
+    "uncertainties": "EVIDENCE_ANNOTATION.unknowns",
+    "CONTRADICTED_candidates": "REJECTION_FEEDBACK.rejected_or_demoted_candidates"
+  },
+  "stripped_before_transport": [
+    "clinical_probability",
+    "participant identifiers",
+    "raw transcript",
+    "contact information",
+    "exact demographic identifiers"
+  ],
+  "return_payloads": [
+    "RANKED_HYPOTHESIS",
+    "GATE_REJECTION",
+    "CANDIDATE_SUMMARY"
+  ],
+  "return_semantics": {
+    "lapis_ranking_is_clinical_probability": false,
+    "lapis_ranking_is_reference_label": false,
+    "lapis_rejection_may_demote_candidate": true,
+    "lapis_output_must_be_reintegrated_with_original_clinical_context": true
+  },
+  "authority_delta": 0,
+  "laws": [
+    "LAPIS_RANKING != CLINICAL_VALIDATION",
+    "ADAPTER_TRANSFORM != NEW_EVIDENCE",
+    "DIAGNOSTIC_CONTEXT_MUST_NOT_BE_REPLACED_BY_GENERIC_SCORE",
+    "PRIVATE_HEALTH_DATA != HYPOTHESIS_METABOLISM_PAYLOAD",
+    "AUTHORITY_DELTA_ON_TRANSPORT = 0"
+  ]
+}
