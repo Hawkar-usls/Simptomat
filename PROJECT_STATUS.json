@@ -2,14 +2,26 @@
   "schema_id": "hawkar.project-status.v1",
   "project": "Simptomat",
   "repository": "https://github.com/Hawkar-usls/Simptomat",
-  "portfolio_class": "legacy_health_information_prototype",
-  "last_reviewed": "2026-08-09",
-  "maturity": "LEGACY",
-  "completion_status": "ARCHIVAL",
-  "summary": "Historical conversational health-information software prototype.",
+  "portfolio_class": "health_information_research_prototype",
+  "last_reviewed": "2026-08-26",
+  "maturity": "ACTIVE_PROTOTYPE",
+  "completion_status": "WORK_IN_PROGRESS",
+  "summary": "Consent-first adaptive conversational symptom-pattern screening and calibration research prototype.",
+  "implemented": [
+    "adaptive conversational screening workflow",
+    "explicit-consent pseudonymized case archive",
+    "screening case JSON schema",
+    "calibration-development ledger",
+    "data minimization and public-Git consent policy",
+    "JANUS Habitat linkage",
+    "founding 33-question prion-pattern pilot case"
+  ],
   "not_established": [
     "clinical validation",
     "diagnostic accuracy",
+    "sensitivity",
+    "specificity",
+    "predictive value",
     "treatment efficacy",
     "medical-device status",
     "emergency-triage reliability"
@@ -17,6 +29,12 @@
   "diagnostic_authority": false,
   "treatment_authority": false,
   "emergency_use": false,
-  "flagship_research": false,
-  "visibility_policy": "https://github.com/Hawkar-usls/Janus/blob/main/portfolio-visibility.json"
+  "medical_device_status": "NOT_CLAIMED",
+  "public_health_data_policy": "EXPLICIT_CONSENT_AND_PSEUDONYMIZATION_REQUIRED",
+  "founding_case": "cases/consented/SIM-P0001-2026-08-26-PRION.json",
+  "calibration_state": "calibration/CALIBRATION_STATE.json",
+  "habitat_contract": "habitat/SIMPTOMAT_HABITAT-v1.0.json",
+  "epistemic_constitution": "https://github.com/Hawkar-usls/janus-meta-registry/blob/main/registry/epistemic/JANUS-GLOBAL-EPISTEMIC-SELF-DECEPTION-TRUTH-CONSTITUTION-v1.0.json",
+  "visibility_policy": "https://github.com/Hawkar-usls/Janus/blob/main/portfolio-visibility.json",
+  "claim_boundary": "SCREENING_PATTERN != DIAGNOSIS; REPEATED_SELF_REPORT_CASES != CLINICAL_VALIDATION"
 }
