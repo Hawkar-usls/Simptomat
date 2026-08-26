@@ -2,6 +2,8 @@
   "schema": "janus.organism.member_link.v1",
   "organism_id": "JANUS_FEDERATED_ORGANISM",
   "canonical_manifest": "Hawkar-usls/Janus:organism/JANUS_ORGANISM_v1.json",
+  "admission_delta": "Hawkar-usls/Janus:organism/JANUS_ORGANISM_DELTA_2026-08-26_SIMPTOMAT_v1.json",
+  "execution_extension": "Hawkar-usls/Janus:organism/JANUS_SPIRAL_TRANCEPTION_v1.3.json",
   "member_repository": "Hawkar-usls/Simptomat",
   "organ_key": "diagnostic_reasoning",
   "class": "DOMAIN_LAB",
@@ -35,6 +37,8 @@
   "evidence_authority": false,
   "authority_delta": 0,
   "cross_repo_write_default": "DENY",
+  "ambient_route_enabled": false,
+  "explicit_health_route_required": true,
   "privacy_default": "MINIMIZED_PSEUDONYMIZED_PACKET_ONLY",
   "claim_boundary": [
     "DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS",
