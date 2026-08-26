@@ -1,0 +1,59 @@
+{
+  "schema": "simptomat.calibration_state.v1",
+  "project": "Simptomat",
+  "updated_at": "2026-08-26T15:39:00+03:00",
+  "maturity": "ACTIVE_PROTOTYPE",
+  "cases": {
+    "public_consented_total": 1,
+    "self_report_only": 1,
+    "clinician_reported_with_consent": 0,
+    "independent_reference_standard": 0,
+    "frozen_holdout": 0,
+    "external_validation": 0,
+    "withdrawn": 0
+  },
+  "current_domains": {
+    "human_prion_symptomatic_pattern": {
+      "development_cases": 1,
+      "reference_labeled_cases": 0,
+      "performance_metrics_allowed": false,
+      "clinical_accuracy_established": false
+    }
+  },
+  "allowed_current_claims": [
+    "A consent-first pseudonymized case format exists.",
+    "The founding pilot demonstrates a 33-question adaptive branching workflow.",
+    "Uncertainty and longstanding baseline traits can be represented without forcing positive disease signals.",
+    "The repository has explicit claim ceilings and data-governance rules."
+  ],
+  "forbidden_current_claims": [
+    "Simptomat diagnoses prion disease.",
+    "Simptomat excludes prion disease.",
+    "Simptomat has measured sensitivity or specificity.",
+    "The founding pilot is a true negative.",
+    "Repeated self-reported cases establish diagnostic accuracy.",
+    "A screening terminal authorizes treatment or delay of care."
+  ],
+  "metric_gate": {
+    "status": "BLOCKED",
+    "reason": "No independently established reference-standard cases and no frozen evaluation cohort.",
+    "unlock_requirements": [
+      "predefined target condition and intended-use population",
+      "version-frozen screening protocol",
+      "independent reference labels appropriate to the condition",
+      "separation of development and holdout cases",
+      "predefined endpoints and missing-data handling",
+      "sample-size rationale",
+      "appropriate clinical/statistical review",
+      "prospective or otherwise defensible validation design"
+    ]
+  },
+  "epistemic_rules": [
+    "ONE_CASE != CALIBRATION",
+    "SELF_REPORT != REFERENCE_STANDARD",
+    "REPEATED_PATTERN != DIAGNOSIS",
+    "UNCERTAIN != NEGATIVE",
+    "DEVELOPMENT_SET != HOLDOUT_SET",
+    "INTERNAL_VALIDATION != EXTERNAL_VALIDATION"
+  ]
+}
