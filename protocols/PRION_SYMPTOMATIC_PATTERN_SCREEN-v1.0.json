@@ -1,0 +1,81 @@
+{
+  "schema": "simptomat.screening_protocol.v1",
+  "protocol_id": "PRION_SYMPTOMATIC_PATTERN_SCREEN-v1.0",
+  "version": "1.0.0",
+  "status": "FROZEN_FOUNDING_PROTOCOL",
+  "created_at": "2026-08-26",
+  "intended_use": "Research-only adaptive screening for a self-reported rapidly progressive symptomatic pattern compatible with human prion disease; not diagnosis or exclusion.",
+  "target_population": "consenting adults in research conversations",
+  "clinical_authority": false,
+  "diagnostic_authority": false,
+  "emergency_triage_substitute": false,
+  "core_logic": {
+    "mode": "one_question_at_a_time",
+    "next_question_depends_on_prior_answer": true,
+    "uncertainty_is_first_class": true,
+    "baseline_trait_rule": "A longstanding stable trait must not be promoted to a new progressive symptom.",
+    "progression_rule": "New or worsening change over weeks-to-months carries more target-pattern weight than a stable isolated symptom.",
+    "alternative_hypothesis_rule": "A plausible common/local explanation remains represented until independently rejected.",
+    "stop_rule": "A screening terminal may summarize the observed pattern but may not diagnose or exclude disease."
+  },
+  "domains": [
+    {"id":1,"key":"global_progression","prompt":"New state clearly and progressively worsening over the last 12 months?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":2,"key":"observer_noted_decline","prompt":"Have close others noticed persistent new decline in memory, cognition, language, coordination, movement, or behavior?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":3,"key":"balance_coordination","prompt":"New balance or coordination problems over the last 6 months?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":4,"key":"myoclonus","prompt":"New brief involuntary muscle jerks consistent with myoclonus?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":5,"key":"new_visual_syndrome","prompt":"New persistent visual disturbance not explained by ordinary eye strain/refractive issues?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":6,"key":"speech_language_decline","prompt":"New persistent speech or language deterioration?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":7,"key":"familiar_complex_task_loss","prompt":"Loss of ability to perform a familiar complex task over the last 3-6 months?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":8,"key":"persistent_unexplained_sensory_change","prompt":"New persistent unexplained burning, painful tingling, numbness, or allodynia?","answers":["YES","NO","UNCERTAIN","CONTEXT_REQUIRED"]},
+    {"id":9,"key":"motor_weakness_with_sensory_change","prompt":"Objective weakness accompanying the focal sensory symptom?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":10,"key":"episodic_forgetting","prompt":"Episodes of significant forgetting beyond ordinary intention lapses?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":11,"key":"progressive_memory_trend","prompt":"Have forgetting episodes clearly become more frequent or severe over 3-6 months?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":12,"key":"known_familial_prion_history","prompt":"Known blood relative with confirmed CJD, FFI, GSS, or pathogenic PRNP variant?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":13,"key":"classic_iatrogenic_prion_exposure","prompt":"History of neurosurgery/spinal surgery, corneal transplant, dura mater graft, or human pituitary-derived growth hormone?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":14,"key":"progressive_insomnia_autonomic_pattern","prompt":"New persistent progressive insomnia with autonomic features?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":15,"key":"personality_behavior_change","prompt":"New persistent personality or behavior change over 6-12 months?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":16,"key":"progressive_behavioral_impairment","prompt":"Is the behavior/personality change progressively worsening and impairing daily function?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":17,"key":"progressive_motor_syndrome","prompt":"New progressive rigidity, tremor, bradykinesia, dystonia/spasm, or involuntary movement?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":18,"key":"true_disorientation","prompt":"Episodes of true disorientation to place/time/context or amnestic gaps?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":19,"key":"dysarthria","prompt":"New dysarthria or clearly worsening motor speech noticed by others?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":20,"key":"loss_of_independence","prompt":"Loss of independence in familiar instrumental activities of daily living?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":21,"key":"uk_france_bse_era_residence","prompt":"Personal residence/long stay in UK or France during the main BSE-exposure era?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":22,"key":"western_europe_prolonged_stay_birth_to_1999","prompt":"Personal prolonged stay in Western Europe during the relevant childhood exposure window?","answers":["YES","NO","UNCERTAIN","NOT_APPLICABLE"]},
+    {"id":23,"key":"blood_component_transfusion","prompt":"History of transfusion or blood components?","answers":["YES","NO","UNCERTAIN","CONTEXT_REQUIRED"]},
+    {"id":24,"key":"psychiatric_then_neurologic_progression","prompt":"New psychiatric/behavioral syndrome followed months later by progressive neurological deficits?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":25,"key":"acute_confusional_episodes","prompt":"Episodes of sudden confusion with impaired simple function or post-event amnesia?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":26,"key":"fine_motor_decline","prompt":"New persistent decline in handwriting or fine motor function?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":27,"key":"new_progressive_autonomic_syndrome","prompt":"New persistent/progressive autonomic symptoms such as severe night sweating, unexplained palpitations, thermoregulation problems, or unexplained weight loss?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":28,"key":"palpitation_red_flags","prompt":"Do palpitations occur with syncope/presyncope, severe dizziness, chest pain/pressure, or marked dyspnea?","answers":["YES","NO","UNCERTAIN","NOT_APPLICABLE"]},
+    {"id":29,"key":"cognitive_slowing","prompt":"New objective cognitive slowing or reduced multistep task/complex-text/task-switching ability?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":30,"key":"new_reduced_need_for_sleep","prompt":"New reduced need for sleep with preserved energy?","answers":["YES","NO","UNCERTAIN","LONGSTANDING_BASELINE"]},
+    {"id":31,"key":"new_impulsive_risky_behavior","prompt":"New impulsive or risky behavior with reduced regard for consequences?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":32,"key":"failure_to_reject_false_patterns","prompt":"New inability to reject perceived patterns after counterevidence or external checking?","answers":["YES","NO","UNCERTAIN"]},
+    {"id":33,"key":"new_pressured_or_incomprehensible_speech","prompt":"New pressured/incomprehensibly fast speech or topic jumping that is a clear change from baseline?","answers":["YES","NO","UNCERTAIN","LONGSTANDING_BASELINE"]}
+  ],
+  "terminals": {
+    "SYMPTOMATIC_PRION_PATTERN_NOT_DETECTED": {
+      "meaning": "The self-reported branch did not assemble the targeted rapidly progressive symptomatic pattern.",
+      "forbidden_interpretation": "PRION_ABSENT"
+    },
+    "PRION_PATTERN_REQUIRES_CLINICAL_ESCALATION": {
+      "meaning": "The self-reported branch contains enough progressive neurological features that real-world clinical assessment should replace research-only inference.",
+      "forbidden_interpretation": "PRION_DISEASE_DIAGNOSED"
+    },
+    "SCREENING_INCONCLUSIVE": {
+      "meaning": "Uncertainty, missing data, or conflicting features prevent a useful research-pattern terminal.",
+      "forbidden_interpretation": "NEGATIVE"
+    }
+  },
+  "calibration_boundary": {
+    "development_cases_may_refine_branching": true,
+    "self_report_cases_are_reference_labels": false,
+    "metrics_allowed_without_reference_standard": false,
+    "frozen_holdout_required_before_performance_claims": true
+  },
+  "reference_authorities": [
+    "CDC Creutzfeldt-Jakob disease clinical overview",
+    "CDC variant CJD overview",
+    "National Prion Disease Pathology Surveillance Center"
+  ]
+}
