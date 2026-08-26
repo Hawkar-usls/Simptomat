@@ -1,0 +1,37 @@
+{
+  "schema": "janus.simptomat.demihead_nexus_link.v1",
+  "link_id": "SIMPTOMAT_DEMIHEAD_NEXUS_LINK-v1",
+  "source_repository": "Hawkar-usls/Simptomat",
+  "target_repository": "Hawkar-usls/Demi_Head",
+  "target_contract": "contracts/NEXUS_V2_11_SIMPTOMAT_DIAGNOSTIC_REASONING_FROZEN_CONTRACT.json",
+  "relationship": "BIDIRECTIONAL_TYPED_DIAGNOSTIC_REASONING_AND_EPISTEMIC_REVIEW",
+  "source_role": "DIAGNOSTIC_REASONING_DOMAIN_ORGAN",
+  "target_role": "GUARDIAN_REVIEW_AND_EVIDENCE_CORTEX",
+  "simptomat_to_demihead": [
+    "janus.simptomat.diagnostic_reasoning_packet.v1"
+  ],
+  "demihead_to_simptomat": [
+    "janus.demihead.simptomat_epistemic_review.v1"
+  ],
+  "privacy": {
+    "raw_transcript_routing_default": "DENY",
+    "direct_identifier_routing_default": "DENY",
+    "normalized_minimized_case_summary_allowed": true,
+    "public_case_persistence_requires_explicit_participant_consent": true
+  },
+  "authority": {
+    "diagnostic_hypothesis_allowed": true,
+    "clinical_confirmation_from_demihead_review": false,
+    "treatment_authority": false,
+    "emergency_service_authority": false,
+    "cross_repo_write_default": "DENY",
+    "authority_delta": 0
+  },
+  "laws": [
+    "DEMIHEAD_REVIEW != CLINICAL_CONFIRMATION",
+    "SIMPTOMAT_RANKING != WORLD_TRUTH",
+    "ROUTE != AUTHORITY",
+    "CONSENT_SCOPE_MUST_SURVIVE_TRANSPORT",
+    "PRIVATE_HEALTH_DATA != PUBLIC_HABITAT_PAYLOAD"
+  ]
+}
