@@ -1,0 +1,73 @@
+{
+  "schema": "simptomat.janus_demihead_diagnostic_bridge.v1",
+  "artifact_id": "JANUS_DEMIHEAD_DIAGNOSTIC_BRIDGE-v1.0",
+  "version": "1.0.0",
+  "status": "ACTIVE_INTEGRATION_CONTRACT",
+  "source": "Hawkar-usls/Simptomat",
+  "peer": "Hawkar-usls/Demi_Head",
+  "purpose": "Let Simptomat participate in the JANUS organism as a health-domain differential-reasoning organ while DemiHead supplies bounded epistemic review, contradiction/provenance checks and measurement handoff without becoming a clinician or silently changing participant consent.",
+  "outbound_packet": {
+    "schema": "janus.simptomat.diagnostic_reasoning_packet.v1",
+    "required": [
+      "packet_id",
+      "session_scope",
+      "consent_scope",
+      "target_question",
+      "ranked_differential",
+      "supporting_features",
+      "contradicting_features",
+      "uncertainties",
+      "next_best_question",
+      "next_confirmation_step",
+      "urgent_red_flags",
+      "claim_ceiling"
+    ],
+    "forbidden_by_default": [
+      "real_name",
+      "exact_birth_date",
+      "street_address",
+      "contact_identifier",
+      "telegram_user_id",
+      "raw_chat_transcript",
+      "medical_record_number",
+      "genetic_data"
+    ]
+  },
+  "inbound_review": {
+    "schema": "janus.demihead.simptomat_epistemic_review.v1",
+    "decisions": [
+      "PASS_AS_RESEARCH_HYPOTHESIS",
+      "HOLD_FOR_MORE_INFORMATION",
+      "HOLD_FOR_EXTERNAL_MEASUREMENT",
+      "ESCALATE_FOR_REAL_WORLD_EVALUATION",
+      "REJECT_UNSAFE_PROMOTION"
+    ],
+    "may_change_disease_ranking": "ONLY_AS_EPISTEMIC_REVIEW_OR_EVIDENCE_ANNOTATION; NOT_AS_CLINICAL_GROUND_TRUTH",
+    "may_confirm_diagnosis": false,
+    "may_order_treatment": false
+  },
+  "spiral": [
+    "SYMPTOM_OR_QUESTION",
+    "SIMPTOMAT_DIFFERENTIAL_UPDATE",
+    "DEMIHEAD_PROVENANCE_AND_CONTRADICTION_REVIEW",
+    "OPTIONAL_LAPIS_HYPOTHESIS_METABOLISM",
+    "OPTIONAL_MEASUREMENT_BENCH_HANDOFF",
+    "SIMPTOMAT_REINTEGRATION",
+    "NEXT_DISCRIMINATING_QUESTION_OR_EXTERNAL_TEST",
+    "ASCEND_IF_STATE_CHANGED"
+  ],
+  "calibration": {
+    "demihead_review_is_reference_label": false,
+    "public_case_storage_requires_explicit_consent": true,
+    "reference_label_requires_independent_provenance": true,
+    "development_and_holdout_must_remain_separate": true
+  },
+  "invariants": [
+    "DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS",
+    "DEMIHEAD_PASS != MEDICAL_TRUTH",
+    "ROUTING != EVIDENCE_UPGRADE",
+    "CONSENT_SCOPE_SURVIVES_TRANSFORMATION",
+    "UNCERTAINTY_AND_CONTRADICTIONS_ARE_PRESERVED",
+    "AUTHORITY_DELTA_ON_TRANSPORT = 0"
+  ]
+}

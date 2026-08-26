@@ -6,7 +6,7 @@
   "last_reviewed": "2026-08-26",
   "maturity": "ACTIVE_PROTOTYPE",
   "completion_status": "WORK_IN_PROGRESS",
-  "summary": "Consent-first adaptive conversational screening and differential-diagnostic reasoning prototype that ranks disease hypotheses, proposes discriminating questions/confirmation steps, and learns from consented calibration cases.",
+  "summary": "Consent-first adaptive differential-diagnostic reasoning organ in the JANUS federated organism; ranks disease hypotheses, proposes discriminating questions/confirmation steps, exchanges minimized typed review packets with DemiHead, and learns from consented calibration cases.",
   "implemented": [
     "adaptive conversational screening workflow",
     "differential-diagnostic reasoning core contract",
@@ -17,13 +17,29 @@
     "screening case JSON schema",
     "calibration-development ledger",
     "data minimization and public-Git consent policy",
-    "JANUS Habitat linkage",
+    "JANUS Git Habitat linkage",
+    "JANUS organism member declaration",
+    "typed bidirectional DemiHead Nexus link contract",
     "founding 33-question prion-pattern pilot case"
   ],
+  "janus_integration": {
+    "organism_id": "JANUS_FEDERATED_ORGANISM",
+    "organ_key": "diagnostic_reasoning",
+    "organ_class": "DOMAIN_LAB",
+    "organism_link": ".janus/JANUS_ORGANISM_LINK.json",
+    "demihead_link": ".janus/DEMIHEAD_NEXUS_LINK.json",
+    "demihead_bridge": "integrations/JANUS_DEMIHEAD_DIAGNOSTIC_BRIDGE-v1.0.json",
+    "peer": "Hawkar-usls/Demi_Head",
+    "route_status": "TYPED_CONTRACT_INTEGRATION",
+    "cross_repo_write_default": "DENY",
+    "authority_delta": 0
+  },
   "capability_boundary": {
     "may_form_diagnostic_hypotheses": true,
     "may_rank_disease_candidates": true,
     "may_suggest_confirmation_steps": true,
+    "may_send_minimized_reasoning_packets_to_demihead": true,
+    "may_receive_epistemic_review_from_demihead": true,
     "may_calibrate_from_consented_cases": true,
     "clinical_diagnostic_authority": false,
     "treatment_authority": false,
@@ -38,7 +54,9 @@
     "predictive value",
     "treatment efficacy",
     "medical-device status",
-    "emergency-triage reliability"
+    "emergency-triage reliability",
+    "DemiHead review as clinical ground truth",
+    "production cross-repository runtime transport"
   ],
   "diagnostic_authority": false,
   "treatment_authority": false,
@@ -51,5 +69,5 @@
   "habitat_contract": "habitat/SIMPTOMAT_HABITAT-v1.0.json",
   "epistemic_constitution": "https://github.com/Hawkar-usls/janus-meta-registry/blob/main/registry/epistemic/JANUS-GLOBAL-EPISTEMIC-SELF-DECEPTION-TRUTH-CONSTITUTION-v1.0.json",
   "visibility_policy": "https://github.com/Hawkar-usls/Janus/blob/main/portfolio-visibility.json",
-  "claim_boundary": "DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS; RANKING != CERTAINTY; REPEATED_SELF_REPORT_CASES != CLINICAL_VALIDATION"
+  "claim_boundary": "DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS; DEMIHEAD_REVIEW != CLINICAL_CONFIRMATION; RANKING != CERTAINTY; REPEATED_SELF_REPORT_CASES != CLINICAL_VALIDATION"
 }
