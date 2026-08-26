@@ -11,6 +11,10 @@ FORBIDDEN_CASE_KEYS = {
     "name", "full_name", "email", "phone", "telegram_id", "telegram_user_id",
     "address", "exact_address", "birth_date", "date_of_birth", "medical_record_number"
 }
+ALLOWED_CLAIM_CEILINGS = {
+    "SELF_REPORTED_RESEARCH_SCREENING_ONLY",
+    "SELF_REPORTED_RESEARCH_DIAGNOSTIC_REASONING_ONLY",
+}
 
 
 def fail(message: str) -> None:
@@ -62,22 +66,46 @@ def validate_case(path: pathlib.Path) -> None:
         fail(f"{path.name}: consent must not propagate to future cases")
     if case["privacy"].get("raw_chat_transcript_published") is not False:
         fail(f"{path.name}: raw transcript publication is forbidden by default")
-    if case["epistemic_contract"].get("claim_ceiling") != "SELF_REPORTED_RESEARCH_SCREENING_ONLY":
-        fail(f"{path.name}: unsafe claim ceiling")
+
+    claim_ceiling = case["epistemic_contract"].get("claim_ceiling")
+    if claim_ceiling not in ALLOWED_CLAIM_CEILINGS:
+        fail(f"{path.name}: unsafe or unknown claim ceiling: {claim_ceiling}")
+
     questions = case["screening_questions"]
     ids = [item.get("id") for item in questions]
     if ids != list(range(1, len(ids) + 1)):
         fail(f"{path.name}: question ids must be contiguous from 1")
     if not case["result"].get("what_this_does_not_support"):
         fail(f"{path.name}: missing non-claims")
-    if case["calibration_use"].get("gold_standard_diagnosis_available") is False:
+
+    gold_standard = case["calibration_use"].get("gold_standard_diagnosis_available")
+    if gold_standard is False:
         terminal = case["result"].get("screening_terminal", "")
         if "DIAGNOSED" in terminal or terminal in {"PRION_PRESENT", "PRION_ABSENT"}:
-            fail(f"{path.name}: diagnostic terminal without reference standard")
+            fail(f"{path.name}: clinically definitive terminal without reference standard")
+
+        # Research diagnostic hypotheses and rankings are allowed. What is forbidden
+        # is silently promoting them into externally confirmed clinical ground truth.
+        forbidden_confirmation_states = {
+            "CLINICALLY_CONFIRMED",
+            "GOLD_STANDARD_CONFIRMED",
+            "DEFINITIVE_DIAGNOSIS",
+        }
+        if case["result"].get("diagnostic_confirmation_status") in forbidden_confirmation_states:
+            fail(f"{path.name}: confirmed-diagnosis status without reference standard")
+
+    differential = case["result"].get("differential_diagnosis")
+    if differential is not None:
+        if not isinstance(differential, list):
+            fail(f"{path.name}: differential_diagnosis must be a list")
+        ranks = [item.get("rank") for item in differential if item.get("rank") is not None]
+        if ranks and len(ranks) != len(set(ranks)):
+            fail(f"{path.name}: duplicate differential ranks")
 
     keys = {k.lower() for k in walk_keys(case)}
     # Permit privacy declarations like exact_address=NOT_STORED while rejecting
-    # actual identifier-shaped top-level fields outside the privacy policy block.
+    # actual identifier-shaped fields elsewhere. The current public case format
+    # does not carry direct personal identifiers.
     for forbidden in FORBIDDEN_CASE_KEYS:
         if forbidden in keys and forbidden not in {"exact_address"}:
             fail(f"{path.name}: forbidden identifier field present: {forbidden}")
