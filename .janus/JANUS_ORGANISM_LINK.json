@@ -1,0 +1,47 @@
+{
+  "schema": "janus.organism.member_link.v1",
+  "organism_id": "JANUS_FEDERATED_ORGANISM",
+  "canonical_manifest": "Hawkar-usls/Janus:organism/JANUS_ORGANISM_v1.json",
+  "member_repository": "Hawkar-usls/Simptomat",
+  "organ_key": "diagnostic_reasoning",
+  "class": "DOMAIN_LAB",
+  "role": "CONSENT_FIRST_HEALTH_DIFFERENTIAL_REASONING_AND_CALIBRATION_LAB",
+  "consumes": [
+    "SELF_REPORTED_SYMPTOM_PACKET",
+    "EVIDENCE_ANNOTATION",
+    "REJECTION_FEEDBACK",
+    "MEASUREMENT_RECEIPT",
+    "REFERENCE_LABEL_WITH_PROVENANCE",
+    "HUMAN_CONSENT"
+  ],
+  "emits": [
+    "DIAGNOSTIC_REASONING_PACKET",
+    "RANKED_DIAGNOSTIC_HYPOTHESIS",
+    "CONTRADICTION_LEDGER",
+    "UNCERTAINTY_LEDGER",
+    "NEXT_DISCRIMINATING_QUESTION",
+    "NEXT_CONFIRMATION_STEP",
+    "URGENT_ESCALATION_SIGNAL",
+    "CONSENTED_CALIBRATION_RECEIPT"
+  ],
+  "routes_to": [
+    "guardian_cortex",
+    "hypothesis_metabolism",
+    "measurement_bench",
+    "memory",
+    "gateway"
+  ],
+  "authority": "RESEARCH_DIAGNOSTIC_HYPOTHESIS_ONLY",
+  "evidence_authority": false,
+  "authority_delta": 0,
+  "cross_repo_write_default": "DENY",
+  "privacy_default": "MINIMIZED_PSEUDONYMIZED_PACKET_ONLY",
+  "claim_boundary": [
+    "DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS",
+    "RANKED_FIRST != CERTAIN",
+    "SELF_REPORT != CLINICAL_MEASUREMENT",
+    "MODEL_SCORE != CLINICAL_PROBABILITY_UNLESS_CALIBRATED",
+    "CONSENT_TO_CONVERSATION != CONSENT_TO_PUBLIC_CASE_STORAGE",
+    "ORGAN_MEMBERSHIP != MEDICAL_AUTHORITY"
+  ]
+}
