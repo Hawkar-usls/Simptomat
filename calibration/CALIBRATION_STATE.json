@@ -1,7 +1,7 @@
 {
   "schema": "simptomat.calibration_state.v1",
   "project": "Simptomat",
-  "updated_at": "2026-08-26T15:39:00+03:00",
+  "updated_at": "2026-08-26T16:58:00+03:00",
   "maturity": "ACTIVE_PROTOTYPE",
   "cases": {
     "public_consented_total": 1,
@@ -20,26 +20,50 @@
       "clinical_accuracy_established": false
     }
   },
+  "current_capabilities": {
+    "adaptive_questioning": true,
+    "differential_diagnostic_reasoning": true,
+    "ranked_disease_hypotheses": true,
+    "support_contradiction_uncertainty_tracking": true,
+    "next_confirmation_step_suggestion": true,
+    "calibrated_clinical_probabilities": false,
+    "clinically_validated_diagnosis": false
+  },
+  "development_calibration_targets": [
+    "question wording",
+    "branching efficiency",
+    "discriminatory value of questions",
+    "candidate ranking stability",
+    "support/contradiction bookkeeping",
+    "uncertainty preservation",
+    "baseline-vs-new symptom discrimination",
+    "false-positive resistance",
+    "false-negative discovery when external labels become available",
+    "selection of the next useful real-world measurement"
+  ],
   "allowed_current_claims": [
     "A consent-first pseudonymized case format exists.",
     "The founding pilot demonstrates a 33-question adaptive branching workflow.",
+    "Simptomat has an explicit architecture for forming and ranking diagnostic hypotheses.",
     "Uncertainty and longstanding baseline traits can be represented without forcing positive disease signals.",
+    "Diagnostic hypotheses can preserve supporting and contradicting evidence and suggest external confirmation steps.",
     "The repository has explicit claim ceilings and data-governance rules."
   ],
   "forbidden_current_claims": [
-    "Simptomat diagnoses prion disease.",
-    "Simptomat excludes prion disease.",
+    "A Simptomat diagnostic hypothesis is a clinically confirmed diagnosis.",
+    "Simptomat is clinically validated to diagnose or exclude prion disease.",
     "Simptomat has measured sensitivity or specificity.",
+    "A model-generated ranking is a calibrated clinical probability.",
     "The founding pilot is a true negative.",
     "Repeated self-reported cases establish diagnostic accuracy.",
-    "A screening terminal authorizes treatment or delay of care."
+    "A screening or diagnostic-hypothesis terminal authorizes treatment or delay of care."
   ],
   "metric_gate": {
     "status": "BLOCKED",
     "reason": "No independently established reference-standard cases and no frozen evaluation cohort.",
     "unlock_requirements": [
       "predefined target condition and intended-use population",
-      "version-frozen screening protocol",
+      "version-frozen screening/diagnostic-reasoning protocol and model",
       "independent reference labels appropriate to the condition",
       "separation of development and holdout cases",
       "predefined endpoints and missing-data handling",
@@ -49,9 +73,12 @@
     ]
   },
   "epistemic_rules": [
+    "DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS",
+    "RANKING != CERTAINTY",
+    "MODEL_SCORE != CLINICAL_PROBABILITY_UNLESS_CALIBRATED",
     "ONE_CASE != CALIBRATION",
     "SELF_REPORT != REFERENCE_STANDARD",
-    "REPEATED_PATTERN != DIAGNOSIS",
+    "REPEATED_PATTERN != CLINICAL_VALIDATION",
     "UNCERTAIN != NEGATIVE",
     "DEVELOPMENT_SET != HOLDOUT_SET",
     "INTERNAL_VALIDATION != EXTERNAL_VALIDATION"

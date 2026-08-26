@@ -1,13 +1,14 @@
 # Simptomat — Consent & Data Governance
 
-Simptomat is an **active research prototype for conversational symptom-pattern screening**. It is not a medical device, diagnostic service, treatment system, or emergency-triage substitute.
+Simptomat is an **active research prototype for conversational symptom screening and adaptive differential-diagnostic reasoning**. It may form and rank diagnostic hypotheses. It is not a medical device, clinician of record, treatment system, or emergency-triage substitute, and its hypotheses are not automatically clinically confirmed diagnoses.
 
 ## Core rule
 
 ```text
 NO EXPLICIT CONSENT -> NO CASE RECORD
 SELF-REPORT != CLINICAL LABEL
-SCREENING RESULT != DIAGNOSIS
+DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS
+RANKING != CERTAINTY
 REPEATED CASES != CLINICAL VALIDATION
 PUBLIC REPOSITORY != PERMISSION FOR UNBOUNDED REUSE
 ```
@@ -25,6 +26,9 @@ Allowed by default:
 - protocol/version identifiers;
 - non-identifying exposure categories;
 - screening terminal and claim ceiling;
+- ranked research diagnostic hypotheses when produced;
+- non-identifying supporting/contradicting features and unresolved alternatives;
+- suggested next confirmation step when relevant;
 - provenance describing how the record was produced.
 
 Not allowed by default:
@@ -42,6 +46,8 @@ Not allowed by default:
 
 Consent must be explicit for **each participant and each public record**. Consent from one participant cannot be inherited by another person. Participation, reading the repository, following a link, or answering a question does not by itself authorize publication.
 
+Consent to use the conversational interface is separate from consent to publish a pseudonymized case. A client session may therefore operate with public-case persistence disabled.
+
 The participant must understand that the repository is public and Git is historically persistent: removing a current file cannot guarantee deletion from forks, caches, clones, or prior Git objects.
 
 A participant may request that the current public record be removed and that future use stop. Simptomat must preserve a non-identifying tombstone stating that the record was withdrawn, unless the participant asks for no public tombstone and doing so is technically/legalistically possible.
@@ -49,6 +55,36 @@ A participant may request that the current public record be removed and that fut
 ## Adults by default
 
 The public calibration lane is for consenting adults by default. Records involving minors require a separate, explicitly designed ethics/guardian process and must not be added merely by extending this template.
+
+## Diagnostic reasoning vs clinical confirmation
+
+Simptomat is allowed to do the research analogue of differential diagnosis:
+
+```text
+symptoms / history
+    ↓
+maintain competing disease hypotheses
+    ↓
+ask discriminating questions
+    ↓
+rank candidates
+    ↓
+identify support / contradictions / uncertainty
+    ↓
+suggest the next useful confirmation or measurement step
+```
+
+The claim ceiling is applied **after** reasoning, not by forbidding reasoning itself.
+
+```text
+SIMPTOMAT_MAY_FORM_DIAGNOSTIC_HYPOTHESES = TRUE
+SIMPTOMAT_MAY_RANK_DISEASE_CANDIDATES = TRUE
+SIMPTOMAT_MAY_SUGGEST_CONFIRMATION_STEPS = TRUE
+
+DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS
+MODEL_SCORE != CLINICAL_PROBABILITY_UNLESS_CALIBRATED
+SUGGESTED_TEST != MEDICAL_ORDER
+```
 
 ## Calibration hierarchy
 
@@ -62,7 +98,7 @@ SELF_REPORT_ONLY
 
 This ordering is about evidence strength, not about the worth of the participant.
 
-Self-reported cases can improve wording, branching, ambiguity handling, and false-positive resistance. They **cannot** establish sensitivity, specificity, predictive value, clinical utility, or diagnostic accuracy.
+Self-reported cases can improve wording, branching, ambiguity handling, candidate discrimination, ranking behavior, next-question selection, and false-positive resistance. They **cannot** by themselves establish sensitivity, specificity, predictive value, clinical utility, or diagnostic accuracy.
 
 Performance calibration requires an appropriate study design and independently established reference labels. Development cases and evaluation/holdout cases must be separated before accuracy claims are made.
 
@@ -79,19 +115,22 @@ UNCERTAIN != NO
 OLD STABLE TRAIT != NEW PROGRESSIVE SYMPTOM
 ANECDOTAL SELF-TEST != NEUROLOGICAL EXAMINATION
 MODEL CONFIDENCE != CLINICAL PROBABILITY
+RANKED FIRST != CERTAIN
 PATTERN ABSENT != DISEASE ABSENT
 PATTERN PRESENT != DISEASE PRESENT
 ONE CASE != POPULATION
 MANY SIMILAR CASES != CAUSATION
 ```
 
-Negative, uncertain, contradictory, and incomplete cases are retained. The system must not keep only cases that make its branching logic look successful.
+Negative, uncertain, contradictory, and incomplete cases are retained. The system must not keep only cases that make its branching logic or preferred diagnosis look successful.
+
+A favored diagnostic hypothesis must remain falsifiable. Questions or measurements capable of weakening it should be preferred over questions that merely accumulate confirming detail.
 
 ## Safety escalation
 
 If a conversation contains a potentially urgent medical situation, the research/calibration objective is subordinate to safety. Simptomat should stop ordinary branching and recommend appropriate real-world medical evaluation. It must not attempt to replace emergency services.
 
-The exact escalation logic is protocol-specific and must be conservative. A research result must never be presented as permission to delay necessary care.
+The exact escalation logic is protocol-specific and must be conservative. A research result or diagnostic hypothesis must never be presented as permission to delay necessary care.
 
 ## Data use and secondary research
 
@@ -107,4 +146,6 @@ Backend responses must be rendered as untrusted content. A remote model/backend 
 
 ## Founder pilot
 
-`SIM-P0001-2026-08-26-PRION` is the first consented public pilot record. Its role is **branching/data-governance calibration only**. It has no independent clinical reference diagnosis and therefore must not be counted as a true negative, false negative, true positive, or false positive.
+`SIM-P0001-2026-08-26-PRION` is the first consented public pilot record. Its role is **branching, hypothesis-falsification, and data-governance calibration**. It has no independent clinical reference diagnosis and therefore must not be counted as a true negative, false negative, true positive, or false positive.
+
+The frozen founding protocol remains historical provenance. The project-wide diagnostic reasoning semantics are defined by `protocols/SIMPTOMAT_DIAGNOSTIC_REASONING_CORE-v1.0.json`.

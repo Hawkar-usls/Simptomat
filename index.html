@@ -26,7 +26,7 @@
 <div class="app">
   <header><strong>SIMPTOMAT / RESEARCH</strong><span id="status">CONFIG REQUIRED</span></header>
   <div class="notice">
-    <b>Экспериментальный скрининг, не диагноз.</b> Ответы не заменяют врача, обследование или экстренную помощь.
+    <b>Экспериментальный диагностический скрининг.</b> Simptomat может формировать и ранжировать диагностические гипотезы, но они не являются клинически подтверждённым диагнозом и не заменяют врача или обследование.
     <span class="alert">При острой/опасной симптоматике обращайтесь за реальной медицинской помощью, а не продолжайте исследовательский диалог.</span>
   </div>
   <div id="chat"></div>
@@ -103,7 +103,10 @@
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       loader.remove();
-      append(data?.text ?? 'Backend returned no text.', data?.type === 'diagnosis' ? 'screening' : 'bot');
+      const isDiagnosticHypothesis = data?.type === 'diagnosis';
+      const body = data?.text ?? 'Backend returned no text.';
+      const rendered = isDiagnosticHypothesis ? `ДИАГНОСТИЧЕСКАЯ ГИПОТЕЗА / RESEARCH\n\n${body}` : body;
+      append(rendered, isDiagnosticHypothesis ? 'screening' : 'bot');
     } catch (err) {
       loader.textContent = `Ошибка связи: ${err.message}`;
     } finally {
@@ -116,7 +119,7 @@
   button.addEventListener('click', sendMessage);
   input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
 
-  append('Система исследования готова. Simptomat формирует screening-pattern, а не медицинский диагноз.');
+  append('Система исследования готова. Simptomat проводит адаптивный скрининг, строит дифференциальный ряд и может формировать диагностические гипотезы. Гипотеза не равна клинически подтверждённому диагнозу.');
   if (!configured) append('Backend намеренно не задан в коде. Оператор должен передать доверенный HTTPS endpoint через ?apiUrl=... .');
   refreshGate();
 })();
