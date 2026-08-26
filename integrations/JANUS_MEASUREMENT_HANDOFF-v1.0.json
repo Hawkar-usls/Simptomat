@@ -1,0 +1,52 @@
+{
+  "schema": "simptomat.janus_measurement_handoff.v1",
+  "artifact_id": "JANUS_MEASUREMENT_HANDOFF-v1.0",
+  "version": "1.0.0",
+  "status": "ACTIVE_HANDOFF_CONTRACT",
+  "source_organ": "diagnostic_reasoning",
+  "source_repository": "Hawkar-usls/Simptomat",
+  "target_organ": "measurement_bench",
+  "target_repository": "Hawkar-usls/janus-io-public",
+  "target_member_contract": "Hawkar-usls/janus-io-public:.janus/JANUS_ORGANISM_LINK.json",
+  "purpose": "Prevent a conversational next-confirmation suggestion from being treated as an executable measurement request. A real measurement-bench route begins only after an explicit experiment contract, controls and calibration appropriate to the measurement have been defined.",
+  "simptomat_output": "NEXT_CONFIRMATION_STEP",
+  "classification": "MEASUREMENT_PROPOSAL_ONLY",
+  "direct_route_to_measurement_bench": false,
+  "required_conversion_gate": {
+    "name": "EXPLICIT_MEASUREMENT_CONTRACT_GATE",
+    "requires": [
+      "EXPERIMENT_CONTRACT",
+      "CONTROL",
+      "CALIBRATION",
+      "measurement-specific consent/provenance when participant data or samples are involved",
+      "human/provider authorization for any real-world action"
+    ],
+    "after_gate_target_consumes": [
+      "EXPERIMENT_CONTRACT",
+      "CONTROL",
+      "CALIBRATION"
+    ]
+  },
+  "inbound_from_measurement_bench": [
+    "MEASUREMENT_RECEIPT",
+    "MATCHED_CONTROL_RESULT",
+    "NEGATIVE_RESULT",
+    "OBSERVATION"
+  ],
+  "reintegration": {
+    "measurement_receipt_may_update_differential": true,
+    "negative_result_may_demote_hypothesis": true,
+    "measurement_receipt_is_mechanism_proof": false,
+    "measurement_receipt_is_automatic_diagnosis": false,
+    "missing_measurement_is_negative_result": false
+  },
+  "authority_delta": 0,
+  "laws": [
+    "SUGGESTED_TEST != MEDICAL_ORDER",
+    "NEXT_CONFIRMATION_STEP != EXPERIMENT_CONTRACT",
+    "MEASUREMENT != MECHANISM",
+    "MEASUREMENT_RECEIPT != CLINICALLY_CONFIRMED_DIAGNOSIS",
+    "MISSING_MEASUREMENT != NEGATIVE_RESULT",
+    "AUTHORITY_DELTA_ON_TRANSPORT = 0"
+  ]
+}
