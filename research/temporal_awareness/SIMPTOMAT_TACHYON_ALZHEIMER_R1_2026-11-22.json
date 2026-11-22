@@ -1,0 +1,176 @@
+{
+  "schema": "simptomat.tachyon.temporal_awareness_research.v1",
+  "artifact_id": "SIMPTOMAT-TACHYON-ALZHEIMER-TEMPORAL-AWARENESS-R1-2026-11-22",
+  "created_utc": "2026-11-22",
+  "title_ru": "Simptomat × TACHYON — память, временная последовательность и сохранённая осознанность",
+  "status": "ACTIVE_OFFLINE_SYNTHETIC_RESEARCH_DESIGN__NO_CLINICAL_VALIDATION",
+  "scientific_question": "Может ли наблюдаемая вовлечённость при текущем событии сохраняться, когда способность упорядочивать или позднее воспроизводить события нарушается? Можно ли различить это, не называя потерю памяти физической вневременностью?",
+  "boundaries": {
+    "clinical_diagnosis": false,
+    "trained_disease_classifier": false,
+    "human_data_loaded": false,
+    "private_health_data_export": false,
+    "model_weights_changed": false,
+    "clinical_screening_recommendation": false,
+    "emergency_triage": false,
+    "evidence_for_timeless_consciousness": false,
+    "evidence_for_time_travel": false,
+    "software_research_only": true,
+    "research_sample_size": 0,
+    "consent_before_human_study": true,
+    "ethics_and_clinician_review_required_for_human_study": true,
+    "rule1_not_universal_physical_law": true
+  },
+  "scientific_foundations": [
+    {
+      "id": "NEUROLOGY_2020",
+      "title": "Altered Time Awareness in Dementia",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7186333/",
+      "role": "AD and FTD have related but partially different profiles of event ordering, interval estimation and personal temporal awareness",
+      "evidence_type": "observational clinical cohorts",
+      "limitations": "Caregiver semi-structured reports; cannot infer retained consciousness from questionnaire alone"
+    },
+    {
+      "id": "DND_2023",
+      "title": "Time Perception and Memory in Mild Cognitive Impairment and Alzheimer's Disease: A Preliminary Study",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10654483/",
+      "role": "Evaluate simultaneity/temporal-order judgments separately from episodic-memory impairment",
+      "evidence_type": "small experimental sample",
+      "limitations": "11 usable patient participants and 13 comparators; a marginal between-group measure (reported p=0.15) is not statistically conclusive"
+    },
+    {
+      "id": "NATURE_2016",
+      "title": "Time distortions in Alzheimer’s disease: a systematic review and theoretical integration",
+      "url": "https://www.nature.com/articles/npjamd201616",
+      "role": "Separate duration estimation, event ordering, retrospective remembering, prospective timing",
+      "evidence_type": "systematic review",
+      "limitations": "Review is not evidence of physically timeless consciousness"
+    },
+    {
+      "id": "CRITICAL_2021",
+      "title": "Subjective Time in Dementia: A Critical Review",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8616021/",
+      "role": "Heterogeneous temporal cognition and autobiographical/future thinking across dementias",
+      "evidence_type": "critical review",
+      "limitations": "Affect, attention, aphasia, executive functioning and disease heterogeneity confound conclusions"
+    },
+    {
+      "id": "NIA_CLINICAL",
+      "title": "Alzheimer's Disease Fact Sheet",
+      "url": "https://www.nia.nih.gov/health/alzheimers-and-dementia/alzheimers-disease-fact-sheet",
+      "role": "Alzheimer is a neurodegenerative condition; do not present pathology as a controllable switch for time travel",
+      "evidence_type": "NIH patient education",
+      "limitations": "Not a protocol for diagnosis by software"
+    }
+  ],
+  "mechanistic_competitors": [
+    {
+      "id": "H_ENCODING",
+      "mechanism": "Current encoding/attention failure leads to both immediate and later missing material",
+      "key_pattern": "Low online engagement or immediate recognition plus low later recall",
+      "claim_ceiling": "ENCODING_OR_ATTENTION_CONFOUND"
+    },
+    {
+      "id": "H_SEQUENCE",
+      "mechanism": "Preserved online engagement and immediate identity recognition but impaired temporal ordering",
+      "key_pattern": "High task engagement and immediate recognition, low order accuracy, adequate delayed item recall",
+      "claim_ceiling": "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE"
+    },
+    {
+      "id": "H_RETRIEVAL",
+      "mechanism": "Preserved online engagement and order at encoding but poor delayed retrieval",
+      "key_pattern": "High engagement, immediate recognition and order; low delayed recall",
+      "claim_ceiling": "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE"
+    },
+    {
+      "id": "H_MIXED",
+      "mechanism": "Order and episodic retrieval both weak despite preserved immediate encoding indicators",
+      "key_pattern": "High engagement/immediate recognition, low temporal ordering and low delayed recall",
+      "claim_ceiling": "MIXED_DISSOCIATION_CANDIDATE"
+    },
+    {
+      "id": "H_PHENOMENOLOGY",
+      "mechanism": "Subject reports absent passage of time; needs simultaneous independent engagement evidence and strict distinction from amnesia/attention failure",
+      "key_pattern": "Subjective report + objective task components",
+      "claim_ceiling": "FIRST_PERSON_REPORT_NEVER_PHYSICAL_TIME_TRAVEL"
+    },
+    {
+      "id": "H_NO_EFFECT",
+      "mechanism": "Measurements show no predeclared separation; apparent effect is sampling/attention or absent",
+      "key_pattern": "No clear pattern or intervals too broad",
+      "claim_ceiling": "INCONCLUSIVE"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "ONLINE_ENGAGEMENT",
+      "what": "Observable engagement with predeclared, non-distressing present-moment cues; a behavioral correlate, not direct measurement of consciousness"
+    },
+    {
+      "id": "IMMEDIATE_ITEM_RECOGNITION",
+      "what": "Recognition of the just-experienced stimulus items without later-memory requirement"
+    },
+    {
+      "id": "TEMPORAL_ORDER",
+      "what": "Choose the relative order of separately identifiable events; not the same as their identities"
+    },
+    {
+      "id": "DELAYED_ITEM_RECALL",
+      "what": "Retrieve item identities after a delay, separately from order and duration"
+    },
+    {
+      "id": "INTERVAL_ESTIMATION",
+      "what": "Optional estimate of elapsed duration against an external clock"
+    },
+    {
+      "id": "PHENOMENOLOGY",
+      "what": "Optional subjective narrative of passage or no-passage; not scored as diagnosis or proof"
+    }
+  ],
+  "controlled_synthetic_protocol": {
+    "record_kind": "SYNTHETIC_ONLY",
+    "clock": "External monotonic elapsed time strictly positive",
+    "trial_counts_per_measure": 5,
+    "demonstrative_rule": "HIGH>=4/5; LOW<=1/5; otherwise INDETERMINATE. These are synthetic unit-test thresholds, not clinical cutoffs.",
+    "source_of_labels": "Fixture generator; NEVER patient data or retrospectively fitted thresholds",
+    "informed_consent": "No human enrollment; any future real research needs separate ethical review and consent",
+    "no_risk_level_assigned": true,
+    "no_clinical_diagnosis_assigned": true,
+    "cohorts": "No real clinical or control cohort evaluated in R1",
+    "endpoints": [
+      "pattern_code",
+      "abstention_reason",
+      "separate_observed_dimensions",
+      "objective_elapsed_seconds",
+      "synthetic_only",
+      "nonclinical_research_claim_ceiling"
+    ],
+    "prohibited_outcomes": [
+      "ALZHEIMER_POSITIVE",
+      "ALZHEIMER_NEGATIVE",
+      "PROVEN_CONSCIOUSNESS",
+      "PROVEN_TIMELESSNESS",
+      "PHYSICAL_TIME_TRAVEL"
+    ]
+  },
+  "source_authority": {
+    "JANUS_RULE_001": {
+      "repo": "Hawkar-usls/janus-meta-registry",
+      "commit_sha": "7ce207fab7b5d337cb549a326c6cd71fdc5b8340",
+      "rule_path": "data/JANUS-RULE-001-FIRST-PERSON-TEMPORAL-CONSTRUCTION-2026-11-22-v1.0.json",
+      "algorithm_path": "data/JANUS-TACHYON-RULE-001-TEMPORAL-PERCEPTION-ALGORITHM-2026-11-22-v1.0.json",
+      "note": "This pinned commit establishes a research interpretation rule, not clinical authority."
+    },
+    "existing_simptomat_core": "protocols/SIMPTOMAT_DIAGNOSTIC_REASONING_CORE-v1.0.json",
+    "typed_nexus_bridge": "integrations/JANUS_DEMIHEAD_DIAGNOSTIC_BRIDGE-v1.0.json",
+    "cross_repo_transport_status": "CONTRACT_ONLY_NO_LIVE_PERSON_DATA"
+  },
+  "next_scientific_gate": [
+    "Independent preregistration of real participant research; obtain ethics/clinical approval and separately documented consent.",
+    "Use disjoint healthy-ageing, MCI, AD and relevant differential comparison groups only under authorized research design.",
+    "Check attention, vision, hearing, language, delirium/medications and testability as confounders.",
+    "Separate immediate awareness proxies, temporal order perception, delayed recall and first-person temporal phenomenology.",
+    "External assessor blinded to hypotheses and diagnosis status; no retrofitted cutoff selection.",
+    "Publish nulls, counterexamples, adverse events and full uncertainty; no diagnostic performance claims without reference standards."
+  ]
+}
