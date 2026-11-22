@@ -1,6 +1,16 @@
 name: Simptomat TACHYON R1 - Temporal Awareness Synthetic Research
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/temporal_awareness/**'
+      - 'tools/temporal_awareness_lab.py'
+      - 'tests/test_temporal_awareness_lab.py'
+      - 'integrations/JANUS_TACHYON_TEMPORAL_AWARENESS_RESEARCH_BRIDGE-v1.0.json'
+      - 'PROJECT_STATUS.json'
+      - 'README.md'
+      - '.github/workflows/tachyon-temporal-awareness-r1.yml'
   pull_request:
     paths:
       - 'research/temporal_awareness/**'
