@@ -1,0 +1,277 @@
+{
+  "schema": "simptomat.tachyon.r3.independent_data_qualification.v1",
+  "artifact_id": "SIMPTOMAT_TACHYON_R3_INDEPENDENT_DATA_SCOUT_2026-11-22",
+  "as_of": "2026-11-22",
+  "owner_scope": "Hawkar-usls/Simptomat + JANUS RULE #1 research",
+  "scientific_gate": "HOLD_NO_QUALIFIED_PARTICIPANT_LEVEL_INDEPENDENT_DATA",
+  "purpose_ru": "Квалификация сторонних наборов данных по четырём строго независимым показателям у одного и того же человека: текущая поведенческая вовлечённость, непосредственно предъявленное узнавание, прямой тест порядка событий и отсроченное воспоминание. Отсутствие ощущения времени — отдельный самоотчёт, не синоним амнезии или прекращения физического времени.",
+  "required_axes": [
+    {
+      "key": "online_engagement",
+      "definition": "Task-event logged present-moment behavioral engagement under a priori criteria. Generic attention tests or eventual task participation are not equivalent to real-time awareness; none can directly certify consciousness."
+    },
+    {
+      "key": "immediate_recognition",
+      "definition": "Direct recognition of the same recently shown items measured immediately at encoding or with a specified short delay, not merely free recall or a different test."
+    },
+    {
+      "key": "temporal_order",
+      "definition": "Direct ordering/judgment of two or more experimentally encountered stimulus events by participants, not event dating, duration estimation, retrospective timing, or calendar ordering of study visits."
+    },
+    {
+      "key": "delayed_recall",
+      "definition": "After a documented delay, within-person item/episode recall of the same stimuli, with item identity separated from ordering; delayed order alone is an imperfect proxy."
+    }
+  ],
+  "additional_axes": [
+    "subjective_passage_report",
+    "objective_monotonic_clock",
+    "randomized_trial_sequence",
+    "task_difficulty",
+    "attention_and_sensory_covis",
+    "clinician_verified_disease_stage"
+  ],
+  "access_rule": "An author's claim that data are available on request or that an OSF page exists does NOT verify accessible file bytes, rights to use data, or availability of all required participant-level variables.",
+  "qualification_stages": [
+    "SOURCE_CONFIRMED_PUBLICATION",
+    "ACCESS_TERMS_VERIFIED",
+    "DATA_BYTES_LEGALLY_RETRIEVED_IN_APPROVED_PRIVATE_ENVIRONMENT",
+    "SHA256_AND_SCHEMA_SNAPSHOT",
+    "ALL_FOUR_AXES_SAME_PARTICIPANT_WITH_MATCHED_EVENT_TIMING",
+    "INDEPENDENT_PARTICIPANT_SPLIT_AND_PRE_REGISTRATION",
+    "CLINICAL_AND_PRIVACY_REVIEW",
+    "ONLY_THEN_R3_DATA_ANALYSIS"
+  ],
+  "evaluation_labels": [
+    "DIRECT_BUT_FILES_NOT_INSPECTED",
+    "INDIRECT_PROXY",
+    "UNKNOWN_OR_NOT_REPORTED",
+    "NOT_MEASURED"
+  ],
+  "candidates": [
+    {
+      "id": "TEGHIL_2023",
+      "title": "Multidimensional assessment of time perception along the continuum of Alzheimer’s Disease and evidence of alterations in subjective cognitive decline",
+      "url": "https://www.nature.com/articles/s41598-023-49222-x",
+      "doi": "10.1038/s41598-023-49222-x",
+      "population": "17 healthy controls, 16 subjective cognitive decline, 17 MCI, 13 Alzheimer's disease; one cohort underwent many temporal and neuropsychological tasks",
+      "clinical_relevance": "HIGH",
+      "data_status": "CORRESPONDING_AUTHOR_REASONABLE_REQUEST_ONLY",
+      "rights_verified": false,
+      "participant_rows_available_to_janus": false,
+      "source_data_access_verified": false,
+      "axes": {
+        "online_engagement": {
+          "coverage": "INDIRECT_PROXY",
+          "evidence": "Visual search/Trail Making/digit span and task performance; no independently time-locked proof of conscious engagement at each stimulus"
+        },
+        "immediate_recognition": {
+          "coverage": "INDIRECT_PROXY",
+          "evidence": "RAVLT and visual recall include immediate MEMORY measures; they are not identical to direct item recognition during temporal trials"
+        },
+        "temporal_order": {
+          "coverage": "INDIRECT_PROXY",
+          "evidence": "Temporal collocation/dating of public events and duration tasks; not a verified same-stimulus paired event-order judgment"
+        },
+        "delayed_recall": {
+          "coverage": "DIRECT_BUT_FILES_NOT_INSPECTED",
+          "evidence": "Published neuropsychological battery includes RAVLT and Babcock story immediate/delayed recall; not verified matched stimulus to timing tasks"
+        }
+      },
+      "subjective_time_report": "REPORTED_QUESTIONNAIRE",
+      "notes": "Best clinical multidimensional temporal experience source; does not satisfy strict four-axis matching from paper description; author request is justified but not sent.",
+      "request_target": "Corresponding author Alice Teghil; email published in the paper, no email action taken",
+      "priority": 1
+    },
+    {
+      "id": "HAMPSTEAD_2014",
+      "title": "Impaired retention is responsible for temporal order memory deficits in mild cognitive impairment",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3986922/",
+      "doi": "NOT_VERIFIED_IN_THIS_AUDIT",
+      "population": "25 younger controls, 34 older controls, 32 MCI; immediate/delayed sequence and recognition study",
+      "clinical_relevance": "HIGH",
+      "data_status": "PARTICIPANT_LEVEL_FILE_AVAILABILITY_NOT_VERIFIED",
+      "rights_verified": false,
+      "participant_rows_available_to_janus": false,
+      "source_data_access_verified": false,
+      "axes": {
+        "online_engagement": {
+          "coverage": "UNKNOWN_OR_NOT_REPORTED",
+          "evidence": "Task completion not an independently registered sustained engagement check"
+        },
+        "immediate_recognition": {
+          "coverage": "INDIRECT_PROXY",
+          "evidence": "Recognition phase is reported; its immediacy relative to each stimulus not established as direct immediate recognition"
+        },
+        "temporal_order": {
+          "coverage": "DIRECT_BUT_FILES_NOT_INSPECTED",
+          "evidence": "Explicit sequence reconstruction task for 3-, 4-, 5-item sequences"
+        },
+        "delayed_recall": {
+          "coverage": "DIRECT_BUT_FILES_NOT_INSPECTED",
+          "evidence": "Study phase includes delayed recall at 10 minutes, including sequence; same-item delayed identity data not independently verified"
+        }
+      },
+      "subjective_time_report": "NOT_REPORTED",
+      "notes": "High-priority mechanistic comparator because title explicitly argues retention explanation for temporal-order errors; challenge to a unique timelessness theory.",
+      "priority": 2
+    },
+    {
+      "id": "PAYNE_2023",
+      "title": "Knowledge-based intervention improves older adult recognition memory for novel activity, but not event segmentation or temporal order memory",
+      "url": "https://www.nature.com/articles/s41598-023-45577-3",
+      "doi": "10.1038/s41598-023-45577-3",
+      "population": "80 older adults without stated Alzheimer's/MCI diagnostic cohort; pre/post event segmentation, recognition and ordering tasks",
+      "clinical_relevance": "GENERAL_AGING_CONTROL_NOT_ALZHEIMER_COHORT",
+      "data_status": "DEIDENTIFIED_DATA_AND_CODE_DECLARED_PUBLIC_OSF_FILES_NOT_INSPECTED",
+      "data_landing_url": "https://osf.io/kr382/?view_only=96cac21556984b8b90481996fdf231d5",
+      "rights_verified": false,
+      "participant_rows_available_to_janus": false,
+      "source_data_access_verified": false,
+      "axes": {
+        "online_engagement": {
+          "coverage": "INDIRECT_PROXY",
+          "evidence": "Behavioral segmentation during watched videos; does not prove real-time subjective awareness"
+        },
+        "immediate_recognition": {
+          "coverage": "INDIRECT_PROXY",
+          "evidence": "2AFC recognition after watching the video; exact immediate timing and raw records not inspected"
+        },
+        "temporal_order": {
+          "coverage": "DIRECT_BUT_FILES_NOT_INSPECTED",
+          "evidence": "66 2AFC image-order trials following the viewing task"
+        },
+        "delayed_recall": {
+          "coverage": "UNKNOWN_OR_NOT_REPORTED",
+          "evidence": "Free recall is reported; same-item delayed episodic recall after a documented interval not established"
+        }
+      },
+      "subjective_time_report": "NOT_REPORTED",
+      "notes": "Especially valuable published negative intervention result: knowledge improved recognition, not event segmentation/order. Candidate for open methods replication when OSF data access and license are verified.",
+      "priority": 3
+    },
+    {
+      "id": "SEATTLE_GRONINGEN_2026",
+      "title": "Reliable detection and continuous monitoring of memory dysfunction in mild cognitive impairment and healthy aging through adaptive computational phenotyping",
+      "url": "https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0001686",
+      "doi": "10.1371/journal.pdig.0001686",
+      "population": "24 MCI and 27 control participants; repeated weekly online learning/recall across up to one year",
+      "clinical_relevance": "MCI_CONTROL",
+      "data_status": "OSF_DATA_DECLARED_PUBLIC_BUT_FILE_CONTENTS_NOT_VERIFIED",
+      "data_landing_url": "https://osf.io/kq5d9/",
+      "rights_verified": false,
+      "participant_rows_available_to_janus": false,
+      "source_data_access_verified": false,
+      "axes": {
+        "online_engagement": {
+          "coverage": "INDIRECT_PROXY",
+          "evidence": "Participation and response-time/accuracy can proxy engagement, but not independent consciousness signal"
+        },
+        "immediate_recognition": {
+          "coverage": "UNKNOWN_OR_NOT_REPORTED",
+          "evidence": "Adaptive learning/recall tasks; exact same-item immediate recognition field not verified"
+        },
+        "temporal_order": {
+          "coverage": "UNKNOWN_OR_NOT_REPORTED",
+          "evidence": "Chronological order of weekly lessons is a covariate, not direct within-trial temporal order judgment"
+        },
+        "delayed_recall": {
+          "coverage": "DIRECT_BUT_FILES_NOT_INSPECTED",
+          "evidence": "Memory retention/forgetting over timed delays central to task; underlying fields not inspected"
+        }
+      },
+      "subjective_time_report": "NOT_REPORTED",
+      "notes": "Promising for MCI forgetting model only. Do not confuse temporal sequence of visits with experimental time-order perception.",
+      "priority": 4
+    },
+    {
+      "id": "UCL_TIME_DEMENTIA_2026",
+      "title": "Subjective time perception in dementia: a behavioural and neuroanatomical analysis",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12782024/",
+      "doi": "10.1093/braincomms/fcaf496",
+      "population": "Dementia subtypes studied; sample not extracted in this audit",
+      "clinical_relevance": "DEMENTIA_MULTISUBTYPE",
+      "data_status": "PATIENT_LEVEL_DATA_ON_REQUEST_CODE_LINKED_OSF",
+      "code_url": "https://osf.io/w2jrs/",
+      "rights_verified": false,
+      "participant_rows_available_to_janus": false,
+      "source_data_access_verified": false,
+      "axes": {
+        "online_engagement": {
+          "coverage": "UNKNOWN_OR_NOT_REPORTED",
+          "evidence": "Task and cognition measures cannot be presumed to include independent sustained engagement checks"
+        },
+        "immediate_recognition": {
+          "coverage": "UNKNOWN_OR_NOT_REPORTED",
+          "evidence": "Not verified from full instrument list"
+        },
+        "temporal_order": {
+          "coverage": "UNKNOWN_OR_NOT_REPORTED",
+          "evidence": "Direct same-item temporal order not verified"
+        },
+        "delayed_recall": {
+          "coverage": "UNKNOWN_OR_NOT_REPORTED",
+          "evidence": "Same-item delayed recall not verified"
+        }
+      },
+      "subjective_time_report": "REPORTED_SUBJECTIVE_TIME_RESEARCH",
+      "notes": "Data specifically withheld publicly to protect participants; code publicly linked, not a data license.",
+      "priority": 5
+    },
+    {
+      "id": "ZENODO_COG_CONNECTOME_2026",
+      "title": "Cognitive connectome and MCI conversion dataset",
+      "url": "https://zenodo.org/records/21742457",
+      "doi": "10.5281/zenodo.21742457",
+      "population": "822 healthy older adults at baseline; 115 MCI conversions at follow-up, as reported by dataset record",
+      "clinical_relevance": "AGING_MCI_CONVERSION",
+      "data_status": "RESTRICTED_FILES_LOGIN_OR_GRANTED_ACCESS_REQUIRED",
+      "rights_verified": false,
+      "participant_rows_available_to_janus": false,
+      "source_data_access_verified": false,
+      "axes": {
+        "online_engagement": {
+          "coverage": "INDIRECT_PROXY",
+          "evidence": "Digit span, processing-speed measures and neuropsych scores; not time-locked current engagement"
+        },
+        "immediate_recognition": {
+          "coverage": "INDIRECT_PROXY",
+          "evidence": "FCSRT/ROCF may capture immediate memory, but no direct matched recognition verified"
+        },
+        "temporal_order": {
+          "coverage": "UNKNOWN_OR_NOT_REPORTED",
+          "evidence": "No direct event-order judgment listed in public 20-variable description"
+        },
+        "delayed_recall": {
+          "coverage": "DIRECT_BUT_FILES_NOT_INSPECTED",
+          "evidence": "ROCF/FCSRT memory included; exact delay variable metadata restricted"
+        }
+      },
+      "subjective_time_report": "NOT_VERIFIED",
+      "notes": "Although public landing page exists, Zenodo explicitly labels attached files RESTRICTED. Cannot download or use as open data.",
+      "priority": 6
+    }
+  ],
+  "decision_rule": {
+    "ready_if": "At least one legally and ethically authorized independently sourced individual-level dataset (same participant) contains all four DIRECT verified task columns with documented matching of stimuli, delay and event timestamps, plus nonleaking split and source checksums; any missing gate blocks R3 full analysis.",
+    "missing_proxy_policy": "Never substitute temporal collocation of news events, simple recall, prospective duration, task attendance, or calendar of visits for a direct event-order or current-engagement measurement.",
+    "controls": "Participant-level disjoint split, preregistered analysis, comparators for attention/sensory impairment, language, medications and task difficulty. Medical diagnosis from source never inferred by JANUS.",
+    "no_posthoc": "No selecting thresholds, columns, cohorts or task combinations after measuring target outcomes.",
+    "protected_ledger": "No patient microdata, identifiers, interviews or raw logs to public GitHub; persist only a source/permission manifest and nonidentifying checksums after approval.",
+    "evidence_ceiling": "SOURCES_IDENTIFIED_NOT_R3_EMPIRICALLY_TESTED",
+    "publish_nulls": true
+  },
+  "requested_but_not_sent": {
+    "recipient_type": "Published corresponding author, Alice Teghil",
+    "purpose": "Ask for data dictionary, per-task participant linking, temporal collocation trials, RAVLT immediate/delayed recall and attention task measures; verify participant-level research-only sharing terms and independent reanalysis rights.",
+    "no_email_sent": true,
+    "user_authorization_for_contact": "NOT_GIVEN_IN_THIS_TURN",
+    "no_files_received": true,
+    "draft_file": "docs/TACHYON_R3_TEGHIL_DATA_REQUEST_DRAFT.md"
+  },
+  "real_participant_data_imported": false,
+  "clinical_diagnosis_performed": false,
+  "code_executed_on_real_patient_data": false,
+  "retrospective_publication_results_are_not_independent_replication": true,
+  "created_by": "JANUS R3 independent source provenance audit"
+}

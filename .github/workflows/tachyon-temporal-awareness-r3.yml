@@ -1,0 +1,76 @@
+name: Simptomat TACHYON R3 - Independent Dataset Readiness Audit
+
+on:
+  pull_request:
+    paths:
+      - 'research/temporal_awareness/SIMPTOMAT_TACHYON_R3_INDEPENDENT_DATA_SCOUT_2026-11-22.json'
+      - 'tools/temporal_awareness_r3_source_audit.py'
+      - 'tests/test_temporal_awareness_r3_source_audit.py'
+      - 'docs/TACHYON_R3_TEGHIL_DATA_REQUEST_DRAFT.md'
+      - '.github/workflows/tachyon-temporal-awareness-r3.yml'
+      - 'PROJECT_STATUS.json'
+      - 'README.md'
+  push:
+    branches: [main]
+    paths:
+      - 'research/temporal_awareness/SIMPTOMAT_TACHYON_R3_INDEPENDENT_DATA_SCOUT_2026-11-22.json'
+      - 'tools/temporal_awareness_r3_source_audit.py'
+      - 'tests/test_temporal_awareness_r3_source_audit.py'
+      - 'docs/TACHYON_R3_TEGHIL_DATA_REQUEST_DRAFT.md'
+      - '.github/workflows/tachyon-temporal-awareness-r3.yml'
+      - 'PROJECT_STATUS.json'
+      - 'README.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  independent-data-scout:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Keep existing Simptomat public-case privacy invariants
+        run: python tools/validate_repository.py
+      - name: R1-R3 synthetic and source-provenance unit tests
+        run: |
+          python -m unittest discover -s tests -p 'test_temporal_awareness_lab.py' -v
+          python -m unittest discover -s tests -p 'test_temporal_awareness_r2.py' -v
+          python -m unittest discover -s tests -p 'test_temporal_awareness_r3_source_audit.py' -v
+      - name: Audit publications without retrieving any participant-level data
+        run: |
+          set -euo pipefail
+          mkdir -p out/temporal_awareness
+          python -m tools.temporal_awareness_r3_source_audit --audit > out/temporal_awareness/r3_independent_data_readiness_receipt.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('out/temporal_awareness/r3_independent_data_readiness_receipt.json').read_text())
+          d=json.loads(Path('research/temporal_awareness/SIMPTOMAT_TACHYON_R3_INDEPENDENT_DATA_SCOUT_2026-11-22.json').read_text())
+          assert r['scientific_gate'] == 'HOLD_NO_QUALIFIED_PARTICIPANT_LEVEL_INDEPENDENT_DATA'
+          assert r['sources_audited'] == 6
+          assert r['datasets_qualified'] == 0
+          assert r['real_participant_records_seen'] == 0
+          assert r['individual_level_models_tested'] == 0
+          assert d['requested_but_not_sent']['no_email_sent'] is True
+          assert d['real_participant_data_imported'] is False
+          assert not r['clinical_authority'] and not r['physical_timelessness_proven']
+          assert not r['time_travel_proven'] and r['no_automated_email_sent']
+          assert all(not s['dataset_ready_for_independent_empirical_test'] for s in r['candidates'])
+          print('TACHYON_R3_SIX_INDEPENDENT_SOURCE_MANIFESTS_PASS')
+          print('TACHYON_R3_REAL_PARTICIPANT_DATA_HOLD')
+          print('TACHYON_R3_NO_UNAUTHORIZED_EMAIL_OR_DIAGNOSIS_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: simptomat-tachyon-r3-independent-data-readiness
+          path: out/temporal_awareness/r3_independent_data_readiness_receipt.json
+          if-no-files-found: warn
+          retention-days: 30
