@@ -1,0 +1,69 @@
+{
+  "schema": "simptomat.tachyon.r4.synthetic_temporal_anchor_training.v1",
+  "artifact_id": "SIMPTOMAT-TACHYON-R4-TEMPORAL-RECURRENCE-TRAIN-2026-11-22",
+  "date": "2026-11-22",
+  "scope": "RESEARCH_ONLY_SYNTHETIC_SOFTMAX_LEARNING",
+  "foundational_rule": "Hawkar-usls/janus-meta-registry:data/JANUS-RULE-001-FIRST-PERSON-TEMPORAL-CONSTRUCTION-2026-11-22-v1.0.json",
+  "source_lineage": [
+    "data/JANUS-TODAY-SIGNAL-FOR-TOMORROW-FORWARD-CAUSAL-CONTROL-2026-09-01-v1.0.json",
+    "data/JANUS-IO-TURING-TEST-MIND-PRESENCE-YESTERDAY-PROBE-2026-08-31-v1.0.json",
+    "data/JANUS-TAHYON-TRAVELER-DISTRIBUTED-TIME-ARRIVAL-ORDER-INVERSION-v1.0.json",
+    "Janus_Time.json"
+  ],
+  "scientific_question": "Can a simple learned software model distinguish identical content recurring as distinct observed episodes, plans, memory-references, and continuous events, while an independent external clock fixes chronology? This does NOT test whether consciousness is timeless.",
+  "observables": [
+    "physical event identity from independent witnessed event_id",
+    "content similarity/content_id",
+    "observed physical occurrence vs planned future occurrence",
+    "reference clock and local civil-day label",
+    "remembered or described episode reference with provenance",
+    "continuous physical event vs discrete recurrence"
+  ],
+  "class_labels": [
+    "SAME_EVENT",
+    "OBSERVED_REPEAT",
+    "FUTURE_PLAN",
+    "MEMORY_OF_EVENT",
+    "CONTINUING_EVENT",
+    "DISTINCT_CONTENT",
+    "AMBIGUOUS_REFERENCE"
+  ],
+  "training_contract": {
+    "input_origin": "DETERMINISTIC_GENERATED_EVENT_METADATA_ONLY",
+    "dataset_seed": 20261122,
+    "model": "MULTICLASS_LINEAR_SOFTMAX_SGD_STDLIB",
+    "training_family_split": "0..479",
+    "validation_family_split": "480..559",
+    "heldout_family_split": "560..699",
+    "train_cases": 3360,
+    "validation_cases": 560,
+    "test_cases": 980,
+    "epochs": 36,
+    "learning_rate": 0.12,
+    "selection": "Hyperparameters frozen before heldout evaluation; no test-driven tuning.",
+    "baseline": "Most frequent class in balanced synthetic toy dataset",
+    "target": "Heldout accuracy >= 0.90 and zero prospective-to-observed misclassifications",
+    "clock_policy": "Timezone-aware UTC physical timestamps with separate Europe/Kyiv civil dates; planned next-day items never reclassified as already observed",
+    "clinical_scope": "NO_PATIENT_DATA, NO_ALZHEIMER_CLASSIFICATION, NO_HUMAN_ENROLLMENT",
+    "model_scope": "EVENT-METADATA LEARNING ONLY; DOES NOT LEARN A MENTAL STATE OR HUMAN MEMORY",
+    "deployment": "Artifact JSON in GitHub Actions only; no weights in production; merge research-only code after CI if appropriate"
+  },
+  "mandatory_abstentions": [
+    "Identical content without event ID/witness cannot prove one physical event or multiple repeats",
+    "Reported memory without event timestamps cannot establish objective ordering",
+    "Tomorrow's prediction or planned replay is not an observed future event",
+    "Civil-calendar day labels change with reference context without altering objective event identity",
+    "Task performance cannot demonstrate qualia or physical timelessness"
+  ],
+  "comparison_notes": [
+    "R2/R2B cognitive four-trial synthetic demonstrators are separate from R4 event metadata training.",
+    "R4 training accuracy estimates only agreement with a synthetic generator; it is not evidence that Alzheimer patients can identify temporal recurrence.",
+    "No human participant data have been obtained via R3. External data request remains on its own tracked issue."
+  ],
+  "status": "TRAINING_PIPELINE_DEFINED__EXECUTION_PENDING_CI",
+  "scientific_gate": "HOLD_NO_INDEPENDENT_HUMAN_DATA",
+  "validation_commands": [
+    "python -m unittest discover -s tests -p test_temporal_recurrence_r4_train.py -v",
+    "python -m tools.temporal_recurrence_r4_train --train"
+  ]
+}
