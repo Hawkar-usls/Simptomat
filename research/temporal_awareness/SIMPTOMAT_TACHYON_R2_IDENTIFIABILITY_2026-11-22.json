@@ -142,7 +142,7 @@
     "source": "tools/temporal_awareness_r2.py",
     "tests": "tests/test_temporal_awareness_r2.py",
     "workflow": ".github/workflows/tachyon-temporal-awareness-r2.yml",
-    "invocation": "python tools/temporal_awareness_r2.py --audit",
+    "invocation": "python -m tools.temporal_awareness_r2 --audit",
     "reference_only": true,
     "may_control_capsule": false,
     "may_assess_patient": false,
