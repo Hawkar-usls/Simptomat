@@ -98,6 +98,22 @@
       "scientific_confirmation": "HOLD",
       "production_execution": false,
       "objective": "Separate event sequencing, delayed memory and online engagement; reject physical-timelessness and clinical promotion."
+    },
+    "tachyon_alzheimer_temporal_awareness_R2": {
+      "status": "OFFLINE_SYNTHETIC_METHODS_AUDIT_PR_ONLY",
+      "protocol": "research/temporal_awareness/SIMPTOMAT_TACHYON_R2_IDENTIFIABILITY_2026-11-22.json",
+      "analyzer": "tools/temporal_awareness_r2.py",
+      "tests": "tests/test_temporal_awareness_r2.py",
+      "workflow": ".github/workflows/tachyon-temporal-awareness-r2.yml",
+      "parent_R1": "research_lanes/tachyon_alzheimer_temporal_awareness_R1",
+      "complete_grid_vectors": 1296,
+      "cause_identifiability_claim": "NOT_ESTABLISHED_FROM_FOUR_TASK_COUNTS",
+      "published_clinical_studies": "BACKGROUND_PAPER_NUMBERS_ONLY_NOT_PATIENT_LEVEL_REANALYSIS",
+      "clinical_authority": false,
+      "private_human_data_ingested": false,
+      "neural_model_weights_changed": false,
+      "scientific_gate": "HOLD_NO_INDEPENDENT_PARTICIPANT_LEVEL_VALIDATION",
+      "main_activation": "PENDING_PR_MERGE_AT_TIME_OF_RECORD"
     }
   }
 }
