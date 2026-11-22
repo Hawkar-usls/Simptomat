@@ -1,0 +1,74 @@
+name: Simptomat TACHYON R2 - Temporal Identifiability Audit
+
+on:
+  pull_request:
+    paths:
+      - 'research/temporal_awareness/SIMPTOMAT_TACHYON_R2_IDENTIFIABILITY_2026-11-22.json'
+      - 'tools/temporal_awareness_r2.py'
+      - 'tests/test_temporal_awareness_r2.py'
+      - '.github/workflows/tachyon-temporal-awareness-r2.yml'
+      - 'PROJECT_STATUS.json'
+      - 'README.md'
+  push:
+    branches: [main]
+    paths:
+      - 'research/temporal_awareness/SIMPTOMAT_TACHYON_R2_IDENTIFIABILITY_2026-11-22.json'
+      - 'tools/temporal_awareness_r2.py'
+      - 'tests/test_temporal_awareness_r2.py'
+      - '.github/workflows/tachyon-temporal-awareness-r2.yml'
+      - 'PROJECT_STATUS.json'
+      - 'README.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-exhaustive-synthetic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Recheck legacy consent and public health privacy invariants
+        run: python tools/validate_repository.py
+      - name: Run R1 and R2 synthetic software tests
+        run: |
+          python -m unittest discover -s tests -p 'test_temporal_awareness_lab.py' -v
+          python -m unittest discover -s tests -p 'test_temporal_awareness_r2.py' -v
+      - name: Full enumeration and conservative scientific gates
+        run: |
+          set -euo pipefail
+          mkdir -p out/temporal_awareness
+          python tools/temporal_awareness_r2.py --audit > out/temporal_awareness/r2_exhaustive_synthetic_receipt.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          spec=json.loads(Path("research/temporal_awareness/SIMPTOMAT_TACHYON_R2_IDENTIFIABILITY_2026-11-22.json").read_text())
+          r=json.loads(Path("out/temporal_awareness/r2_exhaustive_synthetic_receipt.json").read_text())
+          assert spec["status"] == "METHODS_STRESS_TEST__SYNTHETIC_ONLY__NO_CLINICAL_VALIDATION"
+          assert spec["evidence_classes"]["E2"].endswith("NOT AVAILABLE")
+          assert r["R1_total_vectors"] == 1296
+          assert sum(r["profiles_by_R1_descriptive_verdict"].values()) == 1296
+          assert r["scientific_guard_violations"] == 0
+          assert r["invalid_synthetic_vectors"] == 0
+          assert r["causal_identifiability_counterexample"]["causal_mechanism_identifiable_from_four_counts"] is False
+          assert r["demonstrative_five_trial_uncertainty"]["intervals_overlap"] is True
+          assert r["scientific_gate"] == "HOLD_NO_INDEPENDENT_PARTICIPANT_LEVEL_VALIDATION"
+          assert not r["clinical_validation"] and not r["patient_data_used"]
+          assert not r["physical_time_travel_proven"] and not r["timeless_consciousness_proven"]
+          print("TACHYON_R2_FULL_GRID_PASS")
+          print("TACHYON_R2_CAUSAL_IDENTIFIABILITY_HOLD")
+          print("TACHYON_R2_CLINICAL_AND_PHYSICAL_CLAIMS_HOLD")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: simptomat-tachyon-r2-exhaustive-synthetic-receipt
+          path: out/temporal_awareness/r2_exhaustive_synthetic_receipt.json
+          if-no-files-found: warn
+          retention-days: 30
