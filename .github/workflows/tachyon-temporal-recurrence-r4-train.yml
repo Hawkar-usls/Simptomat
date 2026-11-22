@@ -1,0 +1,65 @@
+name: Simptomat TACHYON R4 - Synthetic Temporal Recurrence Training
+
+on:
+  push:
+    branches:
+      - research/tachyon-r4-synthetic-training-20261122
+      - main
+    paths:
+      - 'tools/temporal_recurrence_r4_train.py'
+      - 'tests/test_temporal_recurrence_r4_train.py'
+      - 'research/temporal_awareness/SIMPTOMAT_TACHYON_R4_TRAINING_PROTOCOL_2026-11-22.json'
+      - '.github/workflows/tachyon-temporal-recurrence-r4-train.yml'
+  pull_request:
+    paths:
+      - 'tools/temporal_recurrence_r4_train.py'
+      - 'tests/test_temporal_recurrence_r4_train.py'
+      - 'research/temporal_awareness/SIMPTOMAT_TACHYON_R4_TRAINING_PROTOCOL_2026-11-22.json'
+      - '.github/workflows/tachyon-temporal-recurrence-r4-train.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-training:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate pre-existing Simptomat privacy/data safeguards
+        run: python tools/validate_repository.py
+      - name: R4 synthetic training and independent chronology tests
+        run: python -m unittest discover -s tests -p 'test_temporal_recurrence_r4_train.py' -v
+      - name: Train actual isolated softmax parameters and emit receipt
+        run: |
+          set -euo pipefail
+          mkdir -p out/temporal_awareness
+          python -m tools.temporal_recurrence_r4_train --train > out/temporal_awareness/r4_synthetic_training_receipt.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('out/temporal_awareness/r4_synthetic_training_receipt.json').read_text())
+          s=json.loads(Path('research/temporal_awareness/SIMPTOMAT_TACHYON_R4_TRAINING_PROTOCOL_2026-11-22.json').read_text())
+          assert s['scientific_gate'] == 'HOLD_NO_INDEPENDENT_HUMAN_DATA'
+          assert r['run_type'] == 'ACTUAL_OFFLINE_SOFTMAX_PARAMETER_TRAINING'
+          assert r['train_cases'] == 3360 and r['heldout_test_cases'] == 980
+          assert r['training_qualified_synthetic'] is True
+          assert r['prospective_to_observed_misclassifications'] == 0
+          assert r['heldout_accuracy'] > r['constant_majority_baseline_accuracy']
+          assert not r['patient_data_used'] and not r['clinical_training']
+          assert not r['physical_time_change_verified'] and not r['phenomenal_time_measured']
+          print('TACHYON_R4_REAL_SOFTMAX_PARAMETER_TRAINING_SYNTHETIC_PASS')
+          print('TACHYON_R4_NO_PATIENT_DATA_OR_PHYSICAL_CLAIM_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tachyon-r4-synthetic-training-weights-and-receipt
+          path: out/temporal_awareness/r4_synthetic_training_receipt.json
+          if-no-files-found: error
+          retention-days: 30
