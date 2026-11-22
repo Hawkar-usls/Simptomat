@@ -1,0 +1,69 @@
+{
+  "schema": "simptomat.janus_tachyon_temporal_awareness_bridge.v1",
+  "artifact_id": "SIMPTOMAT_JANUS_TACHYON_TEMPORAL_AWARENESS_R1_2026-11-22",
+  "created_utc": "2026-11-22",
+  "producer_repository": "Hawkar-usls/Simptomat",
+  "receiving_research_domains": [
+    "Hawkar-usls/Demi_Head",
+    "Hawkar-usls/janus-meta-registry"
+  ],
+  "exact_tachyon_rule_source": {
+    "repository": "Hawkar-usls/janus-meta-registry",
+    "commit_sha": "7ce207fab7b5d337cb549a326c6cd71fdc5b8340",
+    "rule": "data/JANUS-RULE-001-FIRST-PERSON-TEMPORAL-CONSTRUCTION-2026-11-22-v1.0.json",
+    "algorithm": "data/JANUS-TACHYON-RULE-001-TEMPORAL-PERCEPTION-ALGORITHM-2026-11-22-v1.0.json",
+    "type": "USER_SELECTED_RESEARCH_EPISTEMIC_RULE",
+    "scientific_validation_status": "OPEN",
+    "change_control": "Pinned and read-only, source cannot override clinical limits"
+  },
+  "routes": {
+    "enabled": "OFFLINE_CI_SYNTHETIC_ONLY",
+    "ambient_transport_enabled": false,
+    "health_data_route_enabled": false,
+    "cross_repo_write_enabled": false,
+    "allow_auto_training": false,
+    "allow_model_weight_updates": false,
+    "allow_clinical_diagnoses": false,
+    "allow_clinical_treatment": false,
+    "scope": "Research-methods and synthetic outcome summary, not participant reports or real medical data",
+    "existing_demihead_bridge": "integrations/JANUS_DEMIHEAD_DIAGNOSTIC_BRIDGE-v1.0.json",
+    "existing_lapis_adapter": "integrations/JANUS_LAPIS_DIAGNOSTIC_ADAPTER-v1.0.json"
+  },
+  "synthetic_receipt": {
+    "schema": "simptomat.tachyon.temporal_awareness.offline_demo_receipt.v1",
+    "generator": "tools/temporal_awareness_lab.py --demo",
+    "fields_allowed": [
+      "schema",
+      "run_type",
+      "scientific_gate",
+      "clinical_authority",
+      "patient_data_used",
+      "independent_real_world_replication",
+      "rule001",
+      "profiles"
+    ],
+    "forbidden": [
+      "personal_identifiers",
+      "raw_case_transcripts",
+      "patient_diagnosis",
+      "medical_reference_labels",
+      "patient_risk_probabilities",
+      "experimental_human_assessment"
+    ],
+    "clinical_reference_standard_available": false,
+    "statement": "NO PATIENTS, NO PHYSICAL TIME TRAVEL PROOF, NO HUMAN CONSCIOUSNESS CERTIFICATION"
+  },
+  "review_contract": {
+    "awareness_vs_memory": "Separate observable immediate task engagement and sensory encoding from delayed episodic retrieval; neither directly measures conscious subjective qualia.",
+    "order_vs_recall": "Preserved item identity does not imply preserved event order and vice versa.",
+    "no_identity_claim": "The system cannot infer that only one consciousness exists.",
+    "no_timelessness_claim": "Reports of no felt time do not prove consciousness exists outside spacetime.",
+    "no_alzheimer_diagnosis": "Alzheimer's is a heterogeneous clinical condition; synthetic task profiles are never evidence of an individual's disease.",
+    "external_study_required": "Ethics approval, consent, clinical ground-truth provenance, matched age/attention/sensory/language confound control, independent preregistration",
+    "reviewer_role": "Methodology reviewer; never clinical confirmation"
+  },
+  "implementation_status": "SYNTHETIC_OFFLINE_LAB_ONLY",
+  "required_evidence_for_live_communication": "Independent explicit approvals + human consent + private channel + signed typed provenance. Not granted here.",
+  "production_authority_delta": 0,
+  "safe_default": "DENY_LIVE_MEDICAL_INPUT"
+}

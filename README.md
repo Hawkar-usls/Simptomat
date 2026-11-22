@@ -301,3 +301,13 @@ These boundaries do **not** prohibit Simptomat from performing diagnostic reason
 Repository presentation follows the account-wide [Public Repository Presentation Standard](https://github.com/Hawkar-usls/Janus/blob/main/docs/PUBLIC_REPOSITORY_PRESENTATION_STANDARD.md).
 
 No institutional affiliation or endorsement is implied.
+
+## TACHYON R1 — Time awareness, event sequence, and memory (synthetic research)
+
+**Bounded synthetic-only research, not medical screening.** The [research protocol](research/temporal_awareness/SIMPTOMAT_TACHYON_ALZHEIMER_R1_2026-11-22.json) uses published Alzheimer's/dementia temporal-awareness literature to distinguish **observable online engagement**, **immediate item recognition**, **event-order judgments** and **delayed recall**, with optional subjective felt passage of time.
+
+This is a supplementary research and falsification lane linked read-only to [JANUS RULE #1](https://github.com/Hawkar-usls/janus-meta-registry/blob/7ce207fab7b5d337cb549a326c6cd71fdc5b8340/data/JANUS-RULE-001-FIRST-PERSON-TEMPORAL-CONSTRUCTION-2026-11-22-v1.0.json). A person might remain behaviorally engaged while delayed recall or temporal ordering differs; neither behavioral engagement nor absent temporal-feeling alone proves timeless consciousness. Alzheimer's is a disease, not a mechanism for time travel.
+
+The [Python reference](tools/temporal_awareness_lab.py) accepts *only declared synthetic fixtures*, never real people or medical records, and runs seven differential demonstration cases with the --demo switch. The [research bridge](integrations/JANUS_TACHYON_TEMPORAL_AWARENESS_RESEARCH_BRIDGE-v1.0.json) is read-only, does not enable ambient/cross-repo transport and has zero medical authority. The [CI workflow](.github/workflows/tachyon-temporal-awareness-r1.yml) checks existing consented-case invariants, adversarial synthetic tests and all seven demo profiles.
+
+No patient observations, clinical labels, new neural training, human stimulation, validated dementia classifier, prospective time-travel evidence or production service activation is claimed. Any human study requires separate ethics/clinician review, explicit consent, private storage, clinical reference standards and independent validation.
