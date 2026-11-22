@@ -82,5 +82,22 @@
   "habitat_contract": "habitat/SIMPTOMAT_HABITAT-v1.0.json",
   "epistemic_constitution": "https://github.com/Hawkar-usls/janus-meta-registry/blob/main/registry/epistemic/JANUS-GLOBAL-EPISTEMIC-SELF-DECEPTION-TRUTH-CONSTITUTION-v1.0.json",
   "visibility_policy": "https://github.com/Hawkar-usls/Janus/blob/main/portfolio-visibility.json",
-  "claim_boundary": "DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS; DEMIHEAD_REVIEW != CLINICAL_CONFIRMATION; LAPIS_RANKING != CLINICAL_VALIDATION; NEXT_CONFIRMATION_STEP != EXPERIMENT_CONTRACT; RANKING != CERTAINTY; REPEATED_SELF_REPORT_CASES != CLINICAL_VALIDATION"
+  "claim_boundary": "DIAGNOSTIC_HYPOTHESIS != CLINICALLY_CONFIRMED_DIAGNOSIS; DEMIHEAD_REVIEW != CLINICAL_CONFIRMATION; LAPIS_RANKING != CLINICAL_VALIDATION; NEXT_CONFIRMATION_STEP != EXPERIMENT_CONTRACT; RANKING != CERTAINTY; REPEATED_SELF_REPORT_CASES != CLINICAL_VALIDATION",
+  "research_lanes": {
+    "tachyon_alzheimer_temporal_awareness_R1": {
+      "status": "OFFLINE_SYNTHETIC_RESEARCH_CI_ONLY",
+      "protocol": "research/temporal_awareness/SIMPTOMAT_TACHYON_ALZHEIMER_R1_2026-11-22.json",
+      "code": "tools/temporal_awareness_lab.py",
+      "tests": "tests/test_temporal_awareness_lab.py",
+      "workflow": ".github/workflows/tachyon-temporal-awareness-r1.yml",
+      "external_research_rule": "Hawkar-usls/janus-meta-registry@7ce207fab7b5d337cb549a326c6cd71fdc5b8340:data/JANUS-RULE-001-FIRST-PERSON-TEMPORAL-CONSTRUCTION-2026-11-22-v1.0.json",
+      "route_contract": "integrations/JANUS_TACHYON_TEMPORAL_AWARENESS_RESEARCH_BRIDGE-v1.0.json",
+      "clinical_diagnosis_authority": false,
+      "any_real_human_data_ingested": false,
+      "synthetic_profiles": 7,
+      "scientific_confirmation": "HOLD",
+      "production_execution": false,
+      "objective": "Separate event sequencing, delayed memory and online engagement; reject physical-timelessness and clinical promotion."
+    }
+  }
 }
