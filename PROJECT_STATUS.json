@@ -114,6 +114,24 @@
       "neural_model_weights_changed": false,
       "scientific_gate": "HOLD_NO_INDEPENDENT_PARTICIPANT_LEVEL_VALIDATION",
       "main_activation": "PENDING_PR_MERGE_AT_TIME_OF_RECORD"
+    },
+    "tachyon_independent_data_R3": {
+      "status": "SIX_SOURCE_PROVENANCE_RECONNAISSANCE__SCIENTIFIC_HOLD",
+      "protocol": "research/temporal_awareness/SIMPTOMAT_TACHYON_R3_INDEPENDENT_DATA_SCOUT_2026-11-22.json",
+      "script": "tools/temporal_awareness_r3_source_audit.py",
+      "tests": "tests/test_temporal_awareness_r3_source_audit.py",
+      "workflow": ".github/workflows/tachyon-temporal-awareness-r3.yml",
+      "source_count": 6,
+      "qualified_independent_datasets": 0,
+      "participant_rows_received": 0,
+      "subject_level_analysis_completed": false,
+      "available_source_data_access_verified": false,
+      "private_data_imported": false,
+      "medical_diagnosis_authority": false,
+      "model_weights_modified": false,
+      "request_to_authors": "DRAFT_ONLY_NOT_SENT",
+      "next_gate": "AUTHORIZED_4_AXIS_WITHIN_PARTICIPANT_DATA_AND_PREREGISTERED_HOLDOUT",
+      "claim_ceiling": "SOURCE_DISCOVERY_NOT_NEUROSCIENCE_VALIDATION"
     }
   }
 }
