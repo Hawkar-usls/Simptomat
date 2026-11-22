@@ -174,8 +174,7 @@ def train_and_evaluate() -> dict:
             ("SAME_EVENT", "OBSERVED_REPEAT", "CONTINUING_EVENT")):
             safe_failures += 1
     correct = sum(matrix[c][c] for c in CLASSES)
-    baseline = max(sum(matrix[c].values() for c in CLASSES)
-                   for _ in range(1)) / len(test)
+    baseline = max(sum(row.values()) for row in matrix.values()) / len(test)
     # 'constant majority' accuracy is 1/7 on balanced synthetic classes.
     safe_guard_pass = safe_failures == 0
     return {
