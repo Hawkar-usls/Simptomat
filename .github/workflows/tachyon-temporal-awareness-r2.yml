@@ -44,7 +44,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p out/temporal_awareness
-          python tools/temporal_awareness_r2.py --audit > out/temporal_awareness/r2_exhaustive_synthetic_receipt.json
+          python -m tools.temporal_awareness_r2 --audit > out/temporal_awareness/r2_exhaustive_synthetic_receipt.json
           python - <<'PY'
           import json
           from pathlib import Path
