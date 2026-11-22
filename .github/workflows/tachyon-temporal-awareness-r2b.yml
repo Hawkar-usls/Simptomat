@@ -1,0 +1,55 @@
+name: Simptomat TACHYON R2B - Independent Methods Review
+
+on:
+  pull_request:
+    paths:
+      - 'tools/temporal_awareness*.py'
+      - 'tests/test_temporal_awareness*.py'
+      - 'research/temporal_awareness/**'
+      - 'docs/TACHYON_R2B*'
+      - '.github/workflows/tachyon-temporal-awareness-r2b.yml'
+      - 'PROJECT_STATUS.json'
+      - 'README.md'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/temporal_awareness*.py'
+      - 'tests/test_temporal_awareness*.py'
+      - 'research/temporal_awareness/**'
+      - 'docs/TACHYON_R2B*'
+      - '.github/workflows/tachyon-temporal-awareness-r2b.yml'
+      - 'PROJECT_STATUS.json'
+      - 'README.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-methods-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Existing repository privacy and consent invariants
+        run: python tools/validate_repository.py
+      - name: R1 through R3 and R2B methods and power software tests
+        run: python -m unittest discover -s tests -p 'test_temporal_awareness*.py' -v
+      - name: Replay exact synthetic results and verify source hashes
+        run: |
+          python -m tools.temporal_awareness_r2b_reproduce
+          mkdir -p out/temporal_awareness
+          python -m tools.temporal_awareness_r2b --audit > out/temporal_awareness/r2b_results.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: simptomat-tachyon-r2b-offline-methods
+          path: |
+            out/temporal_awareness/r2b_results.json
+            research/temporal_awareness/SIMPTOMAT_TACHYON_R2B_*.json
+          if-no-files-found: error
+          retention-days: 90

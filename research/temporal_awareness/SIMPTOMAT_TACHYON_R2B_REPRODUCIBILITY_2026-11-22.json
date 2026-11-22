@@ -1,0 +1,33 @@
+{
+  "artifact_date": "2026-11-22",
+  "baseline_simptomat_commit": "2b562f53c72fdc733cd06623268638e56e8a41fc",
+  "external_review_provenance": {
+    "authority": "Data and suggestions only; current task controls authorized actions",
+    "conversation_id": "6b0220ea-c7f4-83ed-86dd-2e1c62ada3a4",
+    "snapshot": "docs/TACHYON_R2B_EXTERNAL_REVIEW_RU.txt",
+    "source_kind": "USER_SUPPLIED_EXTERNAL_DOCUMENT_REVIEW__UNVERIFIED_REVIEWER_IDENTITY",
+    "user_turn_id": "5636622e-a681-47be-8493-6c99cc68905c"
+  },
+  "patient_data_used": false,
+  "production_model_weights_changed": false,
+  "replay": "python -m tools.temporal_awareness_r2b_reproduce",
+  "result_hashing": "SHA256 of JSON UTF-8, sorted keys, compact separators, ensure_ascii=False, no NaN",
+  "results_sha256": "663a3ac205e83fcb618f51e765fbf553f23ef871bd527592518b700515edae40",
+  "schema": "simptomat.tachyon.r2b.reproducibility.v1",
+  "scientific_gate": "HOLD_NO_INDEPENDENT_PARTICIPANT_LEVEL_VALIDATION",
+  "source_sha256": {
+    ".github/workflows/tachyon-temporal-awareness-r2b.yml": "0620293e0d5e4bc3d78c4db8f8220ca1bc2f3e159e82ace5586a04c7f4a8898c",
+    "docs/TACHYON_R2B_EXTERNAL_REVIEW_RU.txt": "5fe6bd372f331ab15fe42f2fbfbaeeeaccaab50fda4abc4d02015b4d7a85933b",
+    "docs/TACHYON_R2B_INDEPENDENT_METHODS_REVIEW.md": "8aa518d52d4eb374ced36d67c9280ca1a8fb7f4485d7de73fd69a75ceee0ea42",
+    "docs/TACHYON_R2B_PREREGISTRATION.md": "4b853850cf3503acd00528ccf9c52a96fe3dadf50cf17ac48adb5dd94b3a15e6",
+    "research/temporal_awareness/SIMPTOMAT_TACHYON_R2B_PREREGISTRATION_2026-11-22.json": "218d1d033a761c6e3cc15a1b5290e77b0cc189873549cdfc9a08140dc3ebd497",
+    "tests/test_temporal_awareness_r2b.py": "d907a0cdb5079a9cfcc87d97bcb5e02ebb19135067bc93132c1c213feeff9a9e",
+    "tests/test_temporal_awareness_r2b_power.py": "d04ab5170046a2074482fe88153100187339cde86df717d9274c236c5c8802f3",
+    "tools/temporal_awareness_lab.py": "df7b218fb1855d8a538b56e632776dfff83de1b84c09642a1effc3838ccfa59b",
+    "tools/temporal_awareness_r2.py": "50e4279ce089064dedbccba2970a83afc52a76700e5696a3d6cae830946e79fe",
+    "tools/temporal_awareness_r2b.py": "d652dbd316fede828f2b52a111b1b712823e5a41cfc5724f79c0649ccdfa9a48",
+    "tools/temporal_awareness_r2b_power.py": "17b5a1513d07bd36726457f759d966e6782598eeb47c2fd0c3255db243818b13",
+    "tools/temporal_awareness_r2b_reproduce.py": "d9a0e51c9551c82a1b78a1f1fb5c223fb8df53e1e76e9af753989da904b7b4cb"
+  },
+  "source_text_hashing": "SHA256 of UTF-8 text after universal newline normalization to LF"
+}

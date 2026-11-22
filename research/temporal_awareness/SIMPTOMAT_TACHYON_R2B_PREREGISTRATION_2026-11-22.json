@@ -1,0 +1,113 @@
+{
+  "schema": "simptomat.tachyon.r2b.prospective_preregistration.v1",
+  "artifact_id": "SIMPTOMAT_TACHYON_R2B_PREREGISTRATION_2026-11-22",
+  "created_on": "2026-11-22",
+  "status": "PROSPECTIVE_PLAN_PENDING_EXTERNAL_REGISTRATION",
+  "external_registration_completed": false,
+  "preregistration_scope": "Future independent participant study only; known R1/R2/R2B synthetic results cannot be retroactively preregistered",
+  "narrative_protocol": "docs/TACHYON_R2B_PREREGISTRATION.md",
+  "rule_001": "https://github.com/Hawkar-usls/janus-meta-registry/blob/main/data/JANUS-RULE-001-FIRST-PERSON-TEMPORAL-CONSTRUCTION-2026-11-22-v1.0.json",
+  "independent_unit": "participant; all trials, visits and linked records stay in one split",
+  "required_axes": ["online_engagement", "immediate_recognition", "temporal_order", "delayed_recall"],
+  "coverage_requirements": [
+    "Same participant and experienced event episodes; direct order measurement rather than proxy duration or factual-calendar knowledge",
+    "Independent engagement and recognition eligibility checks, source-specific cutoffs frozen before outcome access",
+    "Fixed comparable external task norms and expected mismatch offsets calibrated under identical eligibility; instrument reliability, documented chronology and retention delays",
+    "For secondary latent-model comparison: at least three parallel-block indicators each for recognition, order and delayed recall"
+  ],
+  "primary_endpoints": [
+    {"id": "ORDER_MISMATCH", "definition": "D_order=Z_immediate_recognition-Z_temporal_order-b_order_external_eligible_reference", "null": "E[D_order]=0", "direction_of_target_weakness": "positive"},
+    {"id": "RECALL_MISMATCH", "definition": "D_recall=Z_immediate_recognition-Z_delayed_recall-b_recall_external_eligible_reference", "null": "E[D_recall]=0", "direction_of_target_weakness": "positive"}
+  ],
+  "primary_analysis": {
+    "population": "Independent eligible complete paired observations in locked holdout; no selection on target outcomes",
+    "test": "Two-sided one-sample Student t tests of participant paired contrasts",
+    "assumptions": "Independent participants; approximately normal paired differences; fixed validated normative transforms and eligible-reference expected-contrast offsets",
+    "selection_calibration": "Reference must apply identical engagement/recognition eligibility; unselected task Z norms alone do not remove recognition-selection bias; calibration uncertainty requires redesign before access",
+    "report": ["mean difference", "SD of paired differences", "paired dz", "raw and Holm-adjusted p values", "Bonferroni 97.5% confidence intervals", "missingness and all exclusions"],
+    "interpretation": "A task mismatch is not selective individual dissociation, clinical diagnosis, equivalence, mechanism or awareness proof"
+  },
+  "multiplicity": {
+    "confirmatory_hypotheses": 2,
+    "familywise_alpha": 0.05,
+    "analysis": "Holm step-down",
+    "planning_alpha_each_two_sided": 0.025,
+    "historical_36_unit_tests_are_hypotheses": false,
+    "secondary_methods_and_profile_counts": "Exploratory descriptive estimates; no confirmatory clinical p values; amendments required before adding confirmatory hypotheses"
+  },
+  "power": {
+    "executor": "tools/temporal_awareness_r2b_power.py",
+    "invocation": "python -m tools.temporal_awareness_r2b_power --audit",
+    "method": "Deterministic numerical noncentral paired-t power; stdlib quadrature; tested against independent reference values",
+    "effect": "dz=E[D]/SD(D), not a prevalence",
+    "hypothetical_dz_sensitivity": [0.2, 0.3, 0.5],
+    "marginal_power_sensitivity": [0.8, 0.9],
+    "illustrative_dz": 0.3,
+    "illustrative_target_marginal_power": 0.9,
+    "illustrative_minimum_evaluable_holdout_pairs": 141,
+    "illustrative_total_evaluable_people": 353,
+    "illustrative_expected_recruitment_target": 442,
+    "assumed_holdout_fraction": 0.4,
+    "assumed_attrition": 0.2,
+    "both_rejections_power_lower_bound_if_both_alternatives_hold": 0.8,
+    "synthetic_grid_fraction_is_clinical_prevalence": false,
+    "power_for_profile_confirmation_or_equivalence_established": false,
+    "recruitment_authorized": false,
+    "final_gate": "Before outcome access freeze feasible source-specific N/cap and justify effect, SD, correlation, reliability, missingness and clustering assumptions"
+  },
+  "holdout": {
+    "development_fraction": 0.6,
+    "holdout_fraction": 0.4,
+    "split": "Custodian freezes person-level seed and private split manifest before outcome access; stratify by site and independently known strata",
+    "leakage_prevention": "No holdout access by model developers until transformations, exclusions, fit and analysis are locked; all visits/trials remain together",
+    "no_pooling_after_failure": true,
+    "no_outcome_dependent_recruitment_or_interim_testing": true,
+    "clustering": "Linked records remain together; site/family recruitment clusters require design and power amendment before access"
+  },
+  "secondary_specific_profile": {
+    "status": "RESEARCH_ONLY_RULE_PENDING_INSTRUMENT_SPECIFIC_PSYCHOMETRIC_REVIEW",
+    "sequence_specific": "Adequate independent engagement; recognition and delayed-recall lower95 measurement intervals>Z -0.5; order upper95 interval<Z -1.5; >1Z target-nontarget gap; repeated in separate parallel-form assessment",
+    "recall_specific": "Same rule with temporal order and delayed recall exchanged",
+    "mixed": "Both weak target domains remain mixed",
+    "failure_rule": "No profile confirmation without external norm/measurement uncertainty and repeat reliability; never loosen cutoffs after outcomes",
+    "clinical_thresholds_validated": false,
+    "nonsignificance_proves_preservation_or_equivalence": false
+  },
+  "competing_models": {
+    "status": "FUTURE_SECONDARY_METHODS_COMPARISON_BLOCKED_PENDING_INDICATORS_AND_MODEL_RECOVERY",
+    "M_shared": "Single common encoding/memory factor across nine block indicators; fixed scale/sign, block intercepts and diagonal positive residual variances",
+    "M_separable": "Same common factor plus orthogonal order- and recall-specific factors; each on three domain indicators; zero cross-loadings, unit variance and positive anchors",
+    "shared_covariates": ["independent engagement", "age", "sensory/language measures", "medication context", "task order"],
+    "pre_access_gate": "Synthetic parameter/model recovery and Jacobian/rank identification checks of the exact implementation and source indicator design",
+    "fit": "Parameters trained on development only; optimizer, restarts, seed, convergence and regularization frozen before holdout unlock",
+    "evaluation": "Holdout participant-wise conditional log likelihood for six order/recall indicators given recognition and covariates; calibration/residual checks; participant-bootstrap intervals",
+    "claim_ceiling": "Predictive measurement-model comparison only; no unique causal neural mechanism or consciousness inference"
+  },
+  "real_data_gates": {
+    "source_and_rights": "Verified custodian, provenance/checksum, dictionary, license, consent scope or independent waiver, lawful access/storage and retention/publication rights",
+    "coverage": "Private approved audit of same-person task linkage, chronology, direct measurements, independent records, norms and reliability",
+    "ethics": "Independent committee review; accessible informed consent, capacity assessment, lawful representative consent where needed, assent, dissent and withdrawal respected",
+    "prospective_registration": "Public protocol/source-specific supplement before recruitment and before archival outcome access; dated amendments and prior-summary disclosures",
+    "privacy_safety": "Approved private roles/access/audit; no patient rows or raw email in public repository; fatigue/distress stop rules; care independent of research",
+    "runtime": "No participant-file input to R2B; separate approved private implementation needed for future study"
+  },
+  "current_gates_passed_for_real_data": false,
+  "external_data_request": {
+    "issue": "https://github.com/Hawkar-usls/Simptomat/issues/13",
+    "status": "FIRST_REQUEST_SENT_AWAITING_EXTERNAL_RESPONSE",
+    "second_email_authorized_or_sent_by_R2B": false,
+    "new_reply_or_data_receipt_verified": false
+  },
+  "literature_limit": "p=.15 with n=11/13 is inconclusive without an equivalence design; nonsignificance proves neither absence/equivalence nor, by itself, insufficient power",
+  "patient_data_ingested": false,
+  "live_screening_enabled": false,
+  "production_model_weights_changed": false,
+  "clinical_validation": false,
+  "scientific_gate": "HOLD_NO_INDEPENDENT_PARTICIPANT_LEVEL_VALIDATION",
+  "references": [
+    "https://www.ncss.com/wp-content/themes/ncss/pdf/Procedures/PASS/Paired_T-Tests_using_Effect_Size.pdf",
+    "https://support.minitab.com/en-us/minitab/help-and-how-to/statistics/power-and-sample-size/how-to/hypothesis-tests/power-and-sample-size-for-paired-t/methods-and-formulas/methods-and-formulas/",
+    "https://www.wma.net/policies-post/wma-declaration-of-helsinki/",
+    "https://www.who.int/tools/clinical-trials-registry-platform/network/trial-registration"
+  ]
+}
