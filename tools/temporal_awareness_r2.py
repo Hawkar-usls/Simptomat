@@ -12,7 +12,6 @@ import itertools
 import json
 import math
 from collections import Counter
-from dataclasses import replace
 
 from tools.temporal_awareness_lab import (
     TRIAL_KEYS, synthetic_case, evaluate_fixture,
