@@ -54,6 +54,10 @@ jobs:
           assert r['heldout_accuracy'] > r['constant_majority_baseline_accuracy']
           assert not r['patient_data_used'] and not r['clinical_training']
           assert not r['physical_time_change_verified'] and not r['phenomenal_time_measured']
+          print('R4_HELDOUT_ACCURACY=' + str(r['heldout_accuracy']))
+          print('R4_CONSTANT_BASELINE=' + str(r['constant_majority_baseline_accuracy']))
+          print('R4_TEST_CORRECT=' + str(r['heldout_correct']) + '/' + str(r['heldout_test_cases']))
+          print('R4_FINAL_VALIDATION_ACCURACY=' + str(r['validation_curve'][-1]['validation_accuracy']))
           print('TACHYON_R4_REAL_SOFTMAX_PARAMETER_TRAINING_SYNTHETIC_PASS')
           print('TACHYON_R4_NO_PATIENT_DATA_OR_PHYSICAL_CLAIM_PASS')
           PY
