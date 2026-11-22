@@ -1,0 +1,75 @@
+name: Simptomat TACHYON R1 - Temporal Awareness Synthetic Research
+
+on:
+  pull_request:
+    paths:
+      - 'research/temporal_awareness/**'
+      - 'tools/temporal_awareness_lab.py'
+      - 'tests/test_temporal_awareness_lab.py'
+      - 'integrations/JANUS_TACHYON_TEMPORAL_AWARENESS_RESEARCH_BRIDGE-v1.0.json'
+      - 'PROJECT_STATUS.json'
+      - 'README.md'
+      - '.github/workflows/tachyon-temporal-awareness-r1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-methods-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Preserve existing Simptomat privacy and case invariants
+        run: |
+          python tools/validate_repository.py
+      - name: Synthetic-only temporal-awareness dissociation tests
+        run: |
+          python -m unittest discover -s tests -p 'test_temporal_awareness_lab.py' -v
+      - name: Run all seven synthetic profiles and emit bounded research receipt
+        run: |
+          set -euo pipefail
+          mkdir -p out/temporal_awareness
+          python tools/temporal_awareness_lab.py --demo > out/temporal_awareness/synthetic_r1_receipt.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          study = json.loads(Path('research/temporal_awareness/SIMPTOMAT_TACHYON_ALZHEIMER_R1_2026-11-22.json').read_text())
+          bridge = json.loads(Path('integrations/JANUS_TACHYON_TEMPORAL_AWARENESS_RESEARCH_BRIDGE-v1.0.json').read_text())
+          receipt = json.loads(Path('out/temporal_awareness/synthetic_r1_receipt.json').read_text())
+          assert study['status'] == 'ACTIVE_OFFLINE_SYNTHETIC_RESEARCH_DESIGN__NO_CLINICAL_VALIDATION'
+          assert study['boundaries']['human_data_loaded'] is False
+          assert study['boundaries']['clinical_diagnosis'] is False
+          assert bridge['routes']['enabled'] == 'OFFLINE_CI_SYNTHETIC_ONLY'
+          assert bridge['routes']['cross_repo_write_enabled'] is False
+          assert bridge['production_authority_delta'] == 0
+          assert receipt['run_type'] == 'SYNTHETIC_ONLY'
+          assert receipt['scientific_gate'] == 'HOLD_NO_HUMAN_VALIDATION'
+          assert receipt['patient_data_used'] is False
+          assert receipt['clinical_authority'] is False
+          profiles = receipt['profiles']
+          assert len(profiles) == 7
+          assert profiles['ORDER_ONLY']['verdict'] == 'SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE'
+          assert profiles['RECALL_ONLY']['verdict'] == 'DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE'
+          assert profiles['ENCODING_CONFOUND']['verdict'] == 'INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND'
+          assert profiles['LOW_ENGAGEMENT']['verdict'] == 'INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND'
+          assert all(not r['physical_time_travel_proven'] and
+                     not r['timeless_consciousness_proven'] and
+                     r['alzheimer_status'] == 'NOT_EVALUATED'
+                     for r in profiles.values())
+          print('SIMPTOMAT_TACHYON_R1_SYNTHETIC_SEVEN_PROFILES_PASS')
+          print('SIMPTOMAT_NO_CLINICAL_OR_TEMPORAL_AUTHORITY_PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: simptomat-tachyon-r1-synthetic-temporal-awareness
+          path: out/temporal_awareness/*.json
+          if-no-files-found: warn
+          retention-days: 14
