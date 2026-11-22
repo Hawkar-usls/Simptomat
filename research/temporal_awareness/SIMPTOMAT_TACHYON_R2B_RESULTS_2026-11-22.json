@@ -1,0 +1,1685 @@
+{
+  "R1_classifier_unchanged": true,
+  "artifact_id": "JANUS-TACHYON-SIMPTOMAT-R2B-INDEPENDENT-METHODS-2026-11-22",
+  "baseline_comparison": {
+    "constant": {
+      "class_counts": {
+        "CONSTANT": 1296
+      },
+      "directed_label_flips": 0,
+      "directed_neighbor_comparisons": 8640,
+      "flip_fraction": 0.0,
+      "stable_vectors": 1296,
+      "unstable_fraction": 0.0,
+      "unstable_vectors": 0
+    },
+    "interpretation": "Stability depends on label geometry and class imbalance. These controls provide context, not validity, accuracy, acceptable error or a clinical optimum.",
+    "metric": "Fixed-label boundary changes on exactly the same 8640 directed grid edges",
+    "one_feature_threshold": {
+      "class_counts": {
+        "HIGH": 432,
+        "OTHER": 864
+      },
+      "definition": "online_engagement >= 4, binary synthetic control",
+      "directed_label_flips": 432,
+      "directed_neighbor_comparisons": 8640,
+      "flip_fraction": 0.05,
+      "stable_vectors": 864,
+      "unstable_fraction": 0.3333333333333333,
+      "unstable_vectors": 432
+    },
+    "oracle_ceiling": "NOT_DEFINED_NO_INDEPENDENT_GROUND_TRUTH",
+    "r1_histogram_preserving_random_permutation": {
+      "class_counts_preserved_exactly": {
+        "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 16,
+        "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+        "INDETERMINATE_MIXED_OR_MIDRANGE": 80,
+        "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+        "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+        "NO_DEMO_DISSOCIATION": 16,
+        "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 16
+      },
+      "expectation_formula": "1 - sum_k n_k*(n_k-1)/(N*(N-1)), distinct vertices; no replacement",
+      "expected_flip_fraction": 0.5021402354735688,
+      "iid_same_marginal_comparison_only": 0.5017527815881726,
+      "interval_interpretation": "Fixed-seed engineering controls, not confidence intervals or independent scientific replications",
+      "maximum_flip_fraction": 0.5030092592592592,
+      "mean_flip_fraction": 0.4987847222222222,
+      "minimum_flip_fraction": 0.4962962962962963,
+      "samples": [
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 16,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 80,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+            "NO_DEMO_DISSOCIATION": 16,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 16
+          },
+          "directed_label_flips": 4298,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.49745370370370373,
+          "seed": 1729,
+          "stable_vectors": 64,
+          "unstable_fraction": 0.9506172839506173,
+          "unstable_vectors": 1232
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 16,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 80,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+            "NO_DEMO_DISSOCIATION": 16,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 16
+          },
+          "directed_label_flips": 4288,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.4962962962962963,
+          "seed": 2718,
+          "stable_vectors": 68,
+          "unstable_fraction": 0.9475308641975309,
+          "unstable_vectors": 1228
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 16,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 80,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+            "NO_DEMO_DISSOCIATION": 16,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 16
+          },
+          "directed_label_flips": 4300,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.4976851851851852,
+          "seed": 31415,
+          "stable_vectors": 60,
+          "unstable_fraction": 0.9537037037037037,
+          "unstable_vectors": 1236
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 16,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 80,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+            "NO_DEMO_DISSOCIATION": 16,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 16
+          },
+          "directed_label_flips": 4344,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.5027777777777778,
+          "seed": 42424,
+          "stable_vectors": 55,
+          "unstable_fraction": 0.9575617283950617,
+          "unstable_vectors": 1241
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 16,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 80,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+            "NO_DEMO_DISSOCIATION": 16,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 16
+          },
+          "directed_label_flips": 4346,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.5030092592592592,
+          "seed": 65537,
+          "stable_vectors": 65,
+          "unstable_fraction": 0.9498456790123457,
+          "unstable_vectors": 1231
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 16,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 80,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+            "NO_DEMO_DISSOCIATION": 16,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 16
+          },
+          "directed_label_flips": 4294,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.49699074074074073,
+          "seed": 104729,
+          "stable_vectors": 66,
+          "unstable_fraction": 0.9490740740740741,
+          "unstable_vectors": 1230
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 16,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 80,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+            "NO_DEMO_DISSOCIATION": 16,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 16
+          },
+          "directed_label_flips": 4316,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.49953703703703706,
+          "seed": 130363,
+          "stable_vectors": 60,
+          "unstable_fraction": 0.9537037037037037,
+          "unstable_vectors": 1236
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 16,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 80,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+            "NO_DEMO_DISSOCIATION": 16,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 16
+          },
+          "directed_label_flips": 4290,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.4965277777777778,
+          "seed": 196613,
+          "stable_vectors": 55,
+          "unstable_fraction": 0.9575617283950617,
+          "unstable_vectors": 1241
+        }
+      ],
+      "seeds": [
+        1729,
+        2718,
+        31415,
+        42424,
+        65537,
+        104729,
+        130363,
+        196613
+      ],
+      "standard_deviation_between_seed_runs": 0.002721402127846257
+    },
+    "randomization_limits": "Grid edges share vertices and opposite directions duplicate each edge; 8640 comparisons are not independent Bernoulli trials. No binomial CI or p-value is assigned to flip rates.",
+    "uniform_seven_class_iid": {
+      "expectation_formula": "1 - sum_k p_k^2, p_k=1/7",
+      "expected_flip_fraction": 0.8571428571428572,
+      "interval_interpretation": "Fixed-seed engineering controls, not confidence intervals or independent scientific replications",
+      "maximum_flip_fraction": 0.8671296296296296,
+      "mean_flip_fraction": 0.8569444444444444,
+      "minimum_flip_fraction": 0.8502314814814815,
+      "samples": [
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 164,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 178,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 198,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 201,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 178,
+            "NO_DEMO_DISSOCIATION": 194,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 183
+          },
+          "directed_label_flips": 7492,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.8671296296296296,
+          "seed": 1729,
+          "stable_vectors": 0,
+          "unstable_fraction": 1.0,
+          "unstable_vectors": 1296
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 181,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 194,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 188,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 180,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 176,
+            "NO_DEMO_DISSOCIATION": 203,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 174
+          },
+          "directed_label_flips": 7460,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.8634259259259259,
+          "seed": 2718,
+          "stable_vectors": 0,
+          "unstable_fraction": 1.0,
+          "unstable_vectors": 1296
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 184,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 189,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 191,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 188,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 169,
+            "NO_DEMO_DISSOCIATION": 199,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 176
+          },
+          "directed_label_flips": 7398,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.85625,
+          "seed": 31415,
+          "stable_vectors": 0,
+          "unstable_fraction": 1.0,
+          "unstable_vectors": 1296
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 202,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 180,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 190,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 172,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 191,
+            "NO_DEMO_DISSOCIATION": 180,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 181
+          },
+          "directed_label_flips": 7410,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.8576388888888888,
+          "seed": 42424,
+          "stable_vectors": 0,
+          "unstable_fraction": 1.0,
+          "unstable_vectors": 1296
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 188,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 196,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 170,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 202,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 162,
+            "NO_DEMO_DISSOCIATION": 200,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 178
+          },
+          "directed_label_flips": 7406,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.857175925925926,
+          "seed": 65537,
+          "stable_vectors": 0,
+          "unstable_fraction": 1.0,
+          "unstable_vectors": 1296
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 200,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 193,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 200,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 181,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 189,
+            "NO_DEMO_DISSOCIATION": 159,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 174
+          },
+          "directed_label_flips": 7346,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.8502314814814815,
+          "seed": 104729,
+          "stable_vectors": 0,
+          "unstable_fraction": 1.0,
+          "unstable_vectors": 1296
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 159,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 184,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 191,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 189,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 202,
+            "NO_DEMO_DISSOCIATION": 181,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 190
+          },
+          "directed_label_flips": 7362,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.8520833333333333,
+          "seed": 130363,
+          "stable_vectors": 0,
+          "unstable_fraction": 1.0,
+          "unstable_vectors": 1296
+        },
+        {
+          "class_counts": {
+            "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 175,
+            "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 193,
+            "INDETERMINATE_MIXED_OR_MIDRANGE": 194,
+            "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 181,
+            "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 168,
+            "NO_DEMO_DISSOCIATION": 209,
+            "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 176
+          },
+          "directed_label_flips": 7358,
+          "directed_neighbor_comparisons": 8640,
+          "flip_fraction": 0.8516203703703704,
+          "seed": 196613,
+          "stable_vectors": 0,
+          "unstable_fraction": 1.0,
+          "unstable_vectors": 1296
+        }
+      ],
+      "seeds": [
+        1729,
+        2718,
+        31415,
+        42424,
+        65537,
+        104729,
+        130363,
+        196613
+      ],
+      "standard_deviation_between_seed_runs": 0.005901642955547183
+    }
+  },
+  "claim_ceiling": "SYNTHETIC_METHODS_ONLY__NO_CLINICAL_OR_PHYSICAL_PROMOTION",
+  "clinical_validation": false,
+  "constructive_nonidentifiability": {
+    "additional_identification_requirements": "Independent measurements or interventions isolating task access/capacity, and independently justified structural assumptions",
+    "all_witnesses_same_forward_distribution": true,
+    "assumptions": [
+      "Each correct answer requires both a capacity factor and a task-access factor, with multiplicative success probability",
+      "Five independent, identically distributed Bernoulli trials per task and independence across tasks",
+      "Neither latent factor is directly measured or experimentally isolated by the four counters",
+      "This hypothetical model class is admitted for the logical counterexample only; it is not a validated model of any participant or disease"
+    ],
+    "claim_ceiling": "Counts alone cannot identify the factors within this admitted toy model class; this does not prove which mechanisms exist in people or that no richer study can identify them",
+    "distinct_observable_vectors_used_as_nonidentifiability_proof": false,
+    "flip_statistics_used_as_nonidentifiability_proof": false,
+    "forward_map": "p_j = capacity_j * task_access_j; Y_j ~ Binomial(5,p_j), tasks independent",
+    "latent_space": "Two distinct 4-tuples of capacity and task-access probabilities, each in {0,1/5,...,1}",
+    "proof": "For any q != (1,1,1,1), latent A=(capacity=q, access=1) and latent B=(capacity=1, access=q) differ but produce the same p=q. Therefore P_A(Y=y)=P_B(Y=y) for every y in {0,...,5}^4, not just the displayed witness. The observable-distribution map is noninjective.",
+    "task_order": [
+      "online_engagement",
+      "immediate_recognition",
+      "temporal_order",
+      "delayed_recall"
+    ],
+    "type": "CONSTRUCTIVE_MANY_TO_ONE_FORWARD_MODEL",
+    "witnesses": [
+      {
+        "exact_observation_probability_A": {
+          "denominator": 625,
+          "numerator": 256
+        },
+        "exact_observation_probability_B": {
+          "denominator": 625,
+          "numerator": 256
+        },
+        "identical_observation_counts": [
+          5,
+          5,
+          1,
+          5
+        ],
+        "latent_A": {
+          "capacity_fifths": [
+            5,
+            5,
+            1,
+            5
+          ],
+          "task_access_fifths": [
+            5,
+            5,
+            5,
+            5
+          ]
+        },
+        "latent_B": {
+          "capacity_fifths": [
+            5,
+            5,
+            5,
+            5
+          ],
+          "task_access_fifths": [
+            5,
+            5,
+            1,
+            5
+          ]
+        },
+        "latent_states_distinct": true,
+        "observed_R1_label": "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE",
+        "per_task_success_probabilities_exact": [
+          {
+            "denominator": 1,
+            "numerator": 1
+          },
+          {
+            "denominator": 1,
+            "numerator": 1
+          },
+          {
+            "denominator": 5,
+            "numerator": 1
+          },
+          {
+            "denominator": 1,
+            "numerator": 1
+          }
+        ],
+        "positive_identical_observation_probability": true,
+        "same_forward_probabilities": true
+      },
+      {
+        "exact_observation_probability_A": {
+          "denominator": 625,
+          "numerator": 256
+        },
+        "exact_observation_probability_B": {
+          "denominator": 625,
+          "numerator": 256
+        },
+        "identical_observation_counts": [
+          5,
+          5,
+          0,
+          4
+        ],
+        "latent_A": {
+          "capacity_fifths": [
+            5,
+            5,
+            0,
+            4
+          ],
+          "task_access_fifths": [
+            5,
+            5,
+            5,
+            5
+          ]
+        },
+        "latent_B": {
+          "capacity_fifths": [
+            5,
+            5,
+            5,
+            5
+          ],
+          "task_access_fifths": [
+            5,
+            5,
+            0,
+            4
+          ]
+        },
+        "latent_states_distinct": true,
+        "observed_R1_label": "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE",
+        "per_task_success_probabilities_exact": [
+          {
+            "denominator": 1,
+            "numerator": 1
+          },
+          {
+            "denominator": 1,
+            "numerator": 1
+          },
+          {
+            "denominator": 1,
+            "numerator": 0
+          },
+          {
+            "denominator": 5,
+            "numerator": 4
+          }
+        ],
+        "positive_identical_observation_probability": true,
+        "same_forward_probabilities": true
+      },
+      {
+        "exact_observation_probability_A": {
+          "denominator": 244140625,
+          "numerator": 16777216
+        },
+        "exact_observation_probability_B": {
+          "denominator": 244140625,
+          "numerator": 16777216
+        },
+        "identical_observation_counts": [
+          4,
+          5,
+          1,
+          4
+        ],
+        "latent_A": {
+          "capacity_fifths": [
+            4,
+            5,
+            1,
+            4
+          ],
+          "task_access_fifths": [
+            5,
+            5,
+            5,
+            5
+          ]
+        },
+        "latent_B": {
+          "capacity_fifths": [
+            5,
+            5,
+            5,
+            5
+          ],
+          "task_access_fifths": [
+            4,
+            5,
+            1,
+            4
+          ]
+        },
+        "latent_states_distinct": true,
+        "observed_R1_label": "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE",
+        "per_task_success_probabilities_exact": [
+          {
+            "denominator": 5,
+            "numerator": 4
+          },
+          {
+            "denominator": 1,
+            "numerator": 1
+          },
+          {
+            "denominator": 5,
+            "numerator": 1
+          },
+          {
+            "denominator": 5,
+            "numerator": 4
+          }
+        ],
+        "positive_identical_observation_probability": true,
+        "same_forward_probabilities": true
+      },
+      {
+        "exact_observation_probability_A": {
+          "denominator": 625,
+          "numerator": 256
+        },
+        "exact_observation_probability_B": {
+          "denominator": 625,
+          "numerator": 256
+        },
+        "identical_observation_counts": [
+          5,
+          5,
+          5,
+          1
+        ],
+        "latent_A": {
+          "capacity_fifths": [
+            5,
+            5,
+            5,
+            1
+          ],
+          "task_access_fifths": [
+            5,
+            5,
+            5,
+            5
+          ]
+        },
+        "latent_B": {
+          "capacity_fifths": [
+            5,
+            5,
+            5,
+            5
+          ],
+          "task_access_fifths": [
+            5,
+            5,
+            5,
+            1
+          ]
+        },
+        "latent_states_distinct": true,
+        "observed_R1_label": "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE",
+        "per_task_success_probabilities_exact": [
+          {
+            "denominator": 1,
+            "numerator": 1
+          },
+          {
+            "denominator": 1,
+            "numerator": 1
+          },
+          {
+            "denominator": 1,
+            "numerator": 1
+          },
+          {
+            "denominator": 5,
+            "numerator": 1
+          }
+        ],
+        "positive_identical_observation_probability": true,
+        "same_forward_probabilities": true
+      },
+      {
+        "exact_observation_probability_A": {
+          "denominator": 390625,
+          "numerator": 65536
+        },
+        "exact_observation_probability_B": {
+          "denominator": 390625,
+          "numerator": 65536
+        },
+        "identical_observation_counts": [
+          5,
+          4,
+          4,
+          0
+        ],
+        "latent_A": {
+          "capacity_fifths": [
+            5,
+            4,
+            4,
+            0
+          ],
+          "task_access_fifths": [
+            5,
+            5,
+            5,
+            5
+          ]
+        },
+        "latent_B": {
+          "capacity_fifths": [
+            5,
+            5,
+            5,
+            5
+          ],
+          "task_access_fifths": [
+            5,
+            4,
+            4,
+            0
+          ]
+        },
+        "latent_states_distinct": true,
+        "observed_R1_label": "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE",
+        "per_task_success_probabilities_exact": [
+          {
+            "denominator": 1,
+            "numerator": 1
+          },
+          {
+            "denominator": 5,
+            "numerator": 4
+          },
+          {
+            "denominator": 5,
+            "numerator": 4
+          },
+          {
+            "denominator": 1,
+            "numerator": 0
+          }
+        ],
+        "positive_identical_observation_probability": true,
+        "same_forward_probabilities": true
+      },
+      {
+        "exact_observation_probability_A": {
+          "denominator": 390625,
+          "numerator": 65536
+        },
+        "exact_observation_probability_B": {
+          "denominator": 390625,
+          "numerator": 65536
+        },
+        "identical_observation_counts": [
+          5,
+          5,
+          1,
+          1
+        ],
+        "latent_A": {
+          "capacity_fifths": [
+            5,
+            5,
+            1,
+            1
+          ],
+          "task_access_fifths": [
+            5,
+            5,
+            5,
+            5
+          ]
+        },
+        "latent_B": {
+          "capacity_fifths": [
+            5,
+            5,
+            5,
+            5
+          ],
+          "task_access_fifths": [
+            5,
+            5,
+            1,
+            1
+          ]
+        },
+        "latent_states_distinct": true,
+        "observed_R1_label": "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE",
+        "per_task_success_probabilities_exact": [
+          {
+            "denominator": 1,
+            "numerator": 1
+          },
+          {
+            "denominator": 1,
+            "numerator": 1
+          },
+          {
+            "denominator": 5,
+            "numerator": 1
+          },
+          {
+            "denominator": 5,
+            "numerator": 1
+          }
+        ],
+        "positive_identical_observation_probability": true,
+        "same_forward_probabilities": true
+      }
+    ]
+  },
+  "created_on": "2026-11-22",
+  "engineering_status_scope": "Generated deterministic methods artifact; actual engineering validation requires tests, exact replay and remote CI with commit/run URL reported separately",
+  "human_data_analyzed": false,
+  "independent_clinical_replication": false,
+  "live_screening_enabled": false,
+  "patient_data_ingested": false,
+  "physical_time_travel_proven": false,
+  "power_analysis": {
+    "assumptions": [
+      "Independent participants; normally distributed participant-level paired differences",
+      "External fixed task norms on comparable scales; higher Z means better performance",
+      "Fixed external expected contrasts b_order/b_recall calibrated under the identical eligibility rule remove ordinary task and eligibility-induced mismatch",
+      "The hypothetical dz values are assumptions, not estimates from R1/R2 or literature p-values",
+      "Within-person trials are not independent sample-size units; trial dependence is absorbed in SD(D)",
+      "No site/family clustering; clustered recruitment requires redesign and new power analysis",
+      "20% missing or excluded pairs and 40% holdout are planning assumptions, not guaranteed retention",
+      "No selection on order or delayed-recall outcomes; eligibility uses independent engagement/recognition checks"
+    ],
+    "calculation": "Noncentral paired-t power via stdlib Simpson quadrature; 4096 panels",
+    "clinical_validation": false,
+    "effect_definition": "dz=population mean within-person standardized-task difference / SD of that difference",
+    "endpoint_unit": "ONE_INDEPENDENT_PARTICIPANT_WITH_COMPLETE_PAIRED_TASK_SCORES",
+    "illustrative_selected_design": {
+      "assumed_attrition_fraction": 0.2,
+      "assumed_dz": 0.3,
+      "both_endpoints_power_lower_bound": 0.8,
+      "development_participants": 212,
+      "evaluable_holdout_pairs": 141,
+      "holdout_fraction": 0.4,
+      "numerical_power_at_n": 0.901270278,
+      "numerical_power_at_n_minus_one": 0.899031614,
+      "recruitment_target_expected_retention": 442,
+      "target_marginal_power": 0.9,
+      "total_evaluable_participants": 353,
+      "two_sided_alpha_per_endpoint": 0.025
+    },
+    "limits": [
+      "No clinical effect, prevalence, trial reliability, missingness mechanism or variance has been estimated",
+      "The powered primary contrasts do not establish individual selective dissociation or causal mechanism",
+      "Small accessible archival cohorts may support only exploratory feasibility with uncertainty, never a lowered evidentiary gate",
+      "Final source-specific design must freeze instruments, external norms, eligibility, feasible N and deviations before any outcome access"
+    ],
+    "model": "T=(Z+dz*sqrt(n))/sqrt(V/(n-1)); Z normal, V chi-square, independent",
+    "multiplicity": {
+      "analysis": "Holm step-down FWER 0.05",
+      "confirmatory_family_size": 2,
+      "joint_power": "If both endpoints meet at least 90% marginal power, union bound gives at least 80% both-reject power, without assuming endpoint independence",
+      "planning": "Bonferroni two-sided alpha=0.025 each",
+      "software_unit_tests_are_statistical_hypotheses": false
+    },
+    "nulls": [
+      "E[D_order]=0",
+      "E[D_recall]=0"
+    ],
+    "patient_data_used": false,
+    "prevalence_test_against_zero_used": false,
+    "primary_contrasts": [
+      "Z_immediate_recognition - Z_temporal_order - b_order_external_eligible_reference",
+      "Z_immediate_recognition - Z_delayed_recall - b_recall_external_eligible_reference"
+    ],
+    "scenarios": [
+      {
+        "assumed_attrition_fraction": 0.2,
+        "assumed_dz": 0.2,
+        "both_endpoints_power_lower_bound": 0.6,
+        "development_participants": 362,
+        "evaluable_holdout_pairs": 241,
+        "holdout_fraction": 0.4,
+        "numerical_power_at_n": 0.801547056,
+        "numerical_power_at_n_minus_one": 0.799735759,
+        "recruitment_target_expected_retention": 754,
+        "target_marginal_power": 0.8,
+        "total_evaluable_participants": 603,
+        "two_sided_alpha_per_endpoint": 0.025
+      },
+      {
+        "assumed_attrition_fraction": 0.2,
+        "assumed_dz": 0.2,
+        "both_endpoints_power_lower_bound": 0.8,
+        "development_participants": 470,
+        "evaluable_holdout_pairs": 313,
+        "holdout_fraction": 0.4,
+        "numerical_power_at_n": 0.900199824,
+        "numerical_power_at_n_minus_one": 0.89920085,
+        "recruitment_target_expected_retention": 979,
+        "target_marginal_power": 0.9,
+        "total_evaluable_participants": 783,
+        "two_sided_alpha_per_endpoint": 0.025
+      },
+      {
+        "assumed_attrition_fraction": 0.2,
+        "assumed_dz": 0.3,
+        "both_endpoints_power_lower_bound": 0.6,
+        "development_participants": 164,
+        "evaluable_holdout_pairs": 109,
+        "holdout_fraction": 0.4,
+        "numerical_power_at_n": 0.80348785,
+        "numerical_power_at_n_minus_one": 0.799426347,
+        "recruitment_target_expected_retention": 342,
+        "target_marginal_power": 0.8,
+        "total_evaluable_participants": 273,
+        "two_sided_alpha_per_endpoint": 0.025
+      },
+      {
+        "assumed_attrition_fraction": 0.2,
+        "assumed_dz": 0.3,
+        "both_endpoints_power_lower_bound": 0.8,
+        "development_participants": 212,
+        "evaluable_holdout_pairs": 141,
+        "holdout_fraction": 0.4,
+        "numerical_power_at_n": 0.901270278,
+        "numerical_power_at_n_minus_one": 0.899031614,
+        "recruitment_target_expected_retention": 442,
+        "target_marginal_power": 0.9,
+        "total_evaluable_participants": 353,
+        "two_sided_alpha_per_endpoint": 0.025
+      },
+      {
+        "assumed_attrition_fraction": 0.2,
+        "assumed_dz": 0.5,
+        "both_endpoints_power_lower_bound": 0.6,
+        "development_participants": 62,
+        "evaluable_holdout_pairs": 41,
+        "holdout_fraction": 0.4,
+        "numerical_power_at_n": 0.80476399,
+        "numerical_power_at_n_minus_one": 0.79337024,
+        "recruitment_target_expected_retention": 129,
+        "target_marginal_power": 0.8,
+        "total_evaluable_participants": 103,
+        "two_sided_alpha_per_endpoint": 0.025
+      },
+      {
+        "assumed_attrition_fraction": 0.2,
+        "assumed_dz": 0.5,
+        "both_endpoints_power_lower_bound": 0.8,
+        "development_participants": 80,
+        "evaluable_holdout_pairs": 53,
+        "holdout_fraction": 0.4,
+        "numerical_power_at_n": 0.904878018,
+        "numerical_power_at_n_minus_one": 0.898752819,
+        "recruitment_target_expected_retention": 167,
+        "target_marginal_power": 0.9,
+        "total_evaluable_participants": 133,
+        "two_sided_alpha_per_endpoint": 0.025
+      }
+    ],
+    "schema": "simptomat.tachyon.r2b.prospective_power.v1",
+    "scientific_gate": "HOLD_NO_INDEPENDENT_PARTICIPANT_LEVEL_VALIDATION",
+    "selected_design_is_final_recruitment_authorization": false,
+    "sensitivity": {
+      "attrition_0_3": {
+        "assumed_attrition_fraction": 0.3,
+        "development_participants": 212,
+        "evaluable_holdout_pairs": 141,
+        "holdout_fraction": 0.4,
+        "recruitment_target_expected_retention": 505,
+        "total_evaluable_participants": 353
+      },
+      "holdout_fraction_0_3": {
+        "assumed_attrition_fraction": 0.2,
+        "development_participants": 329,
+        "evaluable_holdout_pairs": 141,
+        "holdout_fraction": 0.3,
+        "recruitment_target_expected_retention": 588,
+        "total_evaluable_participants": 470
+      }
+    },
+    "status": "HYPOTHETICAL_PLANNING_ONLY__NO_PARTICIPANT_DATA",
+    "synthetic_candidate_grid_fraction_used_as_prevalence": false,
+    "zero_null_caveat": "Seeing >=1 event rejects an error-free p=0 model trivially; that is not clinical sensitivity, prevalence validation, or a meaningful planning alternative here"
+  },
+  "production_model_weights_changed": false,
+  "r1_reproduction": {
+    "candidate_fraction_synthetic_grid_only": 0.037037037037037035,
+    "class_counts": {
+      "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 16,
+      "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+      "INDETERMINATE_MIXED_OR_MIDRANGE": 80,
+      "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+      "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+      "NO_DEMO_DISSOCIATION": 16,
+      "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 16
+    },
+    "clinical_prevalence_estimate": null,
+    "directed_label_flips": 704,
+    "directed_neighbor_comparisons": 8640,
+    "dissociation_candidate_vectors": 48,
+    "flip_fraction": 0.08148148148148149,
+    "grid_vectors": 1296,
+    "indeterminate_vectors": 1232,
+    "no_demo_dissociation_vectors": 16,
+    "noncandidate_vectors": 1248,
+    "review_correction": "1296-48=1248 noncandidates: 1232 indeterminate plus 16 NO_DEMO_DISSOCIATION",
+    "stable_vectors": 764,
+    "unit_test_correction": "Historical R1+R2 total 36 means software unit tests, not 36 clinical hypotheses",
+    "unstable_fraction": 0.4104938271604938,
+    "unstable_vectors": 532
+  },
+  "review_scope": "Methods response to the external document review; independent code checks are not independent human data or independent clinical replication",
+  "schema": "simptomat.tachyon.r2b.independent_methods.synthetic_audit.v1",
+  "scientific_gate": "HOLD_NO_INDEPENDENT_PARTICIPANT_LEVEL_VALIDATION",
+  "source": "COMPLETE_ENUMERATION_0_TO_5__NO_HUMAN_DATA",
+  "status": "SYNTHETIC_AUDIT_GENERATED__SCIENTIFIC_HOLD",
+  "threshold_sensitivity": {
+    "R1_implementation_modified": false,
+    "base_high_at_least": 4,
+    "base_low_at_most": 1,
+    "candidate_count_range": [
+      3,
+      320
+    ],
+    "grid": "All 15 integer threshold pairs 0 <= LOW < HIGH <= 5, same fixed 1296 vectors",
+    "interpretation": "Candidate numbers AND membership depend on arbitrary demo thresholds; not merely their clinical interpretation. Synthetic-grid fractions are not population prevalences.",
+    "rows": [
+      {
+        "candidate_fraction_synthetic_grid_only": 0.21219135802469136,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.09491525423728814,
+          "lost": 20,
+          "new": 247,
+          "retained": 28
+        },
+        "candidate_vectors": 275,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 125,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 180,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 216,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 25,
+          "NO_DEMO_DISSOCIATION": 625,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 125
+        },
+        "directed_label_flips": 1392,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.16111111111111112,
+        "high_at_least": 1,
+        "label_changes_vs_r1": 972,
+        "low_at_most": 0,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 8,
+            "new": 117,
+            "retained": 8
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 12,
+            "new": 21,
+            "retained": 4
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 8,
+            "new": 117,
+            "retained": 8
+          }
+        },
+        "stable_vectors": 256,
+        "unstable_fraction": 0.8024691358024691,
+        "unstable_vectors": 1040
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.1111111111111111,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.11627906976744186,
+          "lost": 28,
+          "new": 124,
+          "retained": 20
+        },
+        "candidate_vectors": 144,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 64,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+          "INDETERMINATE_MIXED_OR_MIDRANGE": 176,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 432,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+          "NO_DEMO_DISSOCIATION": 256,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 64
+        },
+        "directed_label_flips": 1360,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.1574074074074074,
+        "high_at_least": 2,
+        "label_changes_vs_r1": 668,
+        "low_at_most": 0,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 8,
+            "new": 56,
+            "retained": 8
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 12,
+            "new": 12,
+            "retained": 4
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 8,
+            "new": 56,
+            "retained": 8
+          }
+        },
+        "stable_vectors": 414,
+        "unstable_fraction": 0.6805555555555556,
+        "unstable_vectors": 882
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.04861111111111111,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.21978021978021978,
+          "lost": 28,
+          "new": 43,
+          "retained": 20
+        },
+        "candidate_vectors": 63,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 27,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 324,
+          "INDETERMINATE_MIXED_OR_MIDRANGE": 180,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 648,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 9,
+          "NO_DEMO_DISSOCIATION": 81,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 27
+        },
+        "directed_label_flips": 936,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.10833333333333334,
+        "high_at_least": 3,
+        "label_changes_vs_r1": 344,
+        "low_at_most": 0,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 8,
+            "new": 19,
+            "retained": 8
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 12,
+            "new": 5,
+            "retained": 4
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 8,
+            "new": 19,
+            "retained": 8
+          }
+        },
+        "stable_vectors": 608,
+        "unstable_fraction": 0.5308641975308642,
+        "unstable_vectors": 688
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.015432098765432098,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.4166666666666667,
+          "lost": 28,
+          "new": 0,
+          "retained": 20
+        },
+        "candidate_vectors": 20,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 8,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+          "INDETERMINATE_MIXED_OR_MIDRANGE": 108,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 4,
+          "NO_DEMO_DISSOCIATION": 16,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 8
+        },
+        "directed_label_flips": 672,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.07777777777777778,
+        "high_at_least": 4,
+        "label_changes_vs_r1": 28,
+        "low_at_most": 0,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 8,
+            "new": 0,
+            "retained": 8
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 12,
+            "new": 0,
+            "retained": 4
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 8,
+            "new": 0,
+            "retained": 8
+          }
+        },
+        "stable_vectors": 772,
+        "unstable_fraction": 0.404320987654321,
+        "unstable_vectors": 524
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.0023148148148148147,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.0625,
+          "lost": 45,
+          "new": 0,
+          "retained": 3
+        },
+        "candidate_vectors": 3,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 1,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 180,
+          "INDETERMINATE_MIXED_OR_MIDRANGE": 32,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 1080,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 1,
+          "NO_DEMO_DISSOCIATION": 1,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 1
+        },
+        "directed_label_flips": 520,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.06018518518518518,
+        "high_at_least": 5,
+        "label_changes_vs_r1": 264,
+        "low_at_most": 0,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 15,
+            "new": 0,
+            "retained": 1
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 15,
+            "new": 0,
+            "retained": 1
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 15,
+            "new": 0,
+            "retained": 1
+          }
+        },
+        "stable_vectors": 864,
+        "unstable_fraction": 0.3333333333333333,
+        "unstable_vectors": 432
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.24691358024691357,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.15,
+          "lost": 0,
+          "new": 272,
+          "retained": 48
+        },
+        "candidate_vectors": 320,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 128,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 432,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 64,
+          "NO_DEMO_DISSOCIATION": 256,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 128
+        },
+        "directed_label_flips": 1104,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.12777777777777777,
+        "high_at_least": 2,
+        "label_changes_vs_r1": 656,
+        "low_at_most": 1,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 112,
+            "retained": 16
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 48,
+            "retained": 16
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 112,
+            "retained": 16
+          }
+        },
+        "stable_vectors": 468,
+        "unstable_fraction": 0.6388888888888888,
+        "unstable_vectors": 828
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.1111111111111111,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.3333333333333333,
+          "lost": 0,
+          "new": 96,
+          "retained": 48
+        },
+        "candidate_vectors": 144,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 54,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 324,
+          "INDETERMINATE_MIXED_OR_MIDRANGE": 99,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 648,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 36,
+          "NO_DEMO_DISSOCIATION": 81,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 54
+        },
+        "directed_label_flips": 1008,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.11666666666666667,
+        "high_at_least": 3,
+        "label_changes_vs_r1": 324,
+        "low_at_most": 1,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 38,
+            "retained": 16
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 20,
+            "retained": 16
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 38,
+            "retained": 16
+          }
+        },
+        "stable_vectors": 616,
+        "unstable_fraction": 0.5246913580246914,
+        "unstable_vectors": 680
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.037037037037037035,
+        "candidate_membership_vs_r1": {
+          "jaccard": 1.0,
+          "lost": 0,
+          "new": 0,
+          "retained": 48
+        },
+        "candidate_vectors": 48,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 16,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+          "INDETERMINATE_MIXED_OR_MIDRANGE": 80,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+          "NO_DEMO_DISSOCIATION": 16,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 16
+        },
+        "directed_label_flips": 704,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.08148148148148149,
+        "high_at_least": 4,
+        "label_changes_vs_r1": 0,
+        "low_at_most": 1,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 0,
+            "retained": 16
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 0,
+            "retained": 16
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 0,
+            "retained": 16
+          }
+        },
+        "stable_vectors": 764,
+        "unstable_fraction": 0.4104938271604938,
+        "unstable_vectors": 532
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.006172839506172839,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.16666666666666666,
+          "lost": 40,
+          "new": 0,
+          "retained": 8
+        },
+        "candidate_vectors": 8,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 2,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 180,
+          "INDETERMINATE_MIXED_OR_MIDRANGE": 27,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 1080,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 4,
+          "NO_DEMO_DISSOCIATION": 1,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 2
+        },
+        "directed_label_flips": 528,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.06111111111111111,
+        "high_at_least": 5,
+        "label_changes_vs_r1": 259,
+        "low_at_most": 1,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 14,
+            "new": 0,
+            "retained": 2
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 12,
+            "new": 0,
+            "retained": 4
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 14,
+            "new": 0,
+            "retained": 2
+          }
+        },
+        "stable_vectors": 864,
+        "unstable_fraction": 0.3333333333333333,
+        "unstable_vectors": 432
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.1875,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.19753086419753085,
+          "lost": 0,
+          "new": 195,
+          "retained": 48
+        },
+        "candidate_vectors": 243,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 81,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 324,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 648,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 81,
+          "NO_DEMO_DISSOCIATION": 81,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 81
+        },
+        "directed_label_flips": 864,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.1,
+        "high_at_least": 3,
+        "label_changes_vs_r1": 368,
+        "low_at_most": 2,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 65,
+            "retained": 16
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 65,
+            "retained": 16
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 65,
+            "retained": 16
+          }
+        },
+        "stable_vectors": 640,
+        "unstable_fraction": 0.5061728395061729,
+        "unstable_vectors": 656
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.06481481481481481,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.5714285714285714,
+          "lost": 0,
+          "new": 36,
+          "retained": 48
+        },
+        "candidate_vectors": 84,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 24,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+          "INDETERMINATE_MIXED_OR_MIDRANGE": 44,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 36,
+          "NO_DEMO_DISSOCIATION": 16,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 24
+        },
+        "directed_label_flips": 736,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.08518518518518518,
+        "high_at_least": 4,
+        "label_changes_vs_r1": 36,
+        "low_at_most": 2,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 8,
+            "retained": 16
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 20,
+            "retained": 16
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 8,
+            "retained": 16
+          }
+        },
+        "stable_vectors": 766,
+        "unstable_fraction": 0.4089506172839506,
+        "unstable_vectors": 530
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.011574074074074073,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.14545454545454545,
+          "lost": 40,
+          "new": 7,
+          "retained": 8
+        },
+        "candidate_vectors": 15,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 3,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 180,
+          "INDETERMINATE_MIXED_OR_MIDRANGE": 20,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 1080,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 9,
+          "NO_DEMO_DISSOCIATION": 1,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 3
+        },
+        "directed_label_flips": 536,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.062037037037037036,
+        "high_at_least": 5,
+        "label_changes_vs_r1": 266,
+        "low_at_most": 2,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 14,
+            "new": 1,
+            "retained": 2
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 12,
+            "new": 5,
+            "retained": 4
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 14,
+            "new": 1,
+            "retained": 2
+          }
+        },
+        "stable_vectors": 864,
+        "unstable_fraction": 0.3333333333333333,
+        "unstable_vectors": 432
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.09876543209876543,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.375,
+          "lost": 0,
+          "new": 80,
+          "retained": 48
+        },
+        "candidate_vectors": 128,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 32,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 288,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 864,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 64,
+          "NO_DEMO_DISSOCIATION": 16,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 32
+        },
+        "directed_label_flips": 672,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.07777777777777778,
+        "high_at_least": 4,
+        "label_changes_vs_r1": 80,
+        "low_at_most": 3,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 16,
+            "retained": 16
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 48,
+            "retained": 16
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 0,
+            "new": 16,
+            "retained": 16
+          }
+        },
+        "stable_vectors": 772,
+        "unstable_fraction": 0.404320987654321,
+        "unstable_vectors": 524
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.018518518518518517,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.125,
+          "lost": 40,
+          "new": 16,
+          "retained": 8
+        },
+        "candidate_vectors": 24,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 4,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 180,
+          "INDETERMINATE_MIXED_OR_MIDRANGE": 11,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 1080,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 16,
+          "NO_DEMO_DISSOCIATION": 1,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 4
+        },
+        "directed_label_flips": 544,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.06296296296296296,
+        "high_at_least": 5,
+        "label_changes_vs_r1": 275,
+        "low_at_most": 3,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 14,
+            "new": 2,
+            "retained": 2
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 12,
+            "new": 12,
+            "retained": 4
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 14,
+            "new": 2,
+            "retained": 2
+          }
+        },
+        "stable_vectors": 864,
+        "unstable_fraction": 0.3333333333333333,
+        "unstable_vectors": 432
+      },
+      {
+        "candidate_fraction_synthetic_grid_only": 0.02700617283950617,
+        "candidate_membership_vs_r1": {
+          "jaccard": 0.16901408450704225,
+          "lost": 36,
+          "new": 23,
+          "retained": 12
+        },
+        "candidate_vectors": 35,
+        "class_counts": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": 5,
+          "INDETERMINATE_IMMEDIATE_ENCODING_CONFOUND": 180,
+          "INDETERMINATE_ONLINE_ENGAGEMENT_CONFOUND": 1080,
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": 25,
+          "NO_DEMO_DISSOCIATION": 1,
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": 5
+        },
+        "directed_label_flips": 528,
+        "directed_neighbor_comparisons": 8640,
+        "flip_fraction": 0.06111111111111111,
+        "high_at_least": 5,
+        "label_changes_vs_r1": 279,
+        "low_at_most": 4,
+        "per_candidate_class_membership_vs_r1": {
+          "DELAYED_RECALL_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 14,
+            "new": 3,
+            "retained": 2
+          },
+          "MIXED_SEQUENCE_AND_DELAYED_RECALL_DISSOCIATION_CANDIDATE": {
+            "lost": 12,
+            "new": 21,
+            "retained": 4
+          },
+          "SEQUENCE_SPECIFIC_DISSOCIATION_CANDIDATE": {
+            "lost": 14,
+            "new": 3,
+            "retained": 2
+          }
+        },
+        "stable_vectors": 864,
+        "unstable_fraction": 0.3333333333333333,
+        "unstable_vectors": 432
+      }
+    ],
+    "selection_rule": "Exhaustive reporting; no post-hoc best threshold selected"
+  },
+  "timeless_consciousness_proven": false
+}

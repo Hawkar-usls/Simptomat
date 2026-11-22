@@ -129,9 +129,27 @@
       "private_data_imported": false,
       "medical_diagnosis_authority": false,
       "model_weights_modified": false,
-      "request_to_authors": "DRAFT_ONLY_NOT_SENT",
+      "request_to_authors": "SENT_2026-11-22__AWAITING_EXTERNAL_RESPONSE",
+      "request_status_evidence": "https://github.com/Hawkar-usls/Simptomat/issues/13",
       "next_gate": "AUTHORIZED_4_AXIS_WITHIN_PARTICIPANT_DATA_AND_PREREGISTERED_HOLDOUT",
       "claim_ceiling": "SOURCE_DISCOVERY_NOT_NEUROSCIENCE_VALIDATION"
+    },
+    "tachyon_independent_methods_review_R2B": {
+      "status": "REPRODUCIBLE_OFFLINE_METHODS__SCIENTIFIC_HOLD",
+      "review": "docs/TACHYON_R2B_INDEPENDENT_METHODS_REVIEW.md",
+      "analyzer": "tools/temporal_awareness_r2b.py",
+      "power": "tools/temporal_awareness_r2b_power.py",
+      "results": "research/temporal_awareness/SIMPTOMAT_TACHYON_R2B_RESULTS_2026-11-22.json",
+      "preregistration": "research/temporal_awareness/SIMPTOMAT_TACHYON_R2B_PREREGISTRATION_2026-11-22.json",
+      "workflow": ".github/workflows/tachyon-temporal-awareness-r2b.yml",
+      "external_registration": "PENDING",
+      "independent_clinical_replication": false,
+      "patient_data_ingested": false,
+      "live_screening_enabled": false,
+      "production_model_weights_changed": false,
+      "scientific_gate": "HOLD_NO_INDEPENDENT_PARTICIPANT_LEVEL_VALIDATION",
+      "clinical_authority": false,
+      "rule_001_claim_promotion": false
     }
   }
 }
